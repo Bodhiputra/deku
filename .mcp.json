@@ -1,0 +1,21 @@
+{
+  "mcpServers": {
+    "reddit": {
+      "type": "stdio",
+      "command": "uvx",
+      "args": [
+        "mcp-reddit"
+      ],
+      "env": {}
+    },
+    "chrome": {
+      "type": "stdio",
+      "command": "npx",
+      "args": [
+        "-y",
+        "chrome-devtools-mcp@latest",
+        "--autoConnect"
+      ]
+    }
+  }
+}

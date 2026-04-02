@@ -1,0 +1,28 @@
+# Session context (contains private brand info)
+context/session-context.md
+context/brand-context.md
+
+# Proof files (can be large)
+proofs/
+
+# Output drafts
+output/
+
+# Jarvis's Session Context
+claude-session-context.md
+
+# Environment
+.env
+.env.*
+
+# Secrets — never commit
+.claude/settings.local.json
+
+# Local tool config
+.playwright-mcp-config.json
+
+# Archived — old versions, stale files
+.claude/agents/_archived/
+
+# Playwright MCP logs and traces
+.playwright-mcp/
