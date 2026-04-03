@@ -71,19 +71,19 @@ Market opportunity map by country (not region). Full retailer list with contact 
 
 ## Platform Priority
 
-Competitor websites first. LinkedIn for contact discovery. Web search for market-level retailer landscape. Instagram and TikTok for lifestyle store accounts.
+Competitor websites first — check every competitor's "Where to Buy" / "Find a Retailer" / "Store Locator" page (names vary by brand). This is a required step for every competitor, every run. LinkedIn for contact discovery. Web search for market-level retailer landscape. Instagram for lifestyle store accounts.
 
 ---
 
 ## Evidence Standards
 
 - Source URL required for every retailer record in format: "Source Name — [URL]"
-- Country and city required for every record — specific, never broad regions (e.g. "Philippines / Manila", not "Southeast Asia")
+- Country required for every record — specific country only, no city/state, no broad regions
 
 ## Output
 
 - Market opportunity map — global, by country
-- Full retailer list — every record includes: store name, country, city, website URL, contact email (required minimum), brands carried
+- Full retailer list — every record includes: store name, country, website URL, contact email (required minimum), brands carried
 - Ranked shortlist with fit scores
 - Outreach notes per shortlisted retailer
 

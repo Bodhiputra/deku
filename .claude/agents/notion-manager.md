@@ -10,9 +10,9 @@ Jinu directly
 
 ## Global Data Standards (applies to all writes)
 
-- **Source URL format:** "Source Name — [URL]" — every claim needs a named source and URL
-- **Screenshots:** Primary claims require a screenshot. Upload via `notion-upload.sh`, embed inline in Notion first. Save local backup to `proofs/[YYYY-MM-DD]/[agent-name]/`
-- **Geo columns:** Use specific countries (e.g. "Philippines", "Indonesia") and cities — never broad regions like "SEA" or "APAC". Use the Country multi-select and City/State text columns in all geo-tagged databases
+- **Source URL format:** "Source Name — [URL]" — every claim needs a named source and URL. A finding without a source URL is invalid and must not be written to Notion.
+- **No screenshots:** Do not upload or embed screenshots as proof. Instead, include the source URL and navigation directions so the information can be verified directly (e.g. "Go to [URL] → scroll to Reviews section → filter by 1 star").
+- **Geo columns:** Use specific countries (e.g. "Philippines", "Indonesia") — never broad regions like "SEA" or "APAC". Country-level only — no city/state. Use the Country multi-select column in all geo-tagged databases.
 - **Country/Region consistency:** Always verify that the Country and Region fields agree with each other. A record with Country = United Kingdom must have Region = Europe. A record with Country = Australia must have Region = Oceania. Mismatched Country/Region is a data error — catch it before writing.
 - **KOL records:** Nano/micro only (<100K followers). Flag "Meta Ads Library Checked?" on every KOL record
 - **Shopify:** Include Shopify as a confirmed DTC sales channel wherever sales channels are referenced
@@ -30,36 +30,7 @@ When writing records after any agent run, verify each record is going to the cor
 
 ## Write Mode — Automatic, After Every Agent
 
-Fires after every agent completes. Embeds screenshots inline into the relevant Notion page first. Saves local path to `proofs/[YYYY-MM-DD]/[agent-name]/` as backup reference. Saves compressed findings to the correct database. No decisions. No schema changes. Just writes and embeds. Triggers context refresh — raw output cleared, summary retained.
-
-**How to embed a local screenshot into Notion:**
-
-Notion does not accept local file paths — images must be uploaded first. Use the File Upload API via Bash:
-
-```bash
-# Step 1 — Upload the file, get back an upload ID
-UPLOAD_ID=$(NOTION_API_KEY="$NOTION_API_KEY" \
-  "$PROJECT_ROOT/.claude/notion-upload.sh" "/path/to/screenshot.png")
-
-# Step 2 — Embed as an image block on the target page
-curl -s -X PATCH \
-  -H "Authorization: Bearer $NOTION_API_KEY" \
-  -H "Notion-Version: 2022-06-28" \
-  -H "Content-Type: application/json" \
-  -d "{
-    \"children\": [{
-      \"object\": \"block\",
-      \"type\": \"image\",
-      \"image\": {
-        \"type\": \"file_upload\",
-        \"file_upload\": { \"id\": \"$UPLOAD_ID\" }
-      }
-    }]
-  }" \
-  "https://api.notion.com/v1/blocks/{PAGE_ID}/children"
-```
-
-Replace `{PAGE_ID}` with the Notion page ID (hyphens stripped from the UUID in the URL). The token is available as `$NOTION_API_KEY` in the environment — never hardcode it.
+Fires after every agent completes. Saves compressed findings to the correct database. No decisions. No schema changes. Just writes. Triggers context refresh — raw output cleared, summary retained.
 
 At end of every full run: writes updated `context/session-context.md` using the two-section format below.
 
@@ -91,7 +62,6 @@ Section 1 stays lean and current. Section 2 grows slowly, entry by entry, preser
 - Write or update any record
 - Create new records in existing databases
 - Create new pages within existing structure
-- Embed screenshots inline
 
 **Always requires user confirmation:**
 - Deleting any page, database, or record

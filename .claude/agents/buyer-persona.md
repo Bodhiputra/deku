@@ -72,15 +72,14 @@ Reddit first — authentic self-description. Reddit is a primary platform for th
 
 ## Evidence Standards
 
-- Source URL for every persona claim in format: "Source Name — [URL]"
-- Screenshot required for verbatim quotes and platform behavior evidence
-- Geo-tag personas with specific countries and cities (e.g. "United States / New York", "Philippines / Manila") — not broad regions
+- Source URL for every persona claim in format: "Source Name — [URL]" — no screenshots; include navigation directions where needed
+- Geo-tag personas with specific countries only (e.g. "United States", "Philippines") — no city/state, no broad regions
 
 ## Output
 
 - Segment map
-- Primary persona (full detail) — include country/city tags
-- Secondary persona (full detail) — include country/city tags
+- Primary persona (full detail) — include country tags
+- Secondary persona (full detail) — include country tags
 - Additional personas if meaningfully distinct
 - Language map — exact vocabulary the target buyer uses (sourced)
 - Platform map — where each persona spends time and in what context

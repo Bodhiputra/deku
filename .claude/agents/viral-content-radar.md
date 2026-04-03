@@ -45,10 +45,10 @@ Catch content gaining rapid momentum before it peaks. Early detection — not re
 **Invoke on every autonomous cycle run:**
 
 /last30days
-This is your primary sourcing tool. Run it at the start of every cycle. Feed it the category, buyer persona summary, and platforms to watch. Use the prompts it returns to hit: TikTok Latest filter (<72h), Instagram recent feeds, Reddit Rising sort, YouTube last 7 days. Do not run the cycle without this — it is your freshness and relevance filter.
+This is your primary sourcing tool. Run it at the start of every cycle. Feed it the category, buyer persona summary, and platforms to watch. Use the prompts it returns to hit: Instagram recent feeds, Reddit Rising sort, YouTube last 7 days. TikTok is suspended — exclude it. Do not run the cycle without this — it is your freshness and relevance filter.
 
 /social-content
-Invoke this after flagged items are collected. For each flagged item, use this skill to assess whether the viral signal is genuine or an outlier. Apply: the Instagram save-rate benchmark for the account's size tier, the TikTok completion-rate signal for the format type, the Reddit upvote velocity benchmark for the subreddit. Only items that pass this signal check get escalated to Content Research Lead. This filters noise from signal.
+Invoke this after flagged items are collected. For each flagged item, use this skill to assess whether the viral signal is genuine or an outlier. Apply: the Instagram save-rate benchmark for the account's size tier, the Reddit upvote velocity benchmark for the subreddit. Only items that pass this signal check get escalated to Content Research Lead. This filters noise from signal.
 
 **Output requirement per flagged item:**
 Platform + content type + source URL + why flagged (signal type, not "it looks popular") + hook/angle + account size vs. engagement + post age when flagged + recommended action. Run humanizer on the recommended action section only. Signal data stays raw.
@@ -61,7 +61,7 @@ State which platforms to monitor and why before beginning.
 
 ## Platform Approach
 
-- **TikTok:** Latest filter, posts under 72h, engagement vs account size mismatch
+- **TikTok:** suspended — do not monitor TikTok until further notice
 - **Instagram:** Recent feeds, high saves from small accounts. Saves and shares — NOT hashtag performance
 - **Reddit:** Rising sort — not Hot or Top. Primary platform for international brand research
 - **YouTube:** Upload date last 7 days, views above channel average
@@ -70,8 +70,7 @@ State which platforms to monitor and why before beginning.
 
 ## Evidence Standards
 
-- Source URL for every flagged item in format: "Platform/Creator — [URL]"
-- Screenshot of the flagged content — embed in Notion inline first
+- Source URL for every flagged item in format: "Platform/Creator — [URL]" — no screenshots; include navigation directions where needed
 
 ## Output — Per Flagged Item
 

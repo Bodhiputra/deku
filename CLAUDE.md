@@ -1,5 +1,5 @@
 # Jinu's Marketing Team — Team Bible
-*Version 3.1 — 2026-03-31*
+*Version 3.4 — 2026-04-03*
 
 ## What This Project Is
 
@@ -16,16 +16,10 @@ project-root/
 ├── context/
 │   ├── brand-context.md        ← permanent brand facts, updated only when brand changes
 │   └── session-context.md      ← rolling session state, rewritten after every run
-├── proofs/
-│   └── [YYYY-MM-DD]/
-│       └── [agent-name]/
-│           └── [screenshot files]
 └── CLAUDE.md
 ```
 
 **context/ folder:** Local persistent memory for the team. Fast to read. Always available even if Notion is slow. Jinu reads both files at every session start. Agents read `brand-context.md` when they need brand facts.
-
-**proofs/ folder:** Backup reference for screenshots. Primary storage is always Notion — screenshots are embedded directly into the relevant Notion page first. Local path recorded only as fallback. Organized by date and agent.
 
 ---
 
@@ -86,7 +80,7 @@ CLUSTER C — Content research, sequential, after Cluster A
   13. Content Strategist
       → Each fires Notion Write Mode. Context refreshes.
 
-FINAL PHASE
+FINAL STEPS
 
   14. Positioning Analyst — Phase 2 (Full Positioning)
   15. Notion Manager writes session-context.md
@@ -100,12 +94,12 @@ FINAL PHASE
 | Tool | Purpose | When to Use |
 |---|---|---|
 | Web search | Fast structured lookups, source URL verification, finding URLs for known entities | Named entities (brand websites, product pages, industry reports), quick fact-checks, when the answer is a direct lookup not requiring page render |
-| Playwright MCP | Browse, scrape, screenshot dynamic/JS-rendered pages — launches a fresh profileless isolated session (no logins, no Chrome profile, Chrome does not need to be closed) | Public sites only: competitor product pages, scraping, screenshots where no account is needed |
+| Playwright MCP | Browse, scrape, and snapshot dynamic/JS-rendered pages — launches a fresh profileless isolated session (no logins, no Chrome profile, Chrome does not need to be closed) | Public sites only: competitor product pages, scraping, data extraction where no account is needed |
 | Chrome DevTools MCP | Connects to the user's running Chrome — full access to all logged-in sessions | Login-gated platforms: Instagram, Facebook, TikTok, Lovart, and any site requiring an account |
 | Reddit MCP | Read and search Reddit — read only, never post | Buyer language, pain points, community opinion — primary for all international brand research |
 | Figma MCP | Full Figma access — read, create, edit, organize, export | Brand file scanning, asset extraction, all Figma operations |
 | Notion MCP | Full read/write/create/update access — no deletion without confirmation | All research documentation |
-| Meta Ads Library | Free **fully public** database — no login required — competitor ads and KOL branded content | Required for every competitor and KOL research run. Use Playwright MCP (public site). Never use Chrome DevTools MCP for this. |
+| Meta Ads Library | Free **fully public** database — no login required — competitor ads | Required for every competitor research run. Use Playwright MCP (public site). Never use Chrome DevTools MCP for this. Correct search method: navigate to the "Ad Library" tab → search under "All Ads" → filter by location. Never use the Branded Content tab — it is not the correct tool for competitor ad research. |
 
 **Browser tool decision rule — follow this order every time:**
 
@@ -126,6 +120,9 @@ Web search is for structured lookups: finding URLs, named entities, industry rep
 
 ## Core Principles
 
+**Ask first — never assume and proceed.**
+Every agent must surface anything unclear before starting work. If a brief is ambiguous, a scope is undefined, or a key input is missing, the agent stops and asks. One focused question is better than proceeding on a wrong assumption and producing work that misses the mark. This applies to all agents at all levels.
+
 **Proactive strategic insight — never wait for the user to hint.**
 Agents must surface strategic implications themselves. If research reveals a major industry shift (e.g. short-form video dominance, a platform overtaking another for purchase intent), flag it immediately as a strategic finding — do not wait for the user to ask. The user should never have to hint at something that is visible in the data. If it is in the research, it belongs in the output. Jinu is responsible for ensuring the team's findings lead to actionable strategic conclusions, not just data dumps.
 
@@ -136,14 +133,10 @@ Start with the highest-signal platform for the job. Go deep until findings are s
 Agents stop when findings are genuinely useful — not when a counter hits a number. Jinu and leads judge sufficiency. If insufficient, the agent runs again with specific direction.
 
 **Evidence always.**
-Every insight needs a source URL and a dated screenshot. Screenshots go to Notion directly — embedded inline on the relevant page. Local path saved to `proofs/[YYYY-MM-DD]/[agent-name]/` as backup reference only. No claim without proof. No undated evidence.
+Every insight requires a source URL. A finding without a confirmed source URL is invalid and must not be documented in Notion — it is discarded, not noted as pending. No undated evidence. Screenshots are never proof — do not take, save, or upload screenshots as evidence of any finding. Best proof is a working URL to the source plus clear navigation directions so the user can verify the finding themselves (e.g. "Go to [URL] → scroll to Reviews section → filter by 1 star"). If an existing Notion record references a screenshot as proof, flag it for replacement with a URL — do not delete it without user confirmation.
 
-**How to embed a local screenshot into Notion (required — Notion rejects local paths):**
-1. Upload the file via the script: `UPLOAD_ID=$(NOTION_API_KEY="$NOTION_API_KEY" "$PROJECT_ROOT/.claude/notion-upload.sh" "/path/to/screenshot.png")`
-2. Embed as an image block: `PATCH /v1/blocks/{page_id}/children` with body `{"children":[{"object":"block","type":"image","image":{"type":"file_upload","file_upload":{"id":"$UPLOAD_ID"}}}]}`
-   - `{page_id}` = the UUID from the Notion page URL (with hyphens)
-   - `$NOTION_API_KEY` is available in the environment — never hardcode it
-   - Full instructions and curl examples are in `notion-manager.md`
+**Snapshot-first rule for browser tools.**
+When using Playwright MCP or Chrome DevTools MCP to extract data from a page, always use `browser_snapshot` / `take_snapshot` first — it returns the accessibility tree as structured text, which is faster, more accurate, and uses fewer tokens than interpreting a screenshot image. `take_screenshot` is never used for data extraction, reading content, or producing proof of a finding. The only permitted use of `take_screenshot` is when a visual record of a specific UI state is explicitly requested. When in doubt: snapshot, not screenshot.
 
 **Context compression at every handoff.**
 Raw findings go to Notion immediately via Write Mode. Only compressed summaries travel forward in active context. After each Write Mode fires, raw output is cleared from active context. The next agent starts clean, carrying only compressed summaries.
@@ -165,6 +158,9 @@ Instagram's algorithm weights saves and watch time far above hashtags. Agents lo
 **Reddit is a primary platform for international brand research.**
 Reddit provides high-quality global buyer signal — it is not a Western-only platform. Reddit stays as a primary signal source for all research agents. Do not scale it back for international brand work.
 
+**Country and Region column definition.**
+Country = the brand's origin/founding country (HQ country). Region = the broader geographic region of that origin country. NOT the market being targeted, NOT the country where the product is sold or where a sourced page is hosted (e.g. ikea.com/us/ does not make IKEA a US brand).
+
 **Source URL format standard.**
 All source citations follow this format: "Source Name — [URL]". Never a URL alone. Never a name alone. Always both.
 
@@ -172,10 +168,16 @@ All source citations follow this format: "Source Name — [URL]". Never a URL al
 All geo-tagged data uses specific countries. Never broad regions like "SEA", "APAC", "EU", or "Southeast Asia". Use: "Philippines", "Indonesia", "Malaysia", "Thailand", etc. Every relevant database has a Country (multi-select) column. No City/State column — country-level granularity only.
 
 **KOL tier standard.**
-Nano (<10K) and Micro (10K–100K) only. High quality required — minimum engagement benchmarks must be met. Meta Ads Library check is required for every competitor before native platform KOL search.
+Nano (<10K) and Micro (10K–100K) only. High quality required — minimum engagement benchmarks must be met. Meta Ads Library check is required for every competitor: use Ad Library tab → All Ads → filter by location. Never use the Branded Content tab for competitor ad research.
+
+**TikTok suspended.**
+TikTok is excluded from all current research runs, content recommendations, and KOL sourcing. Do not add TikTok findings to any Notion database. Do not include TikTok as a recommended platform in any deliverable. This is a suspension, not a permanent removal — do not delete the platform option from Notion schemas. Resume only on explicit user instruction.
 
 **Sales channels are defined in brand-context.md.**
 Always check `context/brand-context.md` for confirmed sales channels before running retailer research, persona work, or channel analysis.
+
+**B2B research — "Where to Buy" check is mandatory.**
+When researching potential B2B retail partners, agents must check the "Where to Buy" / "Find a Retailer" / "Store Locator" page on every competitor's website. The tab name varies by brand — look for any page that lists authorized resellers or retail partners. This is a required step for every competitor in every B2B research run. Cross-reference each named retailer against the existing B2B Partners database before adding new records — avoid duplicates.
 
 **Master table + country views standard.**
 Every Notion database that contains geo-tagged records uses a master table as the default view (all records, no filter) plus individual filtered views per country that has at least one record. Views are named by country (e.g. "Philippines", "Indonesia", "Malaysia"). No regional views (no "Southeast Asia", "APAC", etc.). This architecture keeps the workspace from fracturing as markets are added — one database, one schema, one view per country.
@@ -198,6 +200,9 @@ Full guide: `context/token-session-management.md` — read before any pipeline r
 - Session splits at cluster boundaries only — end of Cluster A, B, or C. Never interrupt a running agent to save tokens.
 - Research quality never degrades for token reasons. Token management happens at the session level.
 - Sonnet 4.6 for all agents — no exceptions. Never use Opus. Never override the model to anything other than Sonnet.
+
+**TaskCreate rule — heavy tasks only:**
+Use TaskCreate to track progress on heavy tasks. A heavy task is defined as: any full cluster run (Cluster A, B, or C), or any sequence of 3 or more sequential agent steps that produces Notion-documented output. Single-agent runs with a narrow scope, quick lookups, fact-checks, and file reads do not get a TaskCreate. Jinu decides whether a task qualifies as heavy — when in doubt, a full pipeline run always does.
 
 **session-context.md format — two sections (managed by Notion Manager):**
 - Section 1 — Current State: fully rewritten every session
@@ -233,8 +238,11 @@ All agents follow these without exception:
 **Login-gated platforms — use Chrome DevTools MCP:**
 For any login-gated platform (Instagram, Facebook, TikTok, Lovart, etc.), use Chrome DevTools MCP — it connects to the user's already-running Chrome with all sessions active. No pause, no manual login needed. Playwright is never used for login-gated platforms.
 
+**Notion page deletion — user-triggered only:**
+When the user explicitly instructs deletion of a Notion page or record, execute it immediately without asking for confirmation. "User-triggered" means the user's message directly names or describes the record(s) to delete. Do not delete proactively or pre-emptively — only when the user pulls the trigger.
+
 **Always requires explicit user confirmation:**
-- Deleting any file, Notion record, database, or Figma file
+- Deleting any local file, Notion database, or Figma file
 - Overwriting existing Notion research records (versioning decision)
 - Restructuring Notion databases in ways that alter their schema
 - Posting, commenting, or interacting with any human on any platform

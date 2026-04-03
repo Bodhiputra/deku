@@ -45,7 +45,7 @@ Market Sizing, KOL Tracker, and Retailer B2B run in parallel after Cluster A (th
 
 ## Quality Bar (re-runs if not met)
 
-- Every insight has a source URL and dated screenshot embedded in Notion
+- Every insight has a source URL and date — no screenshots
 - Evidence within 90 days (30 days prioritized)
 - Findings specific to the brand's actual tier and niche
 - All figures include methodology and confidence level

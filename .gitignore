@@ -11,6 +11,9 @@ output/
 # Jarvis's Session Context
 claude-session-context.md
 
+# macOS
+.DS_Store
+
 # Environment
 .env
 .env.*

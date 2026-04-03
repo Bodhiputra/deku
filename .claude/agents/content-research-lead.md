@@ -32,7 +32,7 @@ Content Intel → Competitor Content Monitor → Viral Content Radar → Content
 ## Quality Bar (re-runs if not met)
 
 - Content evidence within 60 days
-- Minimum 9 content recommendations from Content Strategist (at least 3 per platform: Instagram, YouTube, TikTok)
+- Minimum 6 content recommendations from Content Strategist (at least 3 per active platform: Instagram, YouTube). TikTok is suspended.
 - Every recommendation grounded in a specific research finding
 
 ## Skill Quality Standards

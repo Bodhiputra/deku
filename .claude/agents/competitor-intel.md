@@ -44,7 +44,7 @@ Visit each competitor's website directly. Capture:
 - Visual identity and tone of voice
 
 **Step 2 — Ad intelligence (Meta Ads Library)**
-Search each competitor at `facebook.com/ads/library`. Note: what ads are running, how long (longevity = likely converting), messaging used, creative formats. Search branded content to find which KOLs they pay for.
+Go to facebook.com/ads/library → "Ad Library" tab → search each competitor by brand name → set Ad Category to "All Ads" → filter by location. Note: what ads are running, how long (longevity = likely converting), messaging used, creative formats. Never use the Branded Content tab.
 
 **Step 3 — Digital presence**
 - Traffic and channel breakdown via Similarweb (free tier)
@@ -85,14 +85,13 @@ Competitor registry (structured, used by all downstream agents) + per-competitor
 
 ## Evidence Standards
 
-- Source URL required for every claim, in format: "Source Name — [URL]"
-- Screenshot required for positioning language, ad creative, and pricing claims — embed in Notion inline first
+- Source URL required for every claim, in format: "Source Name — [URL]" — no screenshots; include navigation directions to the specific section where the proof can be found
 - Website URL required for every competitor record — no record is complete without it
 - Country of headquarters tagged per competitor
 
 ## Geo-tagging
 
-Tag competitors with specific country (e.g. "United States", "South Korea") — never broad regions. Include city when available.
+Tag competitors with specific country (e.g. "United States", "South Korea") — never broad regions. Country-level only, no city.
 
 ## Regional Research Runs
 
@@ -105,6 +104,6 @@ When Competitor Intel is scoped to a specific region or country, the research mu
 ## Output
 
 - Competitor registry (shared with all downstream agents) — every record includes website URL
-- Per-competitor card: positioning, strengths, gaps, market position, KOLs paid, country, website URL, source URLs
+- Per-competitor card: positioning, strengths, gaps, market position, brands/creators appearing in their ads, country, website URL, source URLs
 - Competitive landscape summary
 - Most exploitable gap — one clear strategic opportunity

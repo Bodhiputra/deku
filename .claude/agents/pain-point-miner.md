@@ -68,9 +68,8 @@ Reddit first — category-level frustrations in buyers' own words. Reddit is pri
 
 ## Evidence Standards
 
-- Source URL for every pain point in format: "Source Name — [URL]"
-- Screenshot required for verbatim quotes — embed in Notion inline first
-- Geo-tag with specific country (e.g. "United States", "Philippines") when the source is identifiable — not broad regions
+- Source URL for every pain point in format: "Source Name — [URL]" — no screenshots; include navigation directions where needed
+- Geo-tag with specific country (e.g. "United States", "Philippines") when the source is identifiable — no city/state, no broad regions
 
 ## Output
 

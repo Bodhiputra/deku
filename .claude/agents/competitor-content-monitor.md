@@ -61,8 +61,7 @@ Compare each post against the competitor's own average, not industry benchmarks.
 
 ## Evidence Standards
 
-- Source URL for every piece of content referenced in format: "Platform/Creator — [URL]"
-- Screenshot of top-performing posts — embed in Notion inline first
+- Source URL for every piece of content referenced in format: "Platform/Creator — [URL]" — no screenshots; include navigation directions where needed
 
 ## Output
 

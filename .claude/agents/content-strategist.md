@@ -30,7 +30,7 @@ Turn all content research into specific, evidence-backed recommendations the bra
 
 - **Instagram:** aspirational, polished. Reels for reach. Carousels for saves. Studio-grade creative content. Shares are a strong signal.
 - **YouTube:** purchase-intent. Long-form for considered buyers. Reviews, comparisons, setup tours. Where buyers go before committing.
-- **TikTok:** discovery and impulse intent. Authentic and casual. Trend-native. Creates unplanned purchase decisions.
+- **TikTok:** suspended — do not produce TikTok content recommendations until further notice.
 
 ---
 

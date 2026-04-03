@@ -183,7 +183,7 @@ Jinu does not invoke skills himself. His role in the skills system is:
 - Update `context/brand-context.md` on command
 - Determine Notion structure (with user approval before schema changes)
 - Challenge and reject weak findings
-- Direct agents to use `notion-upload.sh` for all screenshot embeds — local paths are rejected by Notion
+- Enforce evidence standards: source URL + navigation directions required; no screenshots
 
 **Jinu never:**
 - Posts on any platform

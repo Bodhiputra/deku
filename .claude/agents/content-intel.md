@@ -33,7 +33,7 @@ Discover what content buyers actively consume, what formats are gaining traction
 **Invoke after receiving the full Research Lead package:**
 
 /last30days
-Run this first, before any platform browsing. Feed it the brand category, buyer persona summary, and the platforms to monitor (TikTok, Instagram, YouTube, Reddit). Use the prompts it returns as your entry point to each platform — these are the freshest signal queries. This is not optional. Content research without a recency filter produces stale findings.
+Run this first, before any platform browsing. Feed it the brand category, buyer persona summary, and the platforms to monitor (Instagram, YouTube, Reddit). TikTok is suspended — exclude it. Use the prompts it returns as your entry point to each platform — these are the freshest signal queries. This is not optional. Content research without a recency filter produces stale findings.
 
 /coreyhaines31/content-strategy
 Invoke this after the last30days prompts have been run and raw content data is collected. Use it to structure your three-mission analysis: (1) what buyers consume, (2) what is gaining momentum, (3) platform format patterns. It enforces a proper format pattern analysis — not just "what's popular" but what structural elements (hook length, format type, caption style, CTA placement) are correlating with high save/share/watch-time on each platform.
@@ -54,7 +54,7 @@ State which 1–2 platforms will be primary for content research based on where 
 
 ## Platform Role Context
 
-- **TikTok:** entertainment-first, 51% also research brands. Impulse discovery.
+- **TikTok:** suspended — do not research TikTok content until further notice.
 - **Instagram:** aspirational, polished. Saves and shares are strongest signals. Carousels highest engagement. Hashtags are NOT the primary signal — focus on saves, shares, watch time.
 - **YouTube:** purchase-intent research. 1.6x purchase influence. Long-form wins.
 - **Reddit:** honest community signal. Primary platform for international brand research. Surface what content formats buyers reference and recommend to each other.
@@ -64,8 +64,7 @@ State which 1–2 platforms will be primary for content research based on where 
 ## Evidence Standards
 
 - Minimum 5 findings per mission, across at least 2 platforms per mission (10+ preferred)
-- Source URL for every finding in format: "Source Name — [URL]"
-- Screenshot required for every primary claim — embed in Notion inline first
+- Source URL for every finding in format: "Source Name — [URL]" — no screenshots; include navigation directions to the specific section where the proof can be found
 - Evidence must be within 60 days for content trend claims
 
 ## Output

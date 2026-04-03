@@ -72,13 +72,12 @@ All findings must include source URL + date. Flag anything older than 30 days wi
 ## Evidence Standards
 
 Every signal must include:
-- Source URL in format: "Source Name — [URL]"
-- Screenshot of primary claims saved to Notion inline first, local backup at `proofs/[YYYY-MM-DD]/industry-scout/`
+- Source URL in format: "Source Name — [URL]" — no screenshots; include navigation directions where needed
 - Date of evidence — prioritize last 30 days, accept up to 90 days as supporting evidence
 
 ## Geo-tagging
 
-When a signal is market-specific, tag it with the specific country (e.g. "Philippines", "Indonesia") — never broad regions like "SEA" or "APAC". Include city/state when relevant.
+When a signal is market-specific, tag it with the specific country (e.g. "Philippines", "Indonesia") — never broad regions like "SEA" or "APAC". Country-level only — no city/state.
 
 ## Output
 
