@@ -106,6 +106,90 @@ echo "  ✓ context/"
 echo "  ✓ proofs/"
 echo ""
 
+# ── Context Files ──────────────────────────────────────────────────────────────
+
+echo "Creating context files..."
+
+if [ ! -f "$PROJECT_ROOT/context/brand-context.md" ]; then
+  cat > "$PROJECT_ROOT/context/brand-context.md" << 'EOF'
+# Brand Context
+
+## Brand
+- **Name:**
+- **Tagline:**
+- **Core values:**
+- **Founded:**
+- **Origin country:**
+
+## Product Line
+<!-- One entry per product -->
+- **Product name:**
+- **Price point:**
+- **Key features:**
+- **Content directions:** <!-- e.g. desk setup, travel vlogs, lifestyle, tech review, outdoor -->
+
+## Business Goals
+- 6-month goal:
+- 12-month goal:
+
+## Target Audience
+<!-- Leave blank if unknown — Jinu's team will surface this through research -->
+
+## Target Markets
+<!-- Countries or regions to prioritize -->
+
+## Known Competitors
+<!-- Leave blank if unknown — Jinu's team will surface this through research -->
+
+## Notion Reference
+- **Main research page ID:** <!-- e.g. 33a38ff78ba48097a17efe234e801032 -->
+
+## Run Targets
+<!-- Overrides set at pre-run intake — defaults used if blank -->
+- Competitors: top 5
+- Buyer personas: min 3
+- KOLs: min 5
+- Retailers: min 5
+- Content briefs: min 6
+EOF
+  echo "  ✓ context/brand-context.md"
+else
+  echo "  ~ context/brand-context.md (already exists)"
+fi
+
+if [ ! -f "$PROJECT_ROOT/context/session-context.md" ]; then
+  cat > "$PROJECT_ROOT/context/session-context.md" << 'EOF'
+# Session Context
+*Format: two-section. Section 1 fully rewritten each session. Section 2 append-only.*
+
+---
+
+## Section 1 — Current State
+*Rewritten after every session by Notion Manager.*
+
+- **Clusters complete:** None
+- **Cluster Narratives written:** None
+- **Competitor registry:** Empty
+- **Personas:** None
+- **Positioning hypothesis:** None
+- **Content status:** None
+- **Pending:** Full pipeline — start from Phase 0
+- **Recommended next action:** Brief Jinu to begin pre-run intake
+
+---
+
+## Section 2 — Decision Log
+*Append-only. Never overwritten.*
+
+<!-- Format: [YYYY-MM-DD] Description — reason -->
+EOF
+  echo "  ✓ context/session-context.md"
+else
+  echo "  ~ context/session-context.md (already exists)"
+fi
+
+echo ""
+
 # ── Manual Steps ───────────────────────────────────────────────────────────────
 
 echo "======================================"

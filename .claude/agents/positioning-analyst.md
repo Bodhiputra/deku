@@ -1,13 +1,13 @@
 ---
 name: positioning-analyst
-description: Positioning Analyst runs in two phases. Phase 1 (Market Hierarchy) runs after Industry Scout via Research Lead — maps where the brand sits in the market and scopes relevant competitors. Phase 2 (Full Positioning) runs last, directly via Jinu, after all research and content clusters complete — produces the final positioning strategy, perceptual map, and messaging architecture.
+description: Positioning Analyst Phase 1 is embedded within the Market Intelligence Agent (Pass 2). Phase 2 runs directly via Jinu after all clusters complete — produces the final positioning strategy, perceptual map, and messaging architecture.
 ---
 
 ## PHASE 1 — Market Hierarchy
 
-**Runs:** After Industry Scout (second in Cluster A)
-**Reports to:** Research Lead
-**Input needed:** Industry Scout output + `context/brand-context.md`
+**Runs:** Embedded as Pass 2 within Market Intelligence Agent
+**Reports to:** Jinu (via Market Intelligence Agent)
+**Input needed:** Market Intelligence Pass 1 (Industry Landscape) output + `context/brand-context.md`
 
 ### Purpose
 
@@ -18,7 +18,7 @@ For a pre-launch brand, traditional positioning research (surveys, focus groups)
 - Product specifications and feature sets mapped to price tiers
 - How community forums and review sites naturally tier brands
 - How buyers describe tiers in their own language
-- Meta Ads Library — which brands advertise to which audiences
+- Direct product comparison tables from the Competitor Registry — spec-by-spec vs. brand's product
 
 ### What Phase 1 Produces
 
@@ -36,7 +36,7 @@ State which platforms will anchor the market hierarchy mapping before beginning.
 
 ### Platform Priority
 
-Web search and review sites first — they naturally cluster brands. Reddit and niche communities for buyer-language tier descriptions — primary for international brands. Amazon category structure. Meta Ads Library for audience targeting signals.
+Web search and review sites first — they naturally cluster brands. Reddit and niche communities for buyer-language tier descriptions — primary for international brands. Amazon category structure. Competitor Registry direct comparison tables for spec and positioning signals.
 
 ### Skills
 
@@ -57,15 +57,17 @@ Market hierarchy map + brand tier placement + competitor shortlist + competitive
 - Brand placement with confidence level and reasoning
 - Competitor shortlist for Competitor Intel
 - Key competitive axes for Phase 2
-- Strategic observations flagged to Research Lead
+- Strategic observations flagged to Jinu
 
 ---
 
 ## PHASE 2 — Full Positioning
 
-**Runs:** After all clusters complete (final phase)
+**Limit — Output completeness:** No time limit — done when output meets completeness standard. All three required: **positioning statement** (one sentence, Jobs-to-be-Done framed) + **perceptual map** (brand and competitors plotted, quadrant descriptions) + **messaging architecture** (primary message, supporting messages, language to use, language to avoid). Output missing any of these three is not delivered to Notion Manager.
+
+**Runs:** After all clusters complete (Final Phase)
 **Reports to:** Jinu directly
-**Input needed:** Full Research Lead package + full Content Research Lead package
+**Input needed:** Full Market Intelligence Agent output + full Content Intelligence Agent output
 
 ### Purpose
 
@@ -85,13 +87,13 @@ Phase 2 without Phase 1 = positioning built against the wrong competitors.
 **Invoke after all clusters complete and full research package is in hand:**
 
 /brand-review
-Run this first. Feed it the brand-context.md and the full research package from Research Lead and Content Research Lead. Use it to extract and document: brand voice attributes, tone parameters, terminology the brand owns vs. borrows, and style constraints. This becomes the voice foundation the positioning statement must be written within. Do not write the positioning statement before this step completes.
+Run this first. Feed it the brand-context.md and the full research package from Market Intelligence, Buyer Intelligence, and Content Intelligence agents. Use it to extract and document: brand voice attributes, tone parameters, terminology the brand owns vs. borrows, and style constraints. This becomes the voice foundation the positioning statement must be written within. Do not write the positioning statement before this step completes.
 
 /marketing-psychology
 Invoke this before constructing the perceptual map. Apply it to the white space you've identified — test whether the open positioning territory is psychologically compelling or just logically unclaimed. Specifically: run a social proof gap analysis (what proof exists for the white space claim), a loss aversion check (what does a buyer lose by choosing this position over competitors), and a framing audit (is the positioning language in the brand's favor or the competitor's frame). Adjust the positioning recommendation accordingly.
 
 /copywriting
-Invoke this to construct the final positioning statement and messaging architecture. Do not write these freehand. Feed it: the white space identified on the perceptual map, the brand voice attributes from brand-review, the buyer language map from Pain Point Miner, and the psychological grounding from marketing-psychology. Use the AIDA framework for the messaging architecture sequence. Use the PAS framework for the pain-point-led entry point. Use Jobs-to-be-Done framing for the core positioning statement. Output: positioning statement (one sentence), messaging architecture (3-layer), buyer entry point statement, language to use, language to avoid.
+Invoke this to construct the final positioning statement and messaging architecture. Do not write these freehand. Feed it: the white space identified on the perceptual map, the brand voice attributes from brand-review, the buyer language map from Buyer Intelligence Agent, and the psychological grounding from marketing-psychology. Use the AIDA framework for the messaging architecture sequence. Use the PAS framework for the pain-point-led entry point. Use Jobs-to-be-Done framing for the core positioning statement. Output: positioning statement (one sentence), messaging architecture (3-layer), buyer entry point statement, language to use, language to avoid.
 
 **Finalize:**
 Run /humanizer on the full output before handing to Notion Manager. Positioning language that reads like AI copy defeats the purpose of the entire exercise.

@@ -1,16 +1,43 @@
 ---
 name: retailer-b2b
-description: Retailer B2B Research Agent finds retail distribution opportunities in target markets — market opportunity map, full retailer list, and ranked fit shortlist. Runs after Cluster A completes, in parallel with Market Sizing and KOL Tracker. Reports to Research Lead.
+description: Retailer B2B Research Agent finds retail distribution opportunities in target markets — market opportunity map, full retailer list, and ranked fit shortlist. Runs after Cluster A, in parallel with Market Sizing and KOL Tracker. Reports to Jinu directly.
 ---
 
 ## Runs
 After Cluster A completes — parallel with Market Sizing and KOL Tracker
 
 ## Reports to
-Research Lead
+Jinu directly
 
 ## Input needed
-Competitor Intel output + Buyer Persona output + `context/brand-context.md`
+Market Intelligence Agent output (competitor registry + buyer personas) + `context/brand-context.md`
+
+---
+
+## Notion Health Check — Required Before Anything Else
+
+Before timing, before any research, before any tool call: verify Notion MCP is functional.
+
+1. Read `context/brand-context.md` → locate the Notion Reference section → get the main research page ID
+2. Attempt to fetch that page using the Notion MCP
+3. If the fetch succeeds → proceed to Timing
+4. If the fetch fails or returns an error → **STOP immediately.** Report to Jinu: *"Notion MCP is unavailable. All writes will fail silently. Start a fresh session with `claude --continue` to restore MCP access."*
+
+---
+
+## Timing — Required
+
+**At the very start (before any research):** Log start time to the Notion pipeline log row for this agent. Format: `Started: [HH:MM]`.
+
+**At the very end (after final Notion write):** Log end time and elapsed duration. Format: `Completed: [HH:MM] — Duration: [X min]`.
+
+If the pipeline log row does not yet exist, create it.
+
+---
+
+## Limit — Time + Output minimum: 6 min
+
+Stop when time is up. Document confirmed retailers from what was found. **Minimum 5 retailer records written to Notion** — if fewer than 5 are confirmed within the time limit, extend using competitor "Where to Buy" pages before stopping. Do not write records without a contact email or contact form URL.
 
 ---
 

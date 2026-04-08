@@ -1,77 +1,88 @@
 ---
 name: buyer-signal-extractor
-description: Enforces structured VOC (Voice of Customer) extraction from raw Reddit threads, Amazon reviews, and social comments. Identifies recurring language patterns, emotional intensity signals, moment-of-frustration framing, and unmet expectation language. Outputs verbatim buyer language the brand can use directly in copy and positioning. Used by Buyer Persona and Pain Point Miner.
+description: Enforces a structured extraction protocol on raw buyer data — identifying recurring language patterns, emotional intensity signals, moment-of-frustration framing, and unmet expectation language — so the output is a verbatim language map the brand can use directly in copy, not a paraphrased summary of what buyers said. Used by Buyer Intelligence Agent (Passes 1 and 2).
 ---
 
 # Buyer Signal Extractor
 
-When this skill is invoked, run the following structured extraction protocol against all raw source material provided.
+Invoke after raw data collection is complete. The difference between useful buyer research and generic buyer research is whether the output contains verbatim buyer language or a paraphrase of it. Paraphrases lose the exact words buyers use — which are the words that make ad copy, positioning statements, and content hooks feel true rather than manufactured.
 
-## What "Raw Source Material" Means
+## When to Invoke
 
-You must be fed actual content — Reddit thread excerpts, Amazon review text, YouTube comment captures, or social comment grabs. Do not run this skill on summaries or paraphrases. The inputs must be verbatim text from the source.
+- After raw data collection is complete in Buyer Intelligence Agent Pass 1 (STP research)
+- After raw pain point and sentiment data is collected in Buyer Intelligence Agent Pass 2 (Consumer Signals)
+- Whenever raw Reddit threads, review excerpts, or comment quotes need to be processed into structured findings
 
-If you receive summaries instead of raw text, stop and state: "buyer-signal-extractor requires verbatim source text, not summaries. Re-run with raw material."
+## The Extraction Protocol — Four Steps
 
-## Extraction Protocol — Run All Four Steps
+**Step 1 — Pattern identification:**
+Across all raw quotes collected, identify phrases that appear in 3 or more separate sources (different posts, different subreddits, different reviewers). These recurring phrases are validated buyer language — the community has independently arrived at the same words. Flag them with source count.
 
-### Step 1 — Recurring Language Patterns
+**Step 2 — Emotional intensity ranking:**
+For each recurring theme, assess the emotional intensity of the language:
+- **High:** language expressing anger, strong frustration, regret, or passionate advocacy ("I can't believe," "absolutely love," "worst purchase," "changed everything")
+- **Medium:** language expressing mild frustration or moderate satisfaction ("a bit annoying," "pretty good," "could be better")
+- **Low:** language expressing neutral observation or mild preference ("I prefer," "it's fine," "works okay")
 
-Scan all source material for phrases that appear in 3 or more distinct sources. A "distinct source" means a different Reddit thread, a different Amazon review, or a different comment section — not the same post multiple times.
+High intensity themes are the priority inputs for ad copy and positioning. Low intensity themes are awareness inputs only.
 
-Output format:
-- **Phrase:** [exact verbatim phrase]
-- **Frequency:** [number of distinct sources]
-- **Context:** [one sentence on what situation triggers this phrase]
-- **Usable in copy:** Yes / No (No if it contains a competitor brand name or is too context-specific to lift)
+**Step 3 — Moment-of-frustration / moment-of-delight framing:**
+For negative signals: identify the specific situation or context in which the pain occurs. Not "the battery dies" but "the battery dies right when I'm in the middle of something." The situational context is what makes ad copy feel understood.
 
-### Step 2 — Emotional Intensity Signals
+For positive signals: identify what the buyer was doing or trying to achieve when they experienced the delight. Not "sounds great" but "the first time I played music through it at a dinner party, everyone asked what it was."
 
-Identify language that signals high emotional charge — frustration, relief, pride, fear, regret, or delight. These are the highest-value signals for ad copy and positioning because they indicate a decision moment, not just an opinion.
+The situational context is more valuable than the general claim.
 
-Classify each signal:
-- **High intensity:** Language with expletives (clean for documentation), caps lock, exclamation marks, or explicit emotional statements ("I was so frustrated," "this actually changed everything")
-- **Medium intensity:** Comparative language ("finally," "at least," "way better than"), repetition for emphasis
-- **Low intensity:** Matter-of-fact complaints or compliments with no emotional charge
+**Step 4 — Unmet expectation language:**
+Identify language that reveals what buyers expected vs. what they got.
+- "I thought it would be," "I expected," "I assumed," "I hoped it would" = unmet expectation before purchase
+- "I wish it had," "if only it could," "they should add" = unmet expectation after purchase
 
-Output as a table: Signal | Verbatim quote | Intensity level | Emotional trigger (what caused it)
+This is the most precise input for positioning — it shows exactly where the category has failed to deliver on implicit promises.
 
-### Step 3 — Moment-of-Frustration Framing
+## Output Format
 
-Extract the specific situation in which the pain hit — not just what the pain is, but when and where it happened. This is the most underused signal in buyer research. The situation frames the ad creative.
+```
+BUYER SIGNAL EXTRACTION — [Category/Product] — [Date]
 
-Examples of moment-of-frustration language:
-- "I was in the middle of [situation] and..."
-- "Every time I [action], the [problem] happens"
-- "I specifically bought it for [use case] and..."
+VERBATIM LANGUAGE MAP
 
-Output: Situation | What they expected | What happened instead | Verbatim quote
+FRUSTRATION SIGNALS (negative):
+Theme: [Pain theme name]
+Frequency: [Number of sources this appeared in]
+Emotional intensity: [High/Medium/Low]
+Situation context: [When/where this pain occurs — specific]
+Verbatim phrases:
+  - "[Exact quote]" — r/[subreddit], [upvotes] upvotes, [date]
+  - "[Exact quote]" — Amazon review, [star rating], [date]
+  - "[Exact quote]" — YouTube comment, [video URL], [date]
+Unmet expectation language: "[What buyers expected instead]"
+Brand addressability: [High/Medium/Low — can this brand's product solve it?]
+How brand addresses it: [Specific product feature or positioning claim — only if addressability is High/Medium]
 
-### Step 4 — Unmet Expectation Language
+[Repeat per theme]
 
-Identify language where buyers describe what they wished for but didn't get — the gap between promise and reality. This is your positioning whitespace map.
+RELIEF SIGNALS (positive):
+Theme: [Delight theme name]
+Frequency: [Number of sources]
+Emotional intensity: [High/Medium/Low]
+Situation context: [When/where this delight occurs — specific]
+Verbatim phrases:
+  - "[Exact quote]" — [source, date]
+Brand claim potential: [Can this be a credible positioning claim?]
 
-Pattern indicators: "I wish it had...", "would be perfect if...", "just needs...", "the only thing missing is...", "why doesn't it..."
+[Repeat per theme]
 
-Output: Unmet expectation (verbatim) | Category (feature / quality / price / service / availability) | Addressable by this brand (Yes / No / Partially)
+MIXED SIGNALS (contested territory):
+Theme: [Contested theme]
+Split: [What camp A says vs. what camp B says]
+Verbatim — Camp A: "[Exact quote]" — [source]
+Verbatim — Camp B: "[Exact quote]" — [source]
+Strategic note: [What this contested territory means for positioning]
+```
 
-## Final Output — Language Map
+## What This Skill Does NOT Do
 
-After running all four steps, compile a Language Map:
-
-**Verbatim phrases cleared for copy use:** [list only phrases marked "Usable in copy: Yes" from Step 1]
-
-**Highest-intensity emotional triggers:** [top 5 from Step 2, with the verbatim quote]
-
-**Key frustration moments for creative direction:** [top 3 situations from Step 3]
-
-**Unmet expectations the brand can address:** [from Step 4, Addressable = Yes or Partially only]
-
-## Quality Check
-
-Before handing off, verify:
-- Every item in the Language Map is verbatim text, not a paraphrase
-- No item is attributed to a single source (recurring signals only)
-- The Unmet Expectations list does not include items marked Addressable = No
-
-If any of these checks fail, go back and fix before outputting.
+- Does not paraphrase buyer quotes — output is always verbatim
+- Does not interpret what buyers "really mean" — captures what they actually said
+- Does not generate language for the brand — it extracts language from buyers
