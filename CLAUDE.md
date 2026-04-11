@@ -1,5 +1,5 @@
 # Jinu's Marketing Team — Team Bible
-*Version 5.0 — 2026-04-08*
+*Version 6.0 — 2026-04-11*
 
 ## How to Start a Session
 
@@ -8,6 +8,9 @@ No wrapper script needed. Chrome remote debugging is handled automatically by Ji
 
 **Context management — `/clear` between clusters, not `/compact`.**
 Since all findings are written to Notion before any cluster ends, there is nothing to preserve in context. `/clear` gives a full token reset instantly. `/compact` is only used within a single agent run if context pressure builds mid-agent (not at cluster boundaries).
+
+**Hard rule — never ask the user to run `/clear` mid-pipeline.**
+`/clear` is a CLI command only the user can execute. Asking the user to run it mid-pipeline breaks the zero-human-involvement principle. If `/clear` cannot be self-executed, skip it and continue. Notion holds all findings and session-context.md holds all state — the pipeline is safe without a context reset at every boundary. Token management never overrides zero mid-run human involvement.
 
 ---
 
@@ -92,7 +95,7 @@ USER
                     Writes database records AND Cluster Narratives after every cluster
 ```
 
-**Total: 9 agents** (down from 17). Leads eliminated — Jinu manages agents directly.
+**Total: 9 agents.** Jinu manages directly.
 
 ---
 
@@ -260,9 +263,24 @@ All three must be yes. Partial approval is not permitted.
 
 **Browser tool decision rule:**
 1. Dedicated MCP available? (Reddit → Reddit MCP, Notion → Notion MCP, Figma → Figma MCP) → Use that MCP.
-2. Login-gated platform? → Chrome DevTools MCP.
+2. Login-gated platform? → Chrome DevTools MCP (`mcp__chrome__*`).
 3. Public site, no login needed? → Playwright MCP.
 4. Playwright failed on public site? → Fallback to Chrome DevTools MCP immediately. Never fall back to web search.
+
+**Chrome MCP — critical distinction:**
+- **Chrome DevTools MCP** (`mcp__chrome__*`) — the correct tool. Always use this. Connected via remote debugging on port 9222.
+- **Claude in Chrome MCP** (`mcp__claude-in-chrome__*`) — do NOT use. This requires a Chrome browser extension that is not reliably connected. Never reach for this tool.
+
+**Chrome DevTools MCP — tab rules (hard rules, not guidelines):**
+- **Never use `isolatedContext`** when opening new tabs with `mcp__chrome__new_page`. `isolatedContext` creates a fresh browser context with no cookies, no login state, no cache — equivalent to incognito. This breaks any login-gated site and triggers bot-detection on others. It defeats the entire purpose of Chrome DevTools MCP.
+- **Always open tabs without `isolatedContext`** — new tabs inherit the full Chrome session including all logged-in accounts (Cosmos, Instagram, Lovart, any platform the user is logged into).
+
+**Chrome DevTools MCP — navigation timeout handling:**
+- A navigation timeout from `mcp__chrome__navigate_page` or `mcp__chrome__new_page` is **not a failure**. It means the page took longer than 10 seconds to reach "network idle" — which is normal for heavy sites (fashion, luxury, SPAs).
+- The URL updates correctly and content is usually already rendered.
+- **Correct response to a timeout:** take a screenshot immediately after the error. If the screenshot shows content, proceed. If blank, wait briefly and retry the screenshot once.
+- **Wrong response:** immediately trying a different URL. This causes unnecessary tab proliferation and wasted navigation attempts.
+- For known slow sites: use `timeout: 30000` on the navigate call. Alternative: `mcp__chrome__wait_for` to wait for a specific visible element.
 
 ---
 
@@ -450,10 +468,11 @@ Instagram, Facebook, TikTok, Lovart, any account-gated platform.
 
 **Phase 2 — Design Department**
 - CDO (Chief Design Officer)
-- Brand Design Lead → Brand Scout, Style Guide Agent
-- Production Lead → Figma Agent, Asset Builder
+- Brand Designer, Visual Production, Digital Designer, Design Research Scout
+- All design work in Figma — not Notion
 
 **Phase 3 — CEO Layer**
 - CEO agent above Jinu
 - Coordinates Marketing and Design departments
 - Becomes the new single point of contact for the user
+

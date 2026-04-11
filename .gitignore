@@ -1,6 +1,8 @@
 # Session context (contains private brand info)
 context/session-context.md
 context/brand-context.md
+context/confirmed-markets.md
+context/pipeline-state.md
 
 # Proof files (can be large)
 proofs/
@@ -13,6 +15,7 @@ claude-session-context.md
 
 # macOS
 .DS_Store
+**/.DS_Store
 
 # Environment
 .env
