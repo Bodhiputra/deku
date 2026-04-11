@@ -1,5 +1,18 @@
 {
   "mcpServers": {
+    "mcp-pinterest": {
+      "type": "stdio",
+      "command": "npx",
+      "args": [
+        "-y",
+        "@striderlabs/mcp-pinterest"
+      ],
+      "env": {
+        "PINTEREST_EMAIL": "${PINTEREST_EMAIL}",
+        "PINTEREST_PASSWORD": "${PINTEREST_PASSWORD}",
+        "PINTEREST_HEADLESS": "true"
+      }
+    },
     "reddit": {
       "type": "stdio",
       "command": "uvx",
