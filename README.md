@@ -1,48 +1,45 @@
-# deku
-Multi-agent autonomous marketing and design company built on Claude Code.
+# Deku — AI Marketing & Design Team
 
-Jinu (CMO) runs a 9-agent marketing research pipeline. Nagi (CDO) leads a 5-agent design department. Both operate as inline personas — no subagents, no wrappers, just Claude Code with the right instructions.
+Deku gives your brand a full marketing and design department powered by AI.
 
----
+**Jinu** is your Chief Marketing Officer. He runs a research team that maps your market, profiles your buyers, finds your competitors, identifies KOLs, discovers retail distribution opportunities, and builds your content strategy — all documented automatically in Notion.
 
-## What's included
+**Nagi** is your Chief Design Officer. He handles all design work — brand identity, website design, social assets, presentations, and ad creatives — and saves everything to Figma.
 
-**Marketing department (Jinu)**
-Full research pipeline: market scoping → industry intelligence → buyer intelligence → market sizing → KOL discovery → retailer B2B → content intelligence → positioning. All findings written to Notion automatically.
-
-**Design department (Nagi)**
-Brand identity, visual production, digital design, and design research. All work saved to Figma. Reads marketing findings from Notion directly.
-
-**9 agents, 20+ custom skills, full MCP stack** (Notion, Figma, Reddit, Playwright, Chrome DevTools).
+You talk to them directly. They do the work. You get the report.
 
 ---
 
-## Prerequisites
+## What you need before starting
 
-- [Claude Code CLI](https://claude.ai/code)
-- Node.js + npx
-- [uv](https://docs.astral.sh/uv/) — for Reddit MCP
-- A Notion account + [integration token](https://www.notion.so/my-integrations)
-- A Figma account (OAuth via MCP)
-- Chrome — for browser automation
+- A computer running macOS or Linux
+- [Node.js](https://nodejs.org) installed
+- [Claude Code](https://claude.ai/code) installed
+- A [Notion](https://notion.so) account (free) — Jinu writes all research here
+- A [Figma](https://figma.com) account (free) — Nagi saves all design work here
+- Google Chrome installed
+
+That's it.
 
 ---
 
-## Setup
+## Getting started
+
+**Step 1 — Clone and run setup**
 
 ```bash
-git clone git@github.com:bodhiputra/deku.git
+git clone https://github.com/bodhiputra/deku.git
 cd deku
 ./setup.sh
 ```
 
-`setup.sh` installs all MCP servers, creates config files, and scaffolds the context files you need. It will tell you exactly what manual steps remain at the end (API key, OAuth, one brand context file to fill in).
+Setup will check your system, create the files it needs, and tell you exactly what to do next.
 
 ---
 
-## First run
+**Step 2 — Open Claude Code and run setup**
 
-After setup, open Claude Code in the project directory:
+In the project folder, run:
 
 ```bash
 claude
@@ -51,42 +48,89 @@ claude
 Then say:
 
 ```
+setup Jinu
+```
+
+Your Claude Code assistant will read the setup guide, run the setup script on your behalf, walk you through the Chrome connection step, and tell you when everything is ready. You just follow along.
+
+---
+
+During setup, your assistant will also connect Notion and Figma for you — a browser window will open for each, you log in and click Allow. This is how Jinu writes research findings to Notion automatically and how Nagi saves design work to Figma.
+
+---
+
+**Step 3 — Meet Jinu**
+
+Once setup is complete, your assistant will tell you to say:
+
+```
 Jinu, let's get started
 ```
 
-Jinu will run the pre-run intake, confirm your brand details, and begin the research pipeline.
+Jinu will introduce himself, ask you about your brand, and guide you through everything from there.
 
 ---
 
-## Team structure
+## What happens next
 
+Jinu starts with a short conversation — about 15 minutes. He asks about your brand, your product, your goals, and your market. Then he briefs his research team and the work begins.
+
+A full research run takes about 3 hours and runs completely on its own. You come back to a full report covering:
+
+- Your market — size, growth, key dynamics
+- Your competitors — who they are, how they position, where the gaps are
+- Your buyers — who's actually buying at your price tier, what they care about, what frustrates them
+- Market opportunity — how big the addressable market is
+- KOLs — ranked shortlist with fit reasoning
+- Retailers — distribution opportunities by market
+- Content strategy — what to make, for whom, on which platform
+- Positioning — where your brand should sit and what to say
+
+Everything is documented in Notion with links to the full data.
+
+---
+
+## Calling Jinu and Nagi
+
+From anywhere in Claude Code, you can switch directly to either of them:
+
+| To talk to | Say |
+|---|---|
+| Jinu (marketing) | `Jinu, ...` |
+| Nagi (design) | `Nagi, ...` |
+| Back to your assistant | Address your assistant directly |
+
+Example:
 ```
-USER
-  ├── JINU — Chief Marketing Officer
-  │     └── 9 agents: Market Intelligence, Buyer Intelligence,
-  │         Market Sizing, KOL Tracker, Retailer B2B,
-  │         Content Intelligence, Positioning Analyst, Notion Manager
-  │
-  └── NAGI — Chief Design Officer
-        └── 5 agents: Brand Designer, Visual Production,
-            Digital Designer, Design Research Scout
+Jinu, I want to run research on my new product
+```
+```
+Nagi, design a landing page for the Hako speaker
 ```
 
-Full pipeline documentation is in `CLAUDE.md`.
-
 ---
 
-## Two-terminal workflow
+## What stays private
 
-You can run marketing and design in separate terminals simultaneously. Jinu writes findings to Notion and `context/session-context.md`. Nagi reads from both. No manual data transfer needed.
+These files are gitignored and never shared:
 
----
-
-## What stays private (gitignored)
-
-- `context/brand-context.md` — your brand details
-- `context/session-context.md` — rolling research state
-- `context/confirmed-markets.md` — market scope per run
-- `context/pipeline-state.md` — pipeline run logs
-- `.claude/settings.local.json` — API keys
+- `context/brand-context.md` — your brand details and goals
+- `context/session-context.md` — rolling research progress
+- `.claude/settings.local.json` — your local configuration
 - `proofs/` — screenshots captured during research
+
+---
+
+## Troubleshooting
+
+**Chrome isn't connecting**
+Make sure Chrome is open and `chrome://inspect/#devices` has "Discover network targets" toggled ON.
+
+**Notion isn't connecting**
+Run `claude` in the project folder and follow any OAuth prompts that appear.
+
+**Skills or MCPs seem missing**
+Run `./setup.sh` again — it's safe to re-run and will only create what's missing.
+
+**Something else**
+Say `Jinu, something isn't working` and describe what you see. He'll diagnose it.

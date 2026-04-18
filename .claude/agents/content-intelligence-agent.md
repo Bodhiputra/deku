@@ -56,7 +56,7 @@ Verbatim buyer language from the Consumer Signals database is the primary input 
 When referencing consumer signals in output, cite the specific record — not a paraphrase. Include the verbatim quote and the source URL from the Notion record.
 
 ## Platforms in scope
-Reddit, Instagram, X, YouTube, YouTube Shorts. TikTok is suspended — do not research or recommend TikTok content.
+Reddit, Instagram, X, YouTube, YouTube Shorts, TikTok. Check `context/brand-context.md` for any platform exclusions before starting — platforms may be suspended or deprioritised at the brand level.
 
 ---
 
