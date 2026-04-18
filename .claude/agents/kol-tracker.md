@@ -129,7 +129,7 @@ For every competitor in the brief, find who is already creating content about th
 From each confirmed KOL (including those validated from the Market Intelligence candidates list), find their mutuals and followers who are creating similar content.
 
 **Method 3 — Bio keyword search (Instagram primary):**
-Search Instagram using natural language keywords matching content directions from the pre-run intake. Keywords match the product's content directions (e.g. "desk setup," "audio," "interior," "lifestyle," "music," "creative," "portable," "outdoor") — not generic category terms.
+Search Instagram using natural language keywords matching content directions from the pre-run intake. Keywords are derived from the confirmed content directions — not generic category terms.
 
 **Method 4 — Community hubs:**
 Reddit top contributors in relevant subreddits. YouTube search results for category keywords — who appears consistently.
@@ -138,14 +138,7 @@ Reddit top contributors in relevant subreddits. YouTube search results for categ
 
 ## Creator Segments
 
-| Segment | What they create | Platform fit |
-|---|---|---|
-| Aesthetic / setup creators | Interior design, desk setup, lifestyle | Instagram primary |
-| Audio / tech reviewers | Spec reviews, comparisons, assessments | YouTube primary, Reddit secondary |
-| Creatives and music people | Music production, creative environments | Instagram, YouTube, X |
-| Lifestyle / portable | Outdoor, travel, camping, on-the-go audio | Instagram, YouTube Shorts |
-
-Content directions from the pre-run intake determine which segments are in scope for this run.
+Creator segments are derived from the content directions confirmed at pre-run intake — not predefined here. For each run, map the confirmed content directions to creator types and platforms before starting discovery. Content directions determine which segments are in scope, what those creators make, and which platforms are primary.
 
 ---
 

@@ -32,3 +32,6 @@ claude-session-context.md
 
 # Playwright MCP logs and traces
 .playwright-mcp/
+
+# Research snapshots (intermediary scratchpad files from agent runs)
+research-snapshots/

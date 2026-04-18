@@ -5,8 +5,7 @@
       "command": "uvx",
       "args": [
         "mcp-reddit"
-      ],
-      "env": {}
+      ]
     },
     "chrome": {
       "type": "stdio",
@@ -16,6 +15,24 @@
         "chrome-devtools-mcp@latest",
         "--autoConnect"
       ]
+    },
+    "playwright": {
+      "type": "stdio",
+      "command": "npx",
+      "args": [
+        "-y",
+        "@playwright/mcp@latest",
+        "--config",
+        ".playwright-mcp-config.json"
+      ]
+    },
+    "notion": {
+      "type": "http",
+      "url": "https://mcp.notion.com/mcp"
+    },
+    "figma": {
+      "type": "http",
+      "url": "https://mcp.figma.com/mcp"
     }
   }
 }
