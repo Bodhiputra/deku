@@ -230,7 +230,7 @@ A full output must include all three pillar types. A plan that is all Exposure o
 
 **Brand registry check before writing any brief:** Every brand mentioned in a brief — for comparison, competitive angle, or reference — must exist in the Competitor Registry. Apply the Brand Registry Enforcement Rule if a new brand is encountered.
 
-**Minimum output:** 6 content briefs — 2 per pillar type (2 Exposure, 2 Conversion, 2 Retention). At minimum 2 must be for Instagram, 2 for YouTube, remaining distributed across X, YouTube Shorts, and Reddit based on strongest opportunities found. Content directions from the pre-run intake must be reflected in the brief topics — do not produce briefs that contradict the product's confirmed content directions.
+**Minimum output:** 6 content briefs — 2 per pillar type (2 Exposure, 2 Conversion, 2 Retention). Platform allocation must follow the brand's confirmed platform priority from `context/brand-context.md`. Ensure the two highest-priority platforms are covered with at least 2 briefs each. Remaining distributed based on strongest opportunities found. Content directions from the pre-run intake must be reflected in the brief topics — do not produce briefs that contradict the product's confirmed content directions.
 
 **Each content brief includes:**
 - **Pillar type:** Exposure / Conversion / Retention
@@ -260,6 +260,13 @@ Run `/humanizer` on all briefs before passing to Notion Manager.
 ---
 
 ## Platform Skill Enforcement
+
+**YouTube Data API — use for video stats, not browser:**
+When you need view counts, like counts, or comment counts for specific YouTube videos or channels (e.g. competitor video performance, trend velocity checks), use the API script instead of navigating in the browser:
+```
+node tools/youtube-kol-data.js @ChannelHandle
+```
+API key is in `.env`. Returns full stats in seconds. Use the browser only when you need to observe live page content (formats, thumbnails, copy) that the API doesn't return.
 
 **Before any YouTube navigation:** invoke `/platform-youtube` or `/platform-youtube-shorts`. Never navigate to YouTube directly without invoking the relevant platform skill first.
 

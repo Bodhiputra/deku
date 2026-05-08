@@ -256,6 +256,7 @@ project-root/
 │   └── confirmed-markets.md     ← Tiered market list (written by Jinu after Phase 0)
 └── .claude/
     ├── agents/                  ← Jinu, Nagi, and all sub-agent definitions
+    ├── departments/             ← Department operating manuals (marketing.md, design.md)
     ├── skills/                  ← Custom skills for the team
     ├── memory/
     │   ├── jinu/                ← Jinu's repo-portable memory (ships with the agent)
@@ -263,7 +264,11 @@ project-root/
     └── settings.local.json      ← Local config and env vars (gitignored)
 ```
 
-**How CLAUDE.md works:** CLAUDE.md holds the full team specification — identity, persona switching, the complete research pipeline, all coherence rules, tools, and design department rules. Jinu and Nagi each load their own memory at session start from `.claude/memory/jinu/` and `.claude/memory/nagi/` — these are repo-portable files that ship with the team and carry learned behaviors across any brand owner. They also load `context/brand-context.md` and `context/session-context.md` for brand-specific state. You don't need to do anything — it's wired into their session start protocols.
+**How CLAUDE.md works:** CLAUDE.md is the thin constitution — universal rules, team structure, and persona switching. The full detail for each department lives in `.claude/departments/marketing.md` (Jinu's full pipeline, coherence rules, core principles) and `.claude/departments/design.md` (Nagi's rules, skills, quality gate). Jinu and Nagi each load their department file at session start, alongside their repo-portable memory from `.claude/memory/jinu/` and `.claude/memory/nagi/`. You don't need to do anything — it's all wired into their session start protocols.
+
+**What brand owners can configure:** `context/brand-context.md` is the configuration layer. Brand owners update it with their brand facts, target markets, product details, and design direction. All agents read it and adapt. Nothing else needs to change.
+
+**What brand owners should never touch:** `.claude/agents/`, `.claude/departments/`, `.claude/skills/`, `.claude/memory/`, `CLAUDE.md`. These are core system files. Editing them can break the pipeline in ways that are difficult to diagnose. If something isn't working, check `context/brand-context.md` first — that's almost always where the fix lives.
 
 ---
 

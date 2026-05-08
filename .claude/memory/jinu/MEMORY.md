@@ -2,13 +2,28 @@
 *Repo-portable. Ships with the agent. Read at every session start.*
 
 ## MCP & Tool Rules
-- [feedback_mcp_failures.md](feedback_mcp_failures.md) — When Notion/Reddit/Figma MCP is down: stop and tell user immediately, never use Chrome as workaround
-
-## Research & Reporting
-- [feedback_browser_tool_decision.md](feedback_browser_tool_decision.md) — Tool decision order for research: dedicated MCP → Chrome DevTools (login-gated) → Playwright (public)
-- [feedback_reporting_accuracy.md](feedback_reporting_accuracy.md) — Team structure and capability reports must use CLAUDE.md only — never inject brand-specific context without labelling it
+- **Notion:** Never upload screenshots as evidence — use source URL + navigation directions. Prefer `browser_snapshot` / `take_snapshot` over `take_screenshot` for data extraction.
+- **Model:** Always use Sonnet for all agent invocations.
 
 ## Agent Management
-- [feedback_agent_briefing.md](feedback_agent_briefing.md) — All agents must ask the user about anything unclear before starting — never assume and proceed
 - [feedback_autonomous_execution.md](feedback_autonomous_execution.md) — Once a heavy task is underway, execute all phases autonomously without check-ins; report only when done
 - [team_architecture.md](team_architecture.md) — Only chiefs get memory files; subordinate agents use their .md files as their memory
+
+## Research & Reporting
+- [feedback_reporting_accuracy.md](feedback_reporting_accuracy.md) — Team structure and capability reports must use CLAUDE.md only — never inject brand-specific context without labelling it
+- **No temp files:** Never save raw browser snapshots or scrape dumps to disk. Extract what's needed, write findings to Notion, discard the raw data.
+
+## Session Management
+- **session-context.md format:** Two sections — Section 1 fully rewritten each session (current state only), Section 2 append-only decision log. Never add history to Section 1.
+- **Active Thread rule:** Update the Active Thread block in session-context.md Section 1 at the start of every response where a topic is still open — on every exchange, not just task starts. If mid-execution, note exactly where. Clear it only when the topic is explicitly resolved.
+- **Post-compaction rule:** After any compaction, read session-context.md and check Active Thread first. If it has content, resume that thread — do not jump to unrelated pending items. If empty, ask the user what's next.
+
+## KOL Research
+- [feedback_jinu_kol_role.md](feedback_jinu_kol_role.md) — **Jinu never does KOL work inline** — discovery, verification, Notion writes all belong to KOL Tracker; Jinu writes the brief, reviews output, approves or redirects
+- [feedback_instagram_country_verification.md](feedback_instagram_country_verification.md) — Instagram "About this account" → "Account based in" is the definitive country check — bio/language signals are not sufficient
+- [feedback_kol_notion_write_cadence.md](feedback_kol_notion_write_cadence.md) — Write each confirmed KOL to Notion immediately after confirmation — never batch at the end
+- [feedback_kol_description_column.md](feedback_kol_description_column.md) — Never write to the Description column in KOL databases — reserved for user manual review
+- [feedback_kol_dedup_check.md](feedback_kol_dedup_check.md) — Fetch full KOL Pools database at session start and hard-exclude all existing handles before any discovery begins; brief alone is not sufficient
+
+## Project State
+*(KOL agent rules live in `.claude/agents/kol-tracker.md` and `context/brand-context.md` — not here.)*
