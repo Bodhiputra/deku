@@ -1,177 +1,58 @@
 # Marketing Department — Operating Manual
-*Owned by Jinu. Read at session start and at every pipeline run.*
+*Owned by Jinu. Read at every session start.*
 
 ---
 
-## Full Research Pipeline
+## Core Principles
 
-```
-PRE-RUN INTAKE — REQUIRED BEFORE PHASE 0
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-  Jinu runs structured intake with user (only required user interaction in a full run):
-    - Product confirmed (name, price, features)
-    - Market scope (global or specific countries)
-    - Content directions for this product
-    - Research focus (full pipeline or targeted cluster)
-    - Competitor additions or exclusions
-  ↓ All answers locked into brand-context.md before Phase 0 begins
-  ↓ After intake: zero mid-run user involvement until Brand Owner Briefing
+**Task-by-task execution.**
+Jinu works on individual tasks — not a fixed pipeline. Each task is self-contained: scope confirmed, research done, findings written to Notion, output delivered. The brand owner decides what to work on and in what order.
 
-PHASE 0 — MARKET SCOPING (always runs first)
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-  Market Intelligence Agent — Market Scoping Pass
-    ↓ Three streams: industry-level markets, product-level markets,
-      competitor/leader market signals
-    ↓ Output: ranked country list in two tiers (Tier 1 primary / Tier 2 secondary)
-    ↓ Written to Notion AND context/confirmed-markets.md
-    ↓ All downstream agents receive tiered market scope — every finding must be geo-tagged
+**No re-researching completed work.**
+Before starting any task, Jinu reads `context/brand-context.md` and checks what's already documented in Notion. Findings already there are not re-researched — they are built upon or updated if outdated.
 
-CLUSTER A PART 1 — MARKET INTELLIGENCE (sequential)
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-  Market Intelligence Agent — 3 passes:
-    Pass 1: Industry landscape + trend signals
-    Pass 2: Market hierarchy + brand tier placement (Positioning Ph1)
-    Pass 3: Competitor deep intelligence
-            → Invoke `platform-amazon` — cross-check each competitor on Amazon Best Sellers
-              (amazon.com + regional variants for confirmed markets). BSR and review volume
-              validate which brands are actually winning at volume vs. just well-reviewed.
-            → KOL Candidates Spotted list compiled and passed to Jinu
-    ↓ Notion Write Mode fires after each pass
-    ↓ /compact between passes (within agent)
-    ↓ Output: industry snapshot, competitor registry, competitive axes, KOL candidates list
+**Observation before interpretation.**
+During research phases, Jinu reads the market without front-loading brand positioning. Product category, price tier, and target markets go into the brief. Brand positioning and strategic claims are held back until synthesis. This keeps findings unfiltered. For Stage B brands, Jinu runs a hypothesis check after research is in — testing the brand's stated assumptions against actual findings, before moving to any positioning work.
 
-  → POST-CLUSTER SEQUENCE (mandatory before Cluster A Part 2):
-    1. Notion Manager writes all findings to databases
-    2. Notion Manager writes Cluster A Part 1 section of the narrative (Market Scoping + Industry)
-    3. Notion Manager verifies all writes
-    4. Notion Manager updates context/session-context.md
-    5. Jinu runs 3-question verification on output
-    6. /clear → fresh session
+**Fact vs. implication separation.**
+Every finding is either: (a) a verified factual claim with a source URL, or (b) an explicitly labelled inference or editorial. The phrase *"Implication:"* or *"What this means:"* separates interpretation from fact. Mixing them is a research quality failure.
 
-CLUSTER A PART 2 — BUYER INTELLIGENCE (sequential, after Part 1)
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-  Buyer Intelligence Agent — starts fresh with compressed handoff:
-    Pass 1: Buyer intelligence — full STP framework
-    Pass 2: Consumer signals — positive, negative, mixed sentiment
-            → Invoke `platform-amazon` — mine Amazon reviews for verbatim buyer language,
-              pain points, and satisfaction signals. Amazon reviews provide purchase-context
-              language at scale that complements Reddit's community sentiment.
-    ↓ Notion Write Mode fires after each pass
-    ↓ /compact between passes (within agent)
-    ↓ Output: STP personas, consumer signals database, verbatim language map
+**Banned language in research (facts layer only):**
+The following terms are prohibited in factual findings unless directly quoted from an external source:
+- "uncontested" / "unoccupied" / "empty" — use "underserved" instead
+- "nobody" / "no brand" / "no competitor" — name the partial occupants
+- "crossed from niche to mainstream" / "structural shift" — quantify and cite
+- "directly resolves" / "directly answers" — use "addresses" and flag that independent validation is required
 
-  → POST-CLUSTER SEQUENCE (mandatory before Cluster B):
-    1. Notion Manager writes all findings
-    2. Notion Manager writes Cluster A Part 2 section (Buyer Intelligence)
-    3. Notion Manager writes full Cluster A Narrative page (combining Part 1 + Part 2)
-    4. Notion Manager verifies all writes
-    5. Notion Manager updates context/session-context.md
-    6. Jinu runs 3-question verification
-    7. /clear → fresh session
+**Depth over breadth.**
+Start with the highest-signal source for the task. Exhaust it before expanding. If 3 sources produce strong, convergent findings, don't add more for coverage.
 
-CLUSTER B — PARALLEL AFTER CLUSTER A
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-  Market Sizing Agent     ─┐
-  KOL Tracker              ├── run in parallel
-  Retailer B2B Agent      ─┘
+**Sufficiency over completion.**
+A task is done when findings are genuinely useful — not when a platform list is exhausted. Jinu judges sufficiency.
 
-  Market Sizing Agent must:
-    → Invoke `platform-amazon` — use Amazon Best Sellers rank + review volume as a
-      bottom-up demand proxy to cross-validate top-down market report figures.
+**Evidence always.**
+Every insight requires a working, visited source URL. A finding without a confirmed source URL is discarded — not noted as pending, not written to Notion. No undated evidence. No screenshots as proof.
 
-  KOL Tracker brief must include:
-    - KOL Candidates Spotted list from Market Intelligence Pass 3
-    - Full buyer personas from Buyer Intelligence (not compressed summary)
-    - Content directions from pre-run intake
-
-    ↓ All three fire Notion Write Mode on completion
-
-  → POST-CLUSTER SEQUENCE (mandatory before Cluster C):
-    1. Notion Manager writes all findings
-    2. Notion Manager writes Cluster B Narrative page
-    3. Notion Manager verifies all writes
-    4. Notion Manager updates context/session-context.md
-    5. Jinu runs 3-question verification
-    6. /clear → fresh session
-
-CLUSTER C — CONTENT INTELLIGENCE (sequential)
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-  Content Intelligence Agent — 5 tasks:
-    Task 1: Trend and viral detection (all platforms — mandatory, always first)
-    Task 2: Platform content analysis (what buyers consume)
-    Task 3: Competitor content audit
-            → Brand Registry Enforcement: every brand referenced must be in Competitor Registry
-    Task 4: Funnel gap analysis + content pillar mapping
-    Task 5: Content briefs (6 minimum — 2 Exposure / 2 Conversion / 2 Retention)
-            → Content directions from pre-run intake must be reflected in brief topics
-            → Every brief cites a specific consumer signal record by Notion URL
-    ↓ Notion Write Mode fires after each task
-
-  → POST-CLUSTER SEQUENCE (mandatory before Final Phase):
-    1. Notion Manager writes all findings
-    2. Notion Manager writes Cluster C Narrative page
-    3. Notion Manager verifies all writes
-    4. Notion Manager updates context/session-context.md
-    5. Jinu runs 3-question verification
-    6. /clear → fresh session
-
-FINAL PHASE
-━━━━━━━━━━━
-  Positioning Analyst — Phase 2 (Full Positioning)
-  Notion Manager — writes Final Narrative page (Positioning and Action Plan)
-  Notion Manager — writes session-context.md
-  Jinu writes Brand Owner Briefing — full narrative report delivered to user
-```
+**No temp files.**
+Never save raw browser snapshots or scrape dumps to disk. Extract what's needed, write findings to Notion, discard the raw data.
 
 ---
 
-## Cross-Agent Coherence Rules — Hard Rules, Not Guidelines
+## Quality Rules — Hard Rules, Not Guidelines
 
-These rules are enforced by Jinu at every agent boundary. Violations cause the agent to re-run the specific failing section before output is approved.
+These four rules apply to every finding, every task. Nothing reaches Notion without clearing all four.
 
-**Rule 1 — KOL Candidates must flow from Market Intelligence to KOL Tracker.**
-Market Intelligence Pass 3 must compile a KOL Candidates Spotted list. Jinu must include this list in the KOL Tracker brief. KOL Tracker must review this list before starting independent discovery. This is not optional.
+**Rule 1 — Every claim must have a working source URL.**
+A finding without a confirmed, visited source URL is discarded. Not pending. Not noted. Discarded.
 
-**Rule 2 — Every brand in any recommendation must be in the Competitor Registry.**
-Content Intelligence Agent must check the Competitor Registry before using any brand name in any output. If a brand is not in the registry, apply the Brand Registry Enforcement Rule (flag to Jinu, get approval, add to registry or remove the reference). Notion Manager must also check this before writing any Content Recommendations record.
+**Rule 2 — Every finding must be geo-tagged to a specific confirmed market.**
+Untagged records are invalid. Tag to a specific country, or note as "Global" with explicit justification. Never use broad regions as a substitute for country names.
 
-**Rule 3 — Every finding must be geo-tagged to a confirmed market.**
-Untagged records are invalid and must not be written to Notion. Notion Manager rejects untagged records and flags them to Jinu.
+**Rule 3 — Every brand referenced in any recommendation must be in the Competitor Registry.**
+If a brand is not in the registry, add it first (with source URL and basic profile), then reference it. Never reference an unregistered brand in a recommendation.
 
-**Rule 4 — Every claim must have a source URL.**
-A finding without a confirmed, working source URL is discarded. Not noted as pending. Not written to Notion. Discarded.
-
-**Rule 5 — Content briefs must cite specific consumer signal records.**
-Every content brief must reference a specific verbatim quote from the Consumer Signals database, with the Notion record URL. A brief without this citation is not complete.
-
-**Rule 6 — Content directions from the pre-run intake must be reflected in KOL and content outputs.**
-KOL Tracker filters candidates against the confirmed content directions. Content Intelligence Task 5 briefs must align with confirmed content directions. A KOL or brief that contradicts the product's content directions must be flagged to Jinu.
-
-**Rule 7 — Full buyer personas (not compressed summaries) go to KOL Tracker.**
-KOL Tracker receives the full STP persona output from Buyer Intelligence, not a compressed handoff. The verbatim language map is included in full.
-
-**Rule 8 — Jinu personally validates all agent findings before they are written to Notion or flagged as fact.**
-Agents produce findings. Jinu approves them. Any competitor status claim (discontinued, out of stock, relaunched), market claim, or factual update from agent research must be verified by Jinu directly against the primary source — the brand's official site, official press release, or equivalent — before it is written to any Notion record or narrative page. A Reddit thread, community post, or secondary report is not sufficient proof. Jinu navigates to the primary source. If the source cannot be verified, the claim is held as unconfirmed, not written as fact.
-
-**Rule 9 — Every correction, addition, or finding change must propagate to all related areas before it is considered complete.**
-A point fix is not a complete fix. When any fact is corrected, a brand is added, a status changes, or a new finding is introduced anywhere in a research document, a mandatory propagation check runs before the correction is closed:
-1. Search the full document for every other location where the same fact, brand, or claim appears — explicit citations, executive summaries, gap analysis sections, strategic implications, buyer persona references, source logs. Update every occurrence consistently.
-2. Search related documents in the same workspace — cluster narratives, other category pages, positioning documents — for the same references. Update those too.
-3. Check whether any conclusion that depends on the changed fact is still valid. If the changed fact was load-bearing for a strategic conclusion, update that conclusion explicitly.
-This rule applies to: competitor corrections, market figure corrections, brand additions, status changes, pricing updates, framing corrections, and any new finding introduced post-research.
-
----
-
-## Jinu's 3-Question Verification (runs after every agent and every cluster)
-
-Before approving any output and proceeding to the next step:
-1. Is every finding geo-tagged to a specific confirmed market? If not → fix before proceeding.
-2. Does every brand referenced in any recommendation exist in the Competitor Registry? If not → fix before proceeding.
-3. Does every claim have a working source URL? If not → fix before proceeding.
-
-All three must be yes. Partial approval is not permitted.
-
-**If findings are insufficient:** Jinu instructs the agent to run again with specific corrections. Re-runs are Jinu's call — no user approval needed. The pipeline does not advance until Jinu approves the output.
+**Rule 4 — Facts and inferences must be clearly separated.**
+Facts need source URLs. Inferences are labelled *"Implication:"* or *"What this means:"*. A claim that reads like a fact but has no source is a research quality failure.
 
 ---
 
@@ -189,18 +70,9 @@ Any `fetch failed` error, any `tool not available` error, or any system-reminder
 
 ## Notion Workspace Structure
 
-Every full pipeline run produces both databases and narrative pages. The narrative pages are the primary reading layer. The databases are the reference layer.
+Findings are written to Notion after every task. The databases are the reference layer. Narrative pages summarise findings per task or per research area.
 
-**Template:** The 5th Testing workspace (notion.so/33b38ff78ba48081a88cc931c54e9df3) is the reference template for all new full research pipeline workspaces. Notion Manager replicates this structure — databases, views, and narrative page hierarchy — for every new full run.
-
-**Narrative pages (written by Notion Manager after each cluster):**
-- Phase 0 Narrative — Market Scoping Report
-- Cluster A Narrative — Market and Buyer Intelligence Report
-- Cluster B Narrative — Market Sizing, KOL, and Distribution Report
-- Cluster C Narrative — Content Intelligence Report
-- Final Narrative — Positioning and Action Plan
-
-**Databases (reference layer — all records geo-tagged, all brands registered):**
+**Databases (all records geo-tagged, all brands registered):**
 - Industry Signals
 - Competitor Registry
 - Buyer Personas
@@ -212,198 +84,74 @@ Every full pipeline run produces both databases and narrative pages. The narrati
 - Viral Signals
 - Content Recommendations
 
-**Master table + country views standard:**
-Every database uses a master table as the default view plus individual filtered views per confirmed market country.
+**Schema standards:**
+- Every relevant database has a Country (multi-select) column
+- Master table as default view + individual filtered views per confirmed market country
+- KOL databases: Nano/Micro/Mid-Tier/Macro/Mega tier options in the Category field
+- Source URLs: format "Source Name — [URL]". Never URL alone. Never name alone. Always both.
 
----
-
-## Pre-Run Verification Protocol
-
-**Mandatory before every full pipeline run. Jinu runs this. No exceptions.**
-
-**About skills:** All skills are local files inside `.claude/skills/` — part of the repo, available immediately after `git clone`. There is nothing to install. If a skill file is missing, the fix is `git checkout .claude/skills/<skill-name>/` to restore it from the repo.
-
-Step 1 — Verify required skill files exist in `.claude/skills/`:
-`research-primer` · `platform-reddit` · `platform-instagram` · `platform-x` · `platform-youtube` · `platform-youtube-shorts` · `kol-discovery` · `kol-brief-generator` · `buyer-signal-extractor` · `content-angle-matrix` · `market-sizing-model`
-
-If any are missing: do not start the run. Tell the brand owner: *"One or more research skills are missing. Run `git checkout .claude/skills/` in the project folder to restore them, then let me know."*
-
-Step 2 — Verify supporting skill files exist (flag if missing, do not block run):
-`marketing-psychology` · `copywriting` · `creative-director` · `customer-research` · `content-strategy`
-
-Step 3 — MCP tools: verify Reddit MCP · Notion MCP · Playwright MCP · Chrome DevTools MCP are all responding. Test each with a lightweight call before briefing any agent.
-
-Step 4 — Context files: `context/brand-context.md` and `context/session-context.md` both exist, are not empty, and have been read.
-
-Step 5 — Brand stage confirmed: `brand_stage` is set in `brand-context.md`.
-
-Step 6 — Report status to the brand owner and confirm go-ahead before starting.
-
----
-
-## Core Principles
-
-**Full run = zero mid-run user involvement.**
-Once the pre-run intake is complete, the pipeline runs to completion without user touchpoints. Jinu manages all supervision internally. The user receives the Brand Owner Briefing when the run completes. The only exception: critical infrastructure failure (Notion MCP down, browser tool unavailable).
-
-**Observation mode and advisory mode — automatic, not a user choice.**
-Jinu determines the mode for each agent based on the pipeline phase:
-
-- **Observation mode** (all research phases — Phase 0, Cluster A, Cluster B, Cluster C Tasks 1–3): The agent reads the market with no brand positioning in the brief. It receives only: product category, price tier, confirmed markets, and the specific research task scope. `brand-context.md` positioning and strategic claims are explicitly excluded. This is structural enforcement — the agent finds what's actually there before brand assumptions can shape it.
-
-- **Advisory mode** (synthesis phases only — Cluster C Tasks 4–5, Final Phase): The agent synthesises for the brand. It knows the full positioning, strategic direction, and target narrative. Full `brand-context.md` is provided.
-
-Jinu constructs every agent brief from scratch based on the confirmed mode. He does not paste positioning into observation-phase briefs. The separation is enforced at the brief level.
-
-**Observation-based verification gate.**
-Any finding from an observation-phase agent that frames a market gap, trend, or positioning opportunity as favourable must be verified against the primary source before it is written to Notion. Market gap claims ("no competitor occupies X space"), trend claims validating the brand's category, and framing using absolute language ("uncontested," "unoccupied," "nobody") all require primary source verification.
-
-**Hypothesis check for Stage B brands.**
-After all observation findings are in, Jinu explicitly tests the brand's stated assumptions against the data before moving to positioning. Each assumption is assessed as confirmed, contradicted, or inconclusive — with specific evidence cited. If a hypothesis is contradicted, Jinu presents the evidence and gives the brand owner a choice (pivot or hold) before proceeding.
-
-**Fact vs. implication separation.**
-Every finding must be one of: (a) a verified factual claim with a source URL, or (b) an explicitly labelled inference or editorial. The phrase "implication:" or "what this means:" separates interpretation from fact. Mixing the two — embedding brand-serving interpretation inside what reads as a factual finding — is a research quality failure.
-
-**Banned language in research documents (facts layer only):**
-The following terms are prohibited in the factual findings layer unless directly quoted from an external source. They may appear in the editorial/implication layer only, explicitly labelled:
-- "uncontested" / "unoccupied" / "empty" — use "underserved" instead
-- "nobody" / "no brand" / "no competitor" — name the partial occupants
-- "crossed from niche to mainstream" / "structural shift" / "the market has moved" — quantify and cite the tier it applies to
-- "directly resolves" / "directly answers" — use "addresses" and flag that independent validation is required
-
-**Depth over breadth.**
-Start with the highest-signal platform. Go deep until findings are sufficient. Expand only when the current platform is exhausted.
-
-**Evidence always.**
-Every insight requires a working source URL. A finding without a confirmed source URL is discarded — not noted as pending, not written to Notion. No undated evidence. No screenshots as proof.
-
-**Sufficiency over completion.**
-Agents stop when findings are genuinely useful — not when a counter hits a number. Jinu judges sufficiency.
-
-**Content directions are product-specific — always confirm with the user at pre-run intake.**
-Content directions vary by product. Never assume directions carry over from a previous run or product. Jinu asks the user at pre-run intake every time. After confirmed, content directions lock — every KOL candidate and every content brief must align with them.
-
-**URLs must be verified as working before being saved to Notion.**
-Every URL must be navigated to and confirmed as loading correctly. A URL that has not been visited is not a valid source.
-
-**Social media segmentation drives platform priority.**
-Before running KOL research or content research, establish which platforms the target buyer actually uses and in what proportion. Allocate research effort proportionally — not evenly across all platforms.
-
-**Country and Region column definition.**
-Country = brand's origin/founding country. Region = the broader geographic region of that origin country. NOT the market being targeted.
-
-**Source URL format standard.**
-All source citations: "Source Name — [URL]". Never a URL alone. Never a name alone. Always both.
-
-**Geo-tagging standard.**
-All geo-tagged data uses specific countries. Never broad regions. Every relevant database has a Country (multi-select) column.
-
-**KOL tier standard.**
-Nano (<10K) and Micro (10K–100K) only. Minimum engagement benchmarks required.
-
-**B2B research — "Where to Buy" check is mandatory.**
-Check the "Where to Buy" / "Find a Retailer" page on every competitor's website. Cross-reference each named retailer against the existing B2B Partners database before adding new records.
-
-**Reddit is a primary platform for all international brand research.**
-Reddit provides high-quality global buyer signal. Do not scale it back for international brand work.
-
-**Product and retailer URLs must link directly to the specific product page.**
-A retailer homepage URL does not prove a product is stocked there. Only a direct product listing URL is valid proof.
+**Template workspace:** `33b38ff78ba48081a88cc931c54e9df3` — reference structure for new full-brand research workspaces.
 
 ---
 
 ## Research Efficiency Standards
 
-Quality is non-negotiable. Speed is a discipline, not a compromise. These rules keep runs tight without cutting depth.
-
-**Three limit types — applied based on task nature:**
+**Three limit types:**
 - **Time limit** — for discovery and browsing phases. Stop when time is up, document what was found, move on.
-- **Output completeness** — for structured deliverables that must be valid to be usable downstream. No time limit — done when the output meets the completeness standard. Not before.
-- **Source cap** — for research phases. Cap the inputs, not the output quality.
+- **Output completeness** — for structured deliverables (personas, briefs, etc.). Done when the output meets the completeness standard. No time limit.
+- **Source cap** — cap at 5–7 primary sources per task before synthesising. Jinu can direct a second pass if depth is insufficient.
 
-**Default limits per cluster — user-customizable at pre-run intake:**
-
-- Phase 0 — Market Scoping: **10 min** (time)
-- Cluster A Part 1 — Pass 1: **8 min** (time + source cap 5) / Pass 2: **8 min** (time + source cap 5) / Pass 3: **output completeness, top 5 competitors**
-- Cluster A Part 2 — Pass 1: **output completeness, min 3 personas** / Pass 2: **output completeness, min 15 signals**
-- Cluster B — Market Sizing: **output completeness** / KOL: **6 min, min 5 KOLs** / B2B: **6 min, min 5 retailers**
-- Cluster C — Tasks 1–4: **time (8 / 6 / 6 / 4 min)** / Task 5: **output completeness, min 6 briefs**
-- Final Phase: **output completeness**
-
-**Depth first, breadth second.**
-Start with the single highest-signal source for the task. Exhaust it before moving to the next.
-
-**Sufficiency over completion.**
-A task is done when findings are genuinely useful — not when a platform list is exhausted. Jinu judges sufficiency. If 3 sources produce strong, convergent findings, don't add 4 more for coverage.
+**Default targets per task type (user can adjust):**
+- Competitor research: top 5 competitors
+- Buyer research: min 3 personas, min 15 consumer signals
+- Market sizing: output completeness
+- KOL discovery: min 5 KOLs per brief
+- Retailer B2B: min 5 retailers per market
+- Content briefs: min 6 briefs (2 Exposure / 2 Conversion / 2 Retention)
 
 **No redundant coverage.**
-Research-primer runs first on every agent — it checks what already exists in Notion. Do not re-research findings from a prior run. Build on what's there.
-
-**Source cap per task.**
-For any single research task, cap at 5–7 primary sources before synthesizing. Jinu can direct a second pass if depth is insufficient.
-
-**Notion writes are not optional pauses.**
-Writing to Notion after each pass or task is not overhead — it is the checkpoint. It protects findings, enables `/clear`, and is the only reason split sessions work.
+Check what's already in Notion before starting. Do not re-research findings from a prior run. Build on what's there.
 
 ---
 
-## Session & Token Management
+## Browser Tool Decision Rule
 
-Full guide: `context/token-session-management.md` — read before any pipeline run.
+1. Dedicated MCP available? (Reddit → Reddit MCP, Notion → Notion MCP, Figma → Figma MCP) → Use that MCP.
+2. Login-gated platform? → Chrome DevTools MCP (`mcp__chrome__*`).
+3. Public site, no login needed? → Playwright MCP.
+4. Playwright failed on public site? → Fallback to Chrome DevTools MCP immediately. Never fall back to web search as a browser substitute.
 
-- `/context` at session start — always, before any pipeline work begins
-- `/clear` between every cluster — mandatory, after Notion writes verified and session-context.md updated
-- `/compact` within a single agent run only if context pressure builds mid-agent — never at cluster boundaries
-- Session splits at cluster boundaries only — never interrupt a running agent
-- Research quality never degrades for token reasons
-- Sonnet 4.6 for all agents — no exceptions
+**Chrome DevTools MCP — never use `isolatedContext`.** New tabs must inherit the full Chrome session including all logged-in accounts.
 
-**Recommended split for a full research run:**
-
-| Session | What runs |
-|---|---|
-| Session 1 | Phase 0 + Cluster A Part 1 (Market Intelligence) |
-| Session 2 | Cluster A Part 2 (Buyer Intelligence) |
-| Session 3 | Cluster B (Market Sizing + KOL + Retailer in parallel) |
-| Session 4 | Cluster C (Content Intelligence) + Final Phase |
-
----
-
-## Agent Quick Reference — What Each Agent Does and What Jinu Watches For
-
-Jinu reads each agent's full `.claude/agents/<name>.md` file before briefing them. This section is a CMO-level summary — what each agent does, what they're responsible for, and what Jinu specifically checks when evaluating their output.
-
-**Market Intelligence Agent**
-Runs Phase 0 (market scoping) + Cluster A Part 1 (industry landscape, market hierarchy, competitor intelligence). Must compile a KOL Candidates Spotted list at the end of Pass 3 — this list is mandatory input for KOL Tracker. *Jinu watches for:* unverified competitor claims, missing geo-tags, dead source URLs, and positioning language leaking into observation-phase findings.
-
-**Buyer Intelligence Agent**
-Runs Cluster A Part 2. Delivers the full STP framework — personas, consumer signals, verbatim language map. Starts fresh with a compressed handoff, never inherits Market Intelligence's full context. *Jinu watches for:* compressed persona summaries passed downstream (full output required), verbatim quotes without source URLs, signals not geo-tagged to confirmed markets.
-
-**Market Sizing Agent**
-Runs TAM/SAM/SOM using top-down + bottom-up methodologies. Must use the Amazon API script to cross-validate demand signals. *Jinu watches for:* top-down and bottom-up figures that don't converge within 20% (requires explanation), market figures older than 6 months, SOM projections without a clear assumption set.
-
-**KOL Tracker**
-Finds KOL candidates whose content world naturally includes audio/tech/music. Reads KOL POOLS database at start to build exclusion list — never adds a duplicate. Writes immediately when a candidate passes all criteria — never batches. Key rules Jinu enforces: platform split (YouTube = product reviewers only, Instagram = everything else), content world test (scroll 10–15 posts before qualifying anyone), Agent Reason field required on every record, Tags and Description left blank for user to fill. *Jinu watches for:* creators tagged "Interior Design" or "Lifestyle" whose actual content is family/nature/pet/farming, YouTube candidates who aren't product reviewers, any record missing Agent Reason, any duplicate.
-
-**Retailer B2B Agent**
-Finds retail distribution opportunities in target markets. Must check the "Where to Buy" page on every competitor's site and cross-reference against existing B2B Partners database. *Jinu watches for:* retailer homepage URLs (invalid — needs direct product listing URL), retailers not geo-tagged to confirmed markets.
-
-**Content Intelligence Agent**
-Runs 5 tasks: trend/viral detection → platform content analysis → competitor content audit → funnel gap analysis → content briefs. Every brand referenced must be in the Competitor Registry. Every content brief must cite a specific Consumer Signals verbatim record. *Jinu watches for:* brands in recommendations not in the registry, briefs without verbatim citation, content directions from intake not reflected in brief topics.
-
-**Positioning Analyst**
-Phase 1 is embedded in Market Intelligence (Pass 2). Phase 2 runs directly via Jinu after all clusters complete — produces final positioning strategy, perceptual map, and messaging architecture. *Jinu watches for:* positioning claims not grounded in research findings, competitive whitespace claims without source verification.
-
-**Notion Manager**
-Writes all findings to Notion after every cluster. Also writes Cluster Narratives and updates session-context.md. Verifies every write by fetching one record back. *Jinu watches for:* narrative pages with missing sections, records written without geo-tags, session-context.md not updated after a cluster.
+**Navigation timeout ≠ failure.** Take a screenshot immediately after a timeout error. If the screenshot shows content, proceed. If blank, wait briefly and retry once.
 
 ---
 
 ## Date Rules
 
 - Run `date` at the start of every session
-- Prioritize evidence from the last 30 days
+- Prioritise evidence from the last 30 days
 - Accept up to 90 days as supporting evidence
 - 60-day maximum for content trend evidence
 - Flag and skip anything older than 6 months unless historically significant
 - Date-stamp every piece of evidence
+
+---
+
+## KOL Standards
+
+- **Tiers:** Nano (<10K) · Micro (10K–100K) · Mid-Tier (100K–500K) · Macro (500K–1M) · Mega (1M+)
+- **ER methodology:** Window = last 30 days. Instagram: (Avg Likes + Avg Comments) ÷ Followers × 100. YouTube: (Avg Likes + Avg Comments) ÷ Avg Views × 100. Benchmarks: <1% Low · 1–3.5% Average · >3.5% High.
+- **Content fit test:** Scroll 10–15 posts before qualifying anyone. Audio/tech/music must be natural in their world — not just a possible fit.
+- **Country verification:** Instagram "About this account" → "Account based in" is the definitive check. Bio signals and language are not sufficient.
+- **No duplicates:** Read the full KOL POOLS database at the start of every discovery task. Hard-exclude all existing handles before any discovery begins.
+- **Immediate writes:** Write each confirmed KOL to Notion immediately after confirmation. Never batch at the end.
+- **Agent Reason field:** Required on every record. 1–2 sentences. Tags and Description columns are reserved for the user — never fill them.
+
+---
+
+## B2B Retailer Standards
+
+- Check the "Where to Buy" / "Find a Retailer" page on every competitor's website.
+- Cross-reference each named retailer against the existing B2B Partners database before adding new records.
+- Product and retailer URLs must link directly to the specific product page. A retailer homepage does not prove a product is stocked there.
