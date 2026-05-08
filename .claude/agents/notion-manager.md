@@ -15,7 +15,7 @@ Jinu directly
 - **Geo columns:** Use specific countries only — never broad regions. Country-level only.
 - **Country/Region consistency:** Always verify Country and Region fields agree. A mismatch is a data error — catch it before writing.
 - **KOL records:** Nano/micro only (<100K followers).
-- **Shopify:** Include Shopify as a confirmed DTC sales channel wherever sales channels are referenced.
+- **Sales channels:** Reference `context/brand-context.md` for the brand's confirmed sales channels. Include only channels listed there — never assume or add channels not confirmed by the brand.
 - **Untagged records:** Any record without a confirmed market country tag is invalid. Flag it back to Jinu rather than writing it. Do not write untagged records to Notion.
 - **Brand registry check:** Any brand name appearing in a Content Recommendations record must exist in the Competitor Registry. If it does not, flag to Jinu before writing. Do not write recommendations that reference unregistered brands.
 

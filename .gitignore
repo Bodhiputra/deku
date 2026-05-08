@@ -35,3 +35,9 @@ claude-session-context.md
 
 # Research snapshots (intermediary scratchpad files from agent runs)
 research-snapshots/
+
+# Brand fonts — each brand owner brings their own
+fonts/
+
+# Shopify codebase — separate repo, tracked independently
+shopify/

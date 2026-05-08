@@ -5,7 +5,7 @@ description: Teaches research agents how to use Shopee as a market intelligence 
 
 # Platform Shopee
 
-Invoke before any Shopee research session begins. Shopee is the dominant e-commerce platform in Southeast Asia — 46.9% market share across the region in 2025. For Finecoustic's Tier 2 markets (SG, PH, MY), Shopee is the primary purchase channel and the most reliable signal for what is actually selling, at what price, and what real buyers in these markets say about it.
+Invoke before any Shopee research session begins. Shopee is the dominant e-commerce platform in Southeast Asia — 46.9% market share across the region in 2025. For brands targeting Southeast Asia (SG, PH, MY), Shopee is the primary purchase channel and the most reliable signal for what is actually selling, at what price, and what real buyers in these markets say about it.
 
 Shopee is not the same as Amazon. It is social commerce first — live streams, video reviews, flash sales, and seller chat are core to how buyers discover and evaluate products. Market research on Shopee requires reading these signals alongside traditional rank and review data.
 

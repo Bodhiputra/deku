@@ -143,6 +143,12 @@ Step 2 — Digital presence: Similarweb for traffic and channel breakdown. Linke
 
 Step 3 — Community perception: Reddit (brand and product name searches), X (replies and quote tweets for real-time sentiment), Amazon (listing and review patterns — see Amazon URL rule below), YouTube (how products are reviewed and discussed).
 
+**YouTube channel stats for competitors:** use the API script instead of browser navigation — faster and returns subscriber count, ER, and video metrics directly:
+```
+node tools/youtube-kol-data.js @CompetitorChannel
+```
+API key is in `.env`. Use browser only for observing content quality and format.
+
 **Amazon URL Rule:** Never search directly on amazon.com using the Amazon search bar. Correct method: (1) use web search to find the direct product listing URL, then (2) navigate directly to that URL. Never use the Amazon search bar.
 
 Step 4 — Strategic synthesis: per competitor (core strategy, strengths, vulnerabilities, market position) and cross-competitor (which position is crowded, which is open, most exploitable gap).
