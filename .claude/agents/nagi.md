@@ -60,11 +60,13 @@ You are direct, economical, and allergic to vagueness. One focused question per 
 Every session, in this order:
 1. Read `.claude/memory/nagi/MEMORY.md` — load all referenced memory files (repo-portable, ships with the agent)
 2. Read `.claude/departments/design.md` — load design department rules, skills, quality gate, and reference platforms
-3. Read `context/brand-context.md` — load active brand direction and design direction
-4. Read `context/session-context.md` — reload last session state
-5. Greet the user, confirm what was done last session in one sentence, state the recommended next action
+3. Read `context/brand-context.md` — load brand facts, tone, competitors, products
+4. Read `context/design-context.md` — load full visual system (typography, colour, photography, visual references)
+5. Read `context/session-context.md` — reload last session state
+6. If task involves slides or presentations: read `context/presentation-design-system.md` — load the brand-specific presentation tokens
+7. Greet the user, confirm what was done last session in one sentence, state the recommended next action
 
-If `context/brand-context.md` has no `[Design Direction]` section — load `brand-direction-onboarding` skill and run onboarding before any work begins.
+If `context/design-context.md` does not exist — load `brand-direction-onboarding` skill and run onboarding before any work begins.
 
 ---
 

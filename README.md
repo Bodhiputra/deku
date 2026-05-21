@@ -2,7 +2,7 @@
 
 Deku gives your brand a full marketing and design department powered by AI.
 
-**Jinu** is your Chief Marketing Officer. He runs a research team that maps your market, profiles your buyers, finds your competitors, identifies KOLs, discovers retail distribution opportunities, and builds your content strategy — all documented automatically in Notion.
+**Jinu** is your Chief Marketing Officer. He maps your market, profiles your buyers, finds your competitors, identifies KOLs, discovers retail distribution opportunities, and builds your content strategy — all documented automatically in Notion.
 
 **Nagi** is your Chief Design Officer. He handles all design work — brand identity, website design, social assets, presentations, and ad creatives — and saves everything to Figma.
 
@@ -25,37 +25,25 @@ That's it.
 
 ## Getting started
 
-**Step 1 — Clone and run setup**
+**Step 1 — Clone the repo and open Claude Code**
 
 ```bash
 git clone https://github.com/bodhiputra/deku.git
 cd deku
-./setup.sh
-```
-
-Setup will check your system, create the files it needs, and tell you exactly what to do next.
-
----
-
-**Step 2 — Open Claude Code and run setup**
-
-In the project folder, run:
-
-```bash
 claude
 ```
 
-Then say:
+---
+
+**Step 2 — Run setup**
+
+Once Claude Code is open, say:
 
 ```
 setup Jinu
 ```
 
-Your Claude Code assistant will read the setup guide, run the setup script on your behalf, walk you through the Chrome connection step, and tell you when everything is ready. You just follow along.
-
----
-
-During setup, your assistant will also connect Notion and Figma for you — a browser window will open for each, you log in and click Allow. This is how Jinu writes research findings to Notion automatically and how Nagi saves design work to Figma.
+Your assistant handles everything from here — checks your system, creates the files it needs, connects Chrome, walks you through Notion and Figma (a browser window opens for each, you log in and click Allow). You just follow along.
 
 ---
 
@@ -73,20 +61,20 @@ Jinu will introduce himself, ask you about your brand, and guide you through eve
 
 ## What happens next
 
-Jinu starts with a short conversation — about 15 minutes. He asks about your brand, your product, your goals, and your market. Then he briefs his research team and the work begins.
+Jinu starts with a short onboarding conversation — about 15 minutes. He asks about your brand, your product, your goals, and your market. Everything goes into Notion.
 
-A full research run takes about 3 hours and runs completely on its own. You come back to a full report covering:
+From there, you work task by task. Tell Jinu what you need and he goes and does it:
 
-- Your market — size, growth, key dynamics
-- Your competitors — who they are, how they position, where the gaps are
-- Your buyers — who's actually buying at your price tier, what they care about, what frustrates them
-- Market opportunity — how big the addressable market is
-- KOLs — ranked shortlist with fit reasoning
-- Retailers — distribution opportunities by market
-- Content strategy — what to make, for whom, on which platform
-- Positioning — where your brand should sit and what to say
+- **Research the market** — industry landscape, key dynamics, where the opportunity is
+- **Research competitors** — who they are, how they position, where they're weak
+- **Research buyers** — who's actually buying, what drives them, their exact words
+- **Size the market** — TAM/SAM/SOM with methodology and sources
+- **Find KOLs** — ranked shortlist by platform, content fit, and engagement
+- **Find retailers** — distribution opportunities by market
+- **Build a content strategy** — what to make, for whom, on which platform
+- **Positioning** — where your brand should sit and what to say
 
-Everything is documented in Notion with links to the full data.
+Each task runs on its own — typically 30–60 minutes — and all findings are documented in Notion automatically.
 
 ---
 
@@ -124,7 +112,7 @@ These files are gitignored and never shared:
 ## Troubleshooting
 
 **Chrome isn't connecting**
-Make sure Chrome is open and `chrome://inspect/#devices` has "Discover network targets" toggled ON.
+Make sure Chrome is open, go to `chrome://inspect/#remote-debugging`, and toggle "Allow remote debugging for this browser instance" ON.
 
 **Notion isn't connecting**
 Run `claude` in the project folder and follow any OAuth prompts that appear.

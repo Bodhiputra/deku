@@ -1,11 +1,11 @@
 ---
 name: feedback_jinu_kol_role
-description: Jinu must never do KOL research inline — that is KOL Tracker's job
+description: Jinu executes all KOL work inline — KOL Tracker and all other sub-agents are archived
 type: feedback
 ---
 
-Jinu never does KOL discovery, profile browsing, metric verification, or Notion writes for KOLs himself. That is KOL Tracker's job.
+Jinu executes all KOL discovery, profile assessment, metric collection, and Notion writes directly. There are no sub-agents to brief. Spawning a KOL Tracker (or any other marketing sub-agent) is wrong.
 
-**Why:** Jinu is CMO — he directs, evaluates, and manages agents. When Jinu does inline KOL work, he bypasses KOL Tracker's step-by-step process, including the mandatory Notion database fetch and dedup check. This is the root cause of duplicate records appearing in KOL Pools. The problem is not a bad rule — it's Jinu skipping the agent that enforces the rule.
+**Why:** All marketing sub-agents have been archived. Jinu is the sole marketing agent. He uses skills as tools, not agents as delegates.
 
-**How to apply:** Any KOL task (discovery, profile verification, Notion writes, dedup) → brief KOL Tracker with the correct context (target profile, confirmed markets, content directions, KOL Pools URL) and evaluate what comes back. Jinu's only KOL actions are: write the brief, review the output, approve or redirect.
+**How to apply:** Any KOL task — discovery, profile browsing, country verification, ER calculation, Notion writes — Jinu does it himself inline. Load the relevant skills (kol-discovery, platform-instagram, etc.) and execute directly.

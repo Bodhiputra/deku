@@ -7,7 +7,7 @@
 
 Deku is an AI marketing and design team built on Claude Code. It gives brand owners access to two senior roles:
 
-- **Jinu** — Chief Marketing Officer. Runs a full research pipeline: market scoping, competitor intelligence, buyer profiling, market sizing, KOL discovery, retailer research, content intelligence, and positioning. All findings are written to Notion automatically.
+- **Jinu** — Chief Marketing Officer. Works task by task — market research, competitor intelligence, buyer profiling, market sizing, KOL discovery, retailer research, content strategy, and positioning. All findings are written to Notion automatically.
 - **Nagi** — Chief Design Officer. Handles all design work: brand identity, web design, social assets, presentations, ad creatives. All work is saved to Figma.
 
 Both operate as inline personas — when a brand owner says "Jinu" or "Nagi," Claude Code adopts that persona directly. No subagents, no separate processes.
@@ -172,11 +172,11 @@ To switch back to the regular Claude Code assistant:
 
 When a brand owner asks what Jinu does, explain it this way:
 
-*"Jinu is your Chief Marketing Officer. He runs a research team that does everything a professional marketing department does — maps your market, profiles your buyers, finds your competitors, identifies which influencers (KOLs) to work with, finds retail distribution opportunities, and builds your content strategy. He documents everything in Notion so you have a real research workspace, not just a chat history.*
+*"Jinu is your Chief Marketing Officer. He does everything a professional marketing department does — maps your market, profiles your buyers, finds your competitors, identifies which influencers (KOLs) to work with, finds retail distribution opportunities, and builds your content strategy. He documents everything in Notion so you have a real research workspace, not just a chat history.*
 
-*A full research run takes about 3 hours and runs completely on its own. Jinu talks to you for about 15 minutes at the start to understand your brand and product. Then the team goes to work and comes back with a full report.*
+*You work with Jinu task by task. Tell him what you need — 'research my competitors', 'find KOLs in the US', 'size my market' — and he goes and does it. Each task takes about 30–60 minutes and delivers findings directly to Notion.*
 
-*You don't need to understand how the research works — just tell Jinu what your product is and what you're trying to achieve. He handles the rest."*
+*You don't need to understand how the research works — just tell Jinu what your product is and what you need. He handles the rest."*
 
 ---
 
@@ -188,51 +188,51 @@ When a brand owner asks what Jinu does, explain it this way:
 
 ---
 
-## What the full research pipeline covers
+## What Jinu can research — task menu
 
-Explaining to a brand owner what a full run produces:
+Explaining to a brand owner what they can ask Jinu to do:
 
-| Area | What Jinu finds |
+| Task | What Jinu delivers |
 |---|---|
-| Market | Size, growth rate, key trends, where the activity is |
-| Competitors | Who they are, how they position, where they're weak |
-| Buyers | Who's actually buying, what drives them, what frustrates them, their exact words |
-| Market opportunity | TAM/SAM/SOM in plain numbers — what Year 1 looks like |
-| KOLs | Ranked shortlist by platform, content fit, and engagement |
-| Retailers | Distribution opportunities by market — specific retailer targets |
-| Content strategy | What to make, for whom, on which platform, in what order |
+| Research the market | Industry size, growth rate, key trends, where the activity is |
+| Research competitors | Who they are, how they position, where they're weak |
+| Research buyers | Who's actually buying, what drives them, what frustrates them, their exact words |
+| Size the market | TAM/SAM/SOM in plain numbers — what Year 1 looks like |
+| Find KOLs | Ranked shortlist by platform, content fit, and engagement |
+| Find retailers | Distribution opportunities by market — specific retailer targets |
+| Build a content strategy | What to make, for whom, on which platform, in what order |
 | Positioning | Where the brand should sit, what to say, what not to say |
 
 ---
 
 ## Run modes — explaining to brand owners
 
-Jinu asks at the start of every research run which mode the brand owner prefers:
+For each task, Jinu can work in one of two modes:
 
-**Autonomous:** Jinu runs the full research without any check-ins. The brand owner comes back to a completed, validated report. Good for busy founders who want to step away completely.
+**Autonomous:** Jinu runs the task without check-ins. The brand owner comes back to completed findings. Good for straightforward tasks where the scope is clear.
 
-**Interactive:** Jinu sends a brief update after each major phase — what was found, what's interesting, what's coming next. The brand owner can respond and redirect if needed, or just read. Good for brand owners who want visibility.
+**Interactive:** Jinu gives a brief update when something interesting comes up — an unexpected finding, a question about scope, or a fork in the research. Good for exploratory tasks where the brand owner wants visibility.
 
-Default is Interactive.
+Default is Interactive. The brand owner can change the mode per task.
 
 ---
 
 ## Common questions from brand owners
 
 **"Do I need to watch it run?"**
-No. You set it up with Jinu at the start (15 minutes), then you can close the laptop or do other work. Jinu runs the pipeline on his own.
+No. Give Jinu the task and you can step away. Each task runs on its own — typically 30–60 minutes — and Jinu will update you when it's done.
 
 **"Where do my research findings go?"**
 Everything goes to Notion automatically — 10 research databases plus narrative reports. If you don't have Notion, Jinu can also deliver findings as structured written reports.
 
-**"How long does a full run take?"**
-About 3 hours for a full pipeline. Individual targeted runs (just competitors, just KOLs) are much faster — usually 30–60 minutes.
+**"How long does a task take?"**
+Typically 30–60 minutes depending on the task. KOL discovery and market sizing tend to take longer. Competitor research and trend checks are faster.
 
-**"Can I run it again if I launch a new product?"**
-Yes. Each run can be scoped to a specific product. Jinu asks at intake which product this run is for.
+**"Can I do research for a new product?"**
+Yes. Each task can be scoped to a specific product. Jinu will ask which product the task is for before starting.
 
 **"Can Jinu and Nagi work at the same time?"**
-Yes. Open two terminal windows in the project directory — run `claude` in each. Jinu and Nagi can run simultaneously. Nagi reads from Notion, so Jinu's research findings are available to Nagi immediately.
+Yes. Open two terminal windows in the project directory — run `claude` in each. Jinu and Nagi can run simultaneously. Nagi reads Jinu's findings from Notion, so any completed research is available to Nagi immediately.
 
 **"What if I'm not technical?"**
 You don't need to be. Just talk to Jinu normally. He asks questions in plain English and explains everything he needs from you before starting.
@@ -264,11 +264,11 @@ project-root/
     └── settings.local.json      ← Local config and env vars (gitignored)
 ```
 
-**How CLAUDE.md works:** CLAUDE.md is the thin constitution — universal rules, team structure, and persona switching. The full detail for each department lives in `.claude/departments/marketing.md` (Jinu's full pipeline, coherence rules, core principles) and `.claude/departments/design.md` (Nagi's rules, skills, quality gate). Jinu and Nagi each load their department file at session start, alongside their repo-portable memory from `.claude/memory/jinu/` and `.claude/memory/nagi/`. You don't need to do anything — it's all wired into their session start protocols.
+**How CLAUDE.md works:** CLAUDE.md is the thin constitution — universal rules, team structure, and persona switching. The full detail for each department lives in `.claude/departments/marketing.md` (Jinu's operating principles, quality rules, research standards) and `.claude/departments/design.md` (Nagi's rules, skills, quality gate). Jinu and Nagi each load their department file at session start, alongside their repo-portable memory from `.claude/memory/jinu/` and `.claude/memory/nagi/`. You don't need to do anything — it's all wired into their session start protocols.
 
 **What brand owners can configure:** `context/brand-context.md` is the configuration layer. Brand owners update it with their brand facts, target markets, product details, and design direction. All agents read it and adapt. Nothing else needs to change.
 
-**What brand owners should never touch:** `.claude/agents/`, `.claude/departments/`, `.claude/skills/`, `.claude/memory/`, `CLAUDE.md`. These are core system files. Editing them can break the pipeline in ways that are difficult to diagnose. If something isn't working, check `context/brand-context.md` first — that's almost always where the fix lives.
+**What brand owners should never touch:** `.claude/agents/`, `.claude/departments/`, `.claude/skills/`, `.claude/memory/`, `CLAUDE.md`. These are core system files. Editing them can break the team in ways that are difficult to diagnose. If something isn't working, check `context/brand-context.md` first — that's almost always where the fix lives.
 
 ---
 
@@ -276,7 +276,7 @@ project-root/
 
 | Problem | Fix |
 |---|---|
-| Chrome MCP not connecting | Make sure Chrome is open, `chrome://inspect/#devices` has "Discover network targets" ON |
+| Chrome MCP not connecting | Make sure Chrome is open, go to `chrome://inspect/#remote-debugging`, toggle "Allow remote debugging for this browser instance" ON |
 | Notion MCP not responding | Re-run `./setup.sh`, restart `claude`, re-approve OAuth |
 | Figma MCP not responding | Same as Notion |
 | Reddit MCP not working | Install uv: `curl -LsSf https://astral.sh/uv/install.sh \| sh` |

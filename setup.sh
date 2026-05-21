@@ -142,11 +142,6 @@ if [ ! -f "$PROJECT_ROOT/context/brand-context.md" ]; then
 - **Platform:** <!-- e.g. Notion, Google Docs, None -->
 - **Workspace link:** <!-- e.g. https://notion.so/your-page -->
 
-## Run Mode
-- **run_mode:** <!-- autonomous or interactive — set at pre-run intake -->
-
----
-
 ## Product Line
 <!-- One section per product. Added by Jinu during onboarding or when a new product is introduced. -->
 <!-- Never overwrite an existing product section — add new ones below. -->
@@ -155,17 +150,9 @@ if [ ! -f "$PROJECT_ROOT/context/brand-context.md" ]; then
 - **Price:**
 - **Key features:**
 - **Target use case:**
-- **KOL & content directions:** <!-- confirmed at pre-run intake each time this product is run -->
-- **Research runs:** <!-- list of dates and scope, e.g. "2026-04-09 — full pipeline, global" -->
+- **Research runs:** <!-- list of dates and scope, e.g. "2026-05-08 — KOL discovery, US/Canada" -->
 
 <!-- Add Product 2, Product 3 etc. below as needed -->
-
----
-
-## Run Targets (per-run overrides)
-<!-- These are reset at each pre-run intake. Defaults apply unless overridden. -->
-<!-- Format: [YYYY-MM-DD] Product name — overrides -->
-<!-- Example: [2026-04-09] Hako Nomad L — KOLs: min 20, Retailers: min 10 -->
 EOF
   echo "  ✓ context/brand-context.md"
 else
@@ -229,62 +216,20 @@ echo ""
 # ── Done ───────────────────────────────────────────────────────────────────────
 
 echo "======================================"
-echo "  Setup complete. 3 steps remaining."
+echo "  Setup complete."
 echo "======================================"
-echo ""
-echo "─────────────────────────────────────"
-echo "  STEP 1 — Enable Chrome debugging"
-echo "─────────────────────────────────────"
-echo ""
-echo "  Jinu uses Chrome to browse websites on your behalf — competitor pages,"
-echo "  Instagram, product listings, and more. This requires one toggle in Chrome."
-echo ""
-echo "  1. Open Chrome on your computer"
-echo "  2. In the address bar, type exactly and press Enter:"
-echo ""
-echo "       chrome://inspect/#remote-debugging"
-echo ""
-echo "  3. A page will open. Find the toggle:"
-echo "       'Allow remote debugging for this browser instance'"
-echo "  4. Turn it ON."
-echo "  5. Leave Chrome open as normal — you're done."
-echo ""
-echo "  Why this matters: without this, Jinu cannot browse any platform that"
-echo "  requires a login (Instagram, TikTok, etc). Research quality depends on it."
-echo ""
-echo "  You only need to do this once. Chrome will remember it."
-echo ""
-echo "─────────────────────────────────────"
-echo "  STEP 2 — Connect Notion and Figma"
-echo "─────────────────────────────────────"
-echo ""
-echo "  Jinu's team writes all research findings to Notion automatically."
-echo "  Nagi saves all design work to Figma."
-echo ""
-echo "  Both need a one-time connection approval from you."
-echo "  Your Claude Code assistant will trigger this during setup —"
-echo "  a browser window will open, you log in and click Allow."
-echo ""
-echo "  Notion account (free): https://notion.so"
-echo "  Figma account (free):  https://figma.com"
-echo ""
-echo "  If you only need marketing research (no design work),"
-echo "  Figma can be connected later when you first call Nagi."
-echo ""
-echo "─────────────────────────────────────"
-echo "  STEP 3 — Start"
-echo "─────────────────────────────────────"
 echo ""
 echo "  Open Claude Code in this folder:"
 echo ""
-echo "       cd $(basename $PROJECT_ROOT)"
 echo "       claude"
 echo ""
 echo "  Then say:"
 echo ""
-echo "       Jinu, let's get started"
+echo "       setup Jinu"
 echo ""
-echo "  Jinu will introduce himself and guide you through everything."
+echo "  Your assistant will walk you through the remaining steps —"
+echo "  Chrome connection, Notion, and Figma — and tell you when"
+echo "  everything is ready."
 echo ""
 echo "======================================"
 echo ""

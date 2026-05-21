@@ -56,33 +56,7 @@ Facts need source URLs. Inferences are labelled *"Implication:"* or *"What this 
 
 ---
 
-## Notion MCP — Failure Handling (Hard Rule)
-
-Any `fetch failed` error, any `tool not available` error, or any system-reminder showing Notion MCP tools as disconnected = **stop immediately and tell the user.** Do not attempt to diagnose whether it is page-specific or session-wide. Do not make any further Notion tool calls.
-
-**Why:** Once Notion MCP drops, all Notion tools are blacklisted for the rest of the session. Every call after that is guaranteed to fail. Reconnection does not re-register tools in the same session.
-
-**What to say:** *"Notion MCP just disconnected. Please start a fresh session — `claude --continue` or `claude --resume` — and Notion will reconnect cleanly."*
-
-**First failure = the signal. Stop on the first failure. No diagnostic attempts.**
-
----
-
 ## Notion Workspace Structure
-
-Findings are written to Notion after every task. The databases are the reference layer. Narrative pages summarise findings per task or per research area.
-
-**Databases (all records geo-tagged, all brands registered):**
-- Industry Signals
-- Competitor Registry
-- Buyer Personas
-- Consumer Signals & Pain Points
-- Market Sizing
-- KOL Registry
-- Potential B2B Partners
-- Content Intelligence
-- Viral Signals
-- Content Recommendations
 
 **Schema standards:**
 - Every relevant database has a Country (multi-select) column
@@ -114,39 +88,9 @@ Check what's already in Notion before starting. Do not re-research findings from
 
 ---
 
-## Browser Tool Decision Rule
-
-1. Dedicated MCP available? (Reddit → Reddit MCP, Notion → Notion MCP, Figma → Figma MCP) → Use that MCP.
-2. Login-gated platform? → Chrome DevTools MCP (`mcp__chrome__*`).
-3. Public site, no login needed? → Playwright MCP.
-4. Playwright failed on public site? → Fallback to Chrome DevTools MCP immediately. Never fall back to web search as a browser substitute.
-
-**Chrome DevTools MCP — never use `isolatedContext`.** New tabs must inherit the full Chrome session including all logged-in accounts.
-
-**Navigation timeout ≠ failure.** Take a screenshot immediately after a timeout error. If the screenshot shows content, proceed. If blank, wait briefly and retry once.
-
----
-
-## Date Rules
-
-- Run `date` at the start of every session
-- Prioritise evidence from the last 30 days
-- Accept up to 90 days as supporting evidence
-- 60-day maximum for content trend evidence
-- Flag and skip anything older than 6 months unless historically significant
-- Date-stamp every piece of evidence
-
----
-
 ## KOL Standards
 
-- **Tiers:** Nano (<10K) · Micro (10K–100K) · Mid-Tier (100K–500K) · Macro (500K–1M) · Mega (1M+)
-- **ER methodology:** Window = last 30 days. Instagram: (Avg Likes + Avg Comments) ÷ Followers × 100. YouTube: (Avg Likes + Avg Comments) ÷ Avg Views × 100. Benchmarks: <1% Low · 1–3.5% Average · >3.5% High.
-- **Content fit test:** Scroll 10–15 posts before qualifying anyone. Audio/tech/music must be natural in their world — not just a possible fit.
-- **Country verification:** Instagram "About this account" → "Account based in" is the definitive check. Bio signals and language are not sufficient.
-- **No duplicates:** Read the full KOL POOLS database at the start of every discovery task. Hard-exclude all existing handles before any discovery begins.
-- **Immediate writes:** Write each confirmed KOL to Notion immediately after confirmation. Never batch at the end.
-- **Agent Reason field:** Required on every record. 1–2 sentences. Tags and Description columns are reserved for the user — never fill them.
+*Moved to `kol-discovery` skill — load that skill for all KOL quality evaluation, ER formulas, C1–C6, required fields, and Notion write rules.*
 
 ---
 

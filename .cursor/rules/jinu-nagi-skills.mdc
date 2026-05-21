@@ -1,0 +1,33 @@
+---
+description: Load Jinu/Nagi workflows from .claude/skills (Claude Code skills in this repo)
+alwaysApply: true
+---
+
+# Marketing & design — Claude Code skills
+
+This repo’s marketing and design playbooks live in **`.claude/skills/`** (Claude Code format). Jarvis uses them the same way: read the matching `SKILL.md` when the task fits its `description`, then follow it.
+
+## When to load skills
+
+| Trigger | Action |
+|--------|--------|
+| User says **Jinu** / marketing research | Read `.claude/agents/jinu.md`, `context/brand-context.md`, `context/session-context.md`, then load the relevant skill (e.g. `kol-discovery`, `market-research`, `update-notion`) |
+| User says **Nagi** / design work | Read `.claude/agents/nagi.md`, brand context, then load design skills (e.g. `frontend-design`, `figma-craft`, `brand-compliance-review`) |
+| Notion writes | Always load `update-notion` first |
+| Full research run | Load `run-research` |
+
+## Skill location
+
+```
+.claude/skills/<skill-name>/SKILL.md
+```
+
+Do not wait for slash commands — match task → read skill → execute.
+
+## MCP in Cursor
+
+Skills may reference `mcp__notion__*` / `mcp__chrome__*` (Claude Code names). In Cursor, use the enabled MCP servers from this workspace (Notion, Chrome, Playwright, Figma, Reddit).
+
+## Team bible
+
+Broader rules: root `CLAUDE.md` and `.claude/departments/marketing.md` / `design.md`.

@@ -1,8 +1,14 @@
 # Session context (contains private brand info)
 context/session-context.md
+context/session-context-log.md
+context/session-context-archive.md
+context/kol-exclusion-list.md
 context/brand-context.md
+context/brand-kol-strategy.md
 context/confirmed-markets.md
 context/pipeline-state.md
+context/presentation-design-system.md
+context/design-context.md
 
 # Proof files (can be large)
 proofs/
