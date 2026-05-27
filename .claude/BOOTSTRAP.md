@@ -19,7 +19,7 @@ Regardless of host platform, the company system must resolve to the same:
 1. Canonical chiefs: Jinu, Nagi, Koji
 2. Shared workflow library: agents, departments, skills, memory, DOD
 3. Context model: `context/brand-context.md`, `context/session-context.md`, `context/confirmed-markets.md`
-4. Setup flow: clone repo → run `setup.sh` → open host assistant → say `setup Jinu`
+4. Setup flow: clone repo → run `setup.sh` → open host assistant → say `setup Deku`
 
 Host adapters may differ in wiring, but not in company behavior.
 

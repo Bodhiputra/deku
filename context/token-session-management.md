@@ -1,5 +1,5 @@
 # Token & Session Management — Company-Wide Guide
-_For Jarvis (Claude Code), Jinu & Marketing Team, Nagi & Design Team, and all future departments_
+_For the host assistant (Claude Code / Cursor / Codex), Jinu & Marketing, Nagi & Design, and all future departments_
 
 Read this before running any pipeline. Applies to every agent, every department, every session.
 

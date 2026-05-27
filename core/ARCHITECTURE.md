@@ -121,7 +121,7 @@ After `setup.sh` completes, a user on any first-class supported host should get:
    - clone repo
    - run `setup.sh`
    - open host assistant
-   - say `setup Jinu`
+   - say `setup Deku`
 5. The same company-level operating rules:
    - skill loading is mandatory
    - context loading is mandatory

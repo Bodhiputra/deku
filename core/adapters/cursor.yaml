@@ -45,7 +45,7 @@ logical_tools:
   web_search: true  # host-native
 
 setup_sh_aware: true  # setup.sh does not detect Cursor via CLI; host still works
-setup_jinu_trigger: true
+setup_deku_trigger: true  # user says "setup Deku" (legacy: "setup Jinu")
 
 known_limitations:
   - Chiefs run as inline persona switching only (no native agent configs)

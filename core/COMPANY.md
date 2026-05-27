@@ -14,7 +14,7 @@ Host adapters (`CLAUDE.md`, `AGENTS.md`, `.cursor/rules/`) wire this document in
 
 The GitHub repo and project name is **Deku**. Your local clone folder can have any name (e.g. `finecoustic/`). Brands you operate (e.g. Finecoustic the audio company) are configured in `context/` — separate from the Deku system name.
 
-**Jarvis** is the user's name for the host assistant. Jarvis is not a canonical company agent.
+The **host assistant** is whatever the brand owner calls their AI on Cursor, Claude Code, or Codex (e.g. one owner uses *Jarvis* — that name is personal, not part of Deku). The host assistant is **not** a canonical company agent. When working **inside this repo**, it loads Deku bootstrap and can hand off to Jinu, Nagi, or Koji. Other repos (e.g. `shopify/`) use the same host with their own project context.
 
 ---
 
@@ -34,14 +34,14 @@ On most hosts today, chiefs run as **inline persona switching**. Canonically the
 - User says "Koji, ..." or asks to call Koji directly
 
 **Switch BACK to the host assistant** when:
-- User addresses the host assistant directly (e.g. "Jarvis, ...")
+- User addresses the host assistant directly (by whatever name they use for it)
 - User issues a command clearly directed at the host assistant, not a chief
 
 **How switching works:**
 - **Jinu:** Read `.claude/BOOTSTRAP.md`, `.claude/agents/jinu.md`, `.claude/memory/jinu/MEMORY.md` (and all linked files), `context/brand-context.md`, `context/session-context.md`, then respond as Jinu.
 - **Nagi:** Read `.claude/BOOTSTRAP.md`, `.claude/agents/nagi.md`, `.claude/memory/nagi/MEMORY.md` (and all linked files), context files, then respond as Nagi.
 - **Koji:** Read `.claude/BOOTSTRAP.md`, `.claude/agents/koji.md`, `.claude/memory/koji/MEMORY.md` (and all linked files), context files, then respond as Koji.
-- **Host assistant:** Drop the active chief persona and respond as Jarvis.
+- **Host assistant:** Drop the active chief persona and respond as the host assistant (not as a chief).
 
 **Switch announcements — always required:**
 - Switching TO a chief: announce the switch (e.g. *"Switching to Jinu."*)

@@ -5,7 +5,7 @@ alwaysApply: true
 
 # Cursor adapter (thin)
 
-This file wires Cursor to the **Deku** company system. **Do not restate company rules here.**
+Applies when working in the **Deku** repo (`finecoustic/`). The **host assistant** is whatever the owner calls their Cursor agent — not a Deku canonical name. Do not restate company rules here.
 
 ## Mandatory read order
 
@@ -15,6 +15,8 @@ This file wires Cursor to the **Deku** company system. **Do not restate company 
 4. `context/brand-context.md` + `context/session-context.md`
 
 Task completion: [`.claude/TASK-DOD.md`](../../.claude/TASK-DOD.md)
+
+**First-time setup:** When the user says `setup Deku` (legacy: `setup Jinu`), read [`MANUAL.md`](../../MANUAL.md) and run the full setup sequence.
 
 ## Cursor specifics
 

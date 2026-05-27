@@ -41,7 +41,7 @@ logical_tools:
   web_search: true  # native Claude Code capability
 
 setup_sh_aware: true
-setup_jinu_trigger: true
+setup_deku_trigger: true  # user says "setup Deku" (legacy: "setup Jinu")
 
 known_limitations: []
 

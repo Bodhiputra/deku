@@ -17,7 +17,8 @@ The server serves the UI **and** saves edits to `brands/finecoustic/ops-data.jso
 | Who | Does what |
 |---|---|
 | **You** | View dashboards; quick-edit stock on Inventory tab |
-| **Koji / Jarvis** | Bulk updates, B2B orders, Shopify sync, hub changes |
+| **Koji** | Bulk updates, B2B orders, Shopify sync, hub changes |
+| **Host assistant** | General tasks, setup, cross-project help — not ops system of record |
 
 ## Data
 

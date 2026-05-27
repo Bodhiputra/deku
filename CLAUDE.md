@@ -18,7 +18,7 @@ Task completion: [`.claude/TASK-DOD.md`](.claude/TASK-DOD.md)
 
 Run `claude` from the repo root. No wrapper script.
 
-**Setup Jinu:** When the user says "setup Jinu", read [`MANUAL.md`](MANUAL.md) and run the full setup sequence ( `./setup.sh`, Chrome tutorial, Notion/Figma OAuth, hand off to Jinu).
+**Setup Deku:** When the user says "setup Deku" (legacy: "setup Jinu"), read [`MANUAL.md`](MANUAL.md) and run the full setup sequence (`./setup.sh`, Chrome tutorial, Notion/Figma OAuth, then hand off to the team — recommend `Jinu, let's get started` for new brands).
 
 ---
 

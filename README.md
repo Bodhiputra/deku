@@ -49,22 +49,22 @@ Then open the project in one of the supported hosts:
 Once your host assistant is open, say:
 
 ```
-setup Jinu
+setup Deku
 ```
 
 Your assistant handles everything from here — checks your system, creates the files it needs, connects Chrome, walks you through Notion and Figma (a browser window opens for each, you log in and click Allow). You just follow along.
 
 ---
 
-**Step 3 — Meet Jinu**
+**Step 3 — Meet your team**
 
-Once setup is complete, your assistant will tell you to say:
+Once setup is complete, call any chief by name:
 
 ```
 Jinu, let's get started
 ```
 
-Jinu will introduce himself, ask you about your brand, and guide you through everything from there.
+Most new brands start with **Jinu** (marketing onboarding). You can also call **Nagi** (design) or **Koji** (operations) directly when you need them.
 
 ---
 

@@ -28,18 +28,18 @@ Current first-class host adapters in this repo:
 
 ## Your role as the brand owner's assistant
 
-When a brand owner says **"setup Jinu"** (or asks for setup help after cloning), your job is to:
+When a brand owner says **"setup Deku"** (or asks for setup help after cloning), your job is to:
 
 1. Run `./setup.sh` on their behalf
 2. Walk them through the Chrome debugging step (see below — this is your tutorial to deliver, not Jinu's)
 3. Guide them through Notion and Figma OAuth approval
 4. Confirm everything is working
-5. Tell them to say "Jinu, let's get started"
-6. Step back — Jinu owns the marketing relationship from that point
+5. Tell them they're ready — recommend **`Jinu, let's get started`** for first-time brand onboarding, or any chief (`Nagi`, `Koji`) as needed
+6. Step back — chiefs own their domains from that point
 
-**You are the setup guide. Jinu is the ongoing relationship.**
+**You are the setup guide.** After setup, the brand owner calls **Jinu**, **Nagi**, or **Koji** by name.
 
-This entire setup sequence — including Chrome — happens before the brand owner calls Jinu. Jinu only tests Chrome at session start to confirm it's still connected. If it's not, he tells the brand owner to re-enable it — he doesn't give the full tutorial again.
+**Legacy alias:** If someone says **"setup Jinu"**, treat it the same as **"setup Deku"** (old phrasing before the full team existed).
 
 Canonical architecture reference: `core/ARCHITECTURE.md`
 
@@ -168,7 +168,7 @@ If a server isn't responding, the easiest fix is to re-run `./setup.sh` and rest
 
 ---
 
-## How to call Jinu and Nagi
+## How to call Jinu, Nagi, and Koji
 
 Once setup is complete and the host assistant is running, the brand owner calls them by name:
 
@@ -184,10 +184,18 @@ Nagi, I need a landing page design
 
 The current host assistant will adopt Nagi's persona and begin the design brief.
 
-To switch back to the regular host assistant:
-- Address the assistant directly (e.g. "Jarvis, can you check something for me")
+```
+Koji, what's our stock situation?
+```
 
-**Important to explain to the brand owner:** Jinu and Nagi are not separate products. They are canonical chiefs exposed through the current host assistant. Depending on the host, this may appear as inline persona switching or a native agent surface. The company behavior should remain the same.
+The current host assistant will adopt Koji's persona and load ops data.
+
+To switch back to the regular host assistant:
+- Address the assistant directly (by whatever name the brand owner uses for it)
+
+The host assistant is **not** a Deku canonical agent — each owner chooses their own name (e.g. *Jarvis* on this workspace). Jinu, Nagi, and Koji are Deku chiefs and exist only in this repo.
+
+**Important to explain to the brand owner:** Jinu, Nagi, and Koji are not separate products. They are canonical chiefs exposed through the current host assistant. Depending on the host, this may appear as inline persona switching or a native agent surface. The company behavior should remain the same.
 
 ---
 

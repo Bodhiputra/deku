@@ -12,7 +12,7 @@ Design a platform-neutral core for the agentic AI company system so Jinu, Nagi, 
 
 ## Decisions Confirmed
 
-- `Jarvis` is only the user's name for the host assistant on each platform. Jarvis is **not** a canonical company agent.
+- The **host assistant** is whatever each brand owner calls their AI (Cursor, Claude, Codex) — personal name, not part of Deku. Example: one owner uses *Jarvis*; others may use any name. Chiefs (Jinu, Nagi, Koji) are canonical Deku agents in this repo only.
 - Canonical company agents: `Jinu` (marketing), `Nagi` (design), `Koji` (operations)
 - Agents are independent and capable of parallel operation; hosts may simulate via persona switching or native agent configs
 - **Supported hosts:** Claude Code, Codex, Cursor only

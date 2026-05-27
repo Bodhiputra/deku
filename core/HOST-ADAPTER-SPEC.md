@@ -12,7 +12,7 @@ This document defines what every AI host adapter must implement to run the canon
 
 A host adapter translates the portable company core into a specific AI runtime. Adapters are thin. They wire tools, expose chiefs, and load bootstrap rules. They must not redefine business logic, agent identity, or workflow behavior.
 
-**Jarvis** is the user's name for the host assistant on any platform. Jarvis is not a canonical company agent.
+The **host assistant** is the brand owner's AI on any platform and in any project — not a canonical company agent. Each owner may use their own name for it (e.g. *Jarvis* is one owner's choice, not a Deku default). This spec applies when the host is running the **Deku** company system; other projects use the same host with their own rules and context.
 
 ---
 
@@ -68,7 +68,7 @@ Every adapter must resolve these paths from the workspace root. Paths may be sym
 
 | Trigger | Handler |
 |---|---|
-| User says `setup Jinu` (or equivalent) | Host assistant reads `MANUAL.md` and runs setup sequence |
+| User says `setup Deku` (legacy: `setup Jinu`) | Host assistant reads `MANUAL.md` and runs setup sequence |
 
 ---
 
@@ -138,7 +138,7 @@ Adapters must support equivalent triggers:
 |---|---|
 | Address chief by name (`Jinu, ...`, `Nagi, ...`, `Koji, ...`) | Switch to or invoke that chief |
 | Cross-department discussion request | Multi-chief inline or sequential exchange |
-| Address host assistant by user's name (`Jarvis, ...`) | Return to host assistant surface |
+| Address host assistant directly (owner's chosen name) | Return to host assistant surface |
 
 ### 5.3 Switch announcements
 
@@ -193,9 +193,9 @@ After `setup.sh` completes, any first-class host must support the same onboardin
 1. Clone repo
 2. Run `./setup.sh`
 3. Open host assistant in workspace
-4. Say `setup Jinu`
+4. Say `setup Deku`
 5. Host assistant delivers setup tutorial (Chrome, OAuth, verification)
-6. User says `Jinu, let's get started`
+6. User meets a chief — typically `Jinu, let's get started` for new brand onboarding; or `Nagi` / `Koji` as needed
 
 `setup.sh` is host-neutral. It must not assume a single CLI host is installed.
 
@@ -328,7 +328,7 @@ Use this before declaring an adapter first-class.
 
 ### Onboarding
 
-- [ ] `setup Jinu` trigger works
+- [ ] `setup Deku` trigger works (legacy `setup Jinu` accepted)
 - [ ] Chrome + OAuth setup tutorial deliverable from host assistant
 - [ ] Post-setup handoff to Jinu works
 
