@@ -1,6 +1,6 @@
 #!/bin/bash
-# setup.sh — Jinu & Nagi Team Setup
-# Run once after cloning. Your Claude Code assistant can run this for you.
+# setup.sh — Deku setup
+# Run once after cloning. Your host assistant can run this for you.
 
 set -e
 
@@ -8,7 +8,7 @@ PROJECT_ROOT="$(cd "$(dirname "$0")" && pwd)"
 
 echo ""
 echo "======================================"
-echo "  Jinu & Nagi — Team Setup"
+echo "  Deku Setup"
 echo "======================================"
 echo ""
 
@@ -18,6 +18,7 @@ echo "Checking prerequisites..."
 echo ""
 
 MISSING=0
+HOST_FOUND=0
 
 if command -v node >/dev/null 2>&1; then
   echo "  ✓ Node.js"
@@ -36,10 +37,18 @@ fi
 
 if command -v claude >/dev/null 2>&1; then
   echo "  ✓ Claude Code"
-else
-  echo "  ✗ Claude Code not found"
-  echo "    Install from: https://claude.ai/code"
-  MISSING=1
+  HOST_FOUND=1
+fi
+
+if command -v codex >/dev/null 2>&1; then
+  echo "  ✓ Codex"
+  HOST_FOUND=1
+fi
+
+if [ "$HOST_FOUND" -eq 0 ]; then
+  echo "  ! No supported CLI host assistant detected"
+  echo "    First-class supported hosts in this repo: Claude Code, Codex, Cursor"
+  echo "    Cursor can still be used even though it is not detected via CLI here."
 fi
 
 if command -v uvx >/dev/null 2>&1; then
@@ -80,7 +89,7 @@ else
   echo "  ~ .playwright-mcp-config.json (already exists)"
 fi
 
-# Claude Code local settings — enables all MCPs defined in .mcp.json
+# Claude local settings — enables all MCPs defined in .mcp.json
 if [ ! -f "$PROJECT_ROOT/.claude/settings.local.json" ]; then
   mkdir -p "$PROJECT_ROOT/.claude"
   cat > "$PROJECT_ROOT/.claude/settings.local.json" << EOF
@@ -94,6 +103,48 @@ EOF
   echo "  ✓ .claude/settings.local.json"
 else
   echo "  ~ .claude/settings.local.json (already exists)"
+fi
+
+# ── Local secrets (.env) ───────────────────────────────────────────────────────
+
+echo ""
+echo "Setting up local secrets (gitignored)..."
+echo ""
+
+read_env_value() {
+  local file="$1" key="$2"
+  [ -f "$file" ] || return 0
+  grep -E "^${key}=" "$file" 2>/dev/null | head -1 | cut -d= -f2- | sed 's/^["'\'' ]*//;s/["'\'' ]*$//'
+}
+
+NOTION_KEY="$(read_env_value "$PROJECT_ROOT/.env" NOTION_API_KEY)"
+if [ -z "$NOTION_KEY" ] && command -v jq >/dev/null 2>&1 && [ -f "$PROJECT_ROOT/.claude/settings.local.json" ]; then
+  NOTION_KEY="$(jq -r '.env.NOTION_API_KEY // empty' "$PROJECT_ROOT/.claude/settings.local.json" 2>/dev/null)"
+fi
+
+if [ ! -f "$PROJECT_ROOT/.env" ]; then
+  cat > "$PROJECT_ROOT/.env" << EOF
+# Local secrets — never commit
+PROJECT_ROOT=$PROJECT_ROOT
+NOTION_API_KEY=$NOTION_KEY
+EOF
+  echo "  ✓ .env (from .env.example template)"
+else
+  echo "  ~ .env (already exists)"
+fi
+
+# Claude: sync PROJECT_ROOT from .env; optional NOTION passthrough for host subprocesses
+if command -v jq >/dev/null 2>&1; then
+  ENV_NOTION="$(read_env_value "$PROJECT_ROOT/.env" NOTION_API_KEY)"
+  mkdir -p "$PROJECT_ROOT/.claude"
+  if [ ! -f "$PROJECT_ROOT/.claude/settings.local.json" ]; then
+    echo '{"env":{"PROJECT_ROOT":"'"$PROJECT_ROOT"'"},"enableAllProjectMcpServers":true}' > "$PROJECT_ROOT/.claude/settings.local.json"
+  fi
+  tmp="$(mktemp)"
+  jq --arg root "$PROJECT_ROOT" --arg notion "$ENV_NOTION" \
+    '.env.PROJECT_ROOT = $root | (if ($notion | length) > 0 then .env.NOTION_API_KEY = $notion else . end)' \
+    "$PROJECT_ROOT/.claude/settings.local.json" > "$tmp" && mv "$tmp" "$PROJECT_ROOT/.claude/settings.local.json"
+  echo "  ✓ .claude/settings.local.json (synced from .env)"
 fi
 
 echo ""
@@ -213,23 +264,91 @@ fi
 
 echo ""
 
+# ── Cross-platform skill symlink (Codex) ─────────────────────────────────────
+
+echo "Linking and verifying Codex skills alias..."
+echo ""
+
+AGENTS_SKILLS="$PROJECT_ROOT/.agents/skills"
+CLAUDE_SKILLS="$PROJECT_ROOT/.claude/skills"
+SAMPLE_SKILL="kol-discovery/SKILL.md"
+
+mkdir -p "$PROJECT_ROOT/.agents"
+
+if [ ! -d "$CLAUDE_SKILLS" ]; then
+  echo "  ✗ .claude/skills not found — shared workflow library missing"
+  exit 1
+fi
+
+if [ -L "$AGENTS_SKILLS" ]; then
+  LINK_TARGET="$(readlink "$AGENTS_SKILLS")"
+  if [ "$LINK_TARGET" != "../.claude/skills" ]; then
+    rm "$AGENTS_SKILLS"
+    ln -s "../.claude/skills" "$AGENTS_SKILLS"
+    echo "  ✓ .agents/skills (symlink corrected → .claude/skills)"
+  else
+    echo "  ~ .agents/skills (symlink OK)"
+  fi
+elif [ -e "$AGENTS_SKILLS" ]; then
+  if [ -d "$AGENTS_SKILLS" ] && [ "$(ls -A "$AGENTS_SKILLS" 2>/dev/null | wc -l)" -gt 0 ]; then
+    BACKUP="$PROJECT_ROOT/.agents/skills.bak.$(date +%Y%m%d%H%M%S)"
+    mv "$AGENTS_SKILLS" "$BACKUP"
+    echo "  ! Moved duplicate .agents/skills → $(basename "$BACKUP")"
+  else
+    rm -rf "$AGENTS_SKILLS"
+  fi
+  ln -s "../.claude/skills" "$AGENTS_SKILLS"
+  echo "  ✓ .agents/skills → .claude/skills"
+else
+  ln -s "../.claude/skills" "$AGENTS_SKILLS"
+  echo "  ✓ .agents/skills → .claude/skills"
+fi
+
+if [ ! -f "$AGENTS_SKILLS/$SAMPLE_SKILL" ] || [ ! -f "$CLAUDE_SKILLS/$SAMPLE_SKILL" ]; then
+  echo "  ✗ Skills verify failed — $SAMPLE_SKILL not reachable via alias and canonical path"
+  exit 1
+fi
+
+# Detect circular symlinks: .claude/skills/* must not point back into .agents/
+BAD_LINKS=0
+while IFS= read -r -d '' link; do
+  target="$(readlink "$link")"
+  case "$target" in
+    *".agents/skills"*|*".agents/"*)
+      echo "  ✗ Circular skill symlink: $link → $target"
+      BAD_LINKS=1
+      ;;
+  esac
+done < <(find "$CLAUDE_SKILLS" -mindepth 1 -maxdepth 1 -type l -print0 2>/dev/null)
+
+if [ "$BAD_LINKS" -eq 1 ]; then
+  echo "  ✗ Fix: restore real skill dirs under .claude/skills/ (see core/WORKFLOW-LIBRARY.md)"
+  exit 1
+fi
+
+echo "  ✓ skills library verified ($SAMPLE_SKILL reachable)"
+
+echo ""
+
 # ── Done ───────────────────────────────────────────────────────────────────────
 
 echo "======================================"
 echo "  Setup complete."
 echo "======================================"
 echo ""
-echo "  Open Claude Code in this folder:"
+echo "  Supported first-class hosts:"
+echo "    Claude Code:  claude"
+echo "    Codex:        codex"
+echo "    Cursor:       open this folder in Cursor (rules in .cursor/rules/)"
 echo ""
-echo "       claude"
+echo "  Codex uses AGENTS.md + .agents/skills/ (symlinked)"
 echo ""
-echo "  Then say:"
+echo "  Local secrets (gitignored): .env — copy from .env.example if missing"
+echo "  Claude also reads .claude/settings.local.json (synced from .env by setup.sh)"
 echo ""
-echo "       setup Jinu"
+echo "  First time — say:  setup Jinu"
 echo ""
-echo "  Your assistant will walk you through the remaining steps —"
-echo "  Chrome connection, Notion, and Figma — and tell you when"
-echo "  everything is ready."
+echo "  Every session — the company bootstrap is:  .claude/BOOTSTRAP.md"
 echo ""
 echo "======================================"
 echo ""

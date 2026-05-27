@@ -1,0 +1,245 @@
+{
+  "meta": {
+    "brand": "Finecoustic",
+    "brand_slug": "finecoustic",
+    "updated_at": "2026-05-21T18:00:00Z",
+    "currency_default": "USD",
+    "notes": "Dongguan physical count is source of truth when it differs from calculated allocations."
+  },
+  "products": [
+    {
+      "sku": "FBS1",
+      "name": "Hako Nomad",
+      "status": "active",
+      "d2c_price_usd": 48.8,
+      "shopify_variant_id": null
+    },
+    {
+      "sku": "FBS2",
+      "name": "Hako Nomad L",
+      "status": "active",
+      "d2c_price_usd": 94.8,
+      "shopify_variant_id": null
+    },
+    {
+      "sku": "FT20",
+      "name": "Groove ANC",
+      "status": "legacy",
+      "d2c_price_usd": null,
+      "shopify_variant_id": null
+    },
+    {
+      "sku": "FT21",
+      "name": "Groove OWS",
+      "status": "legacy",
+      "d2c_price_usd": null,
+      "shopify_variant_id": null
+    },
+    {
+      "sku": "WFM1",
+      "name": "RESONO",
+      "status": "legacy",
+      "d2c_price_usd": null,
+      "shopify_variant_id": null
+    },
+    {
+      "sku": "WFM2",
+      "name": "Sonara",
+      "status": "legacy",
+      "d2c_price_usd": null,
+      "shopify_variant_id": null
+    }
+  ],
+  "warehouses": [
+    {
+      "id": "dongguan",
+      "name": "Dongguan",
+      "type": "source",
+      "update_mode": "manual"
+    },
+    {
+      "id": "shopify",
+      "name": "Shopify",
+      "type": "d2c",
+      "update_mode": "sync"
+    }
+  ],
+  "initial_stock": [
+    {
+      "sku": "FBS1",
+      "qty": 720,
+      "warehouse": "dongguan",
+      "as_of": "2026-05-21",
+      "notes": "Initial production run"
+    },
+    {
+      "sku": "FBS2",
+      "qty": 550,
+      "warehouse": "dongguan",
+      "as_of": "2026-05-21",
+      "notes": "Initial production run"
+    }
+  ],
+  "b2b_partners": [
+    {
+      "code": "FP",
+      "name": "Indonesia",
+      "country": "Indonesia",
+      "country_code": "ID",
+      "status": "active"
+    },
+    {
+      "code": "EPH",
+      "name": "Philippines",
+      "country": "Philippines",
+      "country_code": "PH",
+      "status": "active"
+    },
+    {
+      "code": "EHO",
+      "name": "Thailand",
+      "country": "Thailand",
+      "country_code": "TH",
+      "status": "active"
+    },
+    {
+      "code": "NBD",
+      "name": "Bangladesh",
+      "country": "Bangladesh",
+      "country_code": "BD",
+      "status": "active"
+    },
+    {
+      "code": "GCL",
+      "name": "Chile",
+      "country": "Chile",
+      "country_code": "CL",
+      "status": "active"
+    },
+    {
+      "code": "GRS",
+      "name": "Serbia",
+      "country": "Serbia",
+      "country_code": "RS",
+      "status": "active"
+    },
+    {
+      "code": "MCJO",
+      "name": "Jordan",
+      "country": "Jordan",
+      "country_code": "JO",
+      "status": "active"
+    },
+    {
+      "code": "MKH",
+      "name": "Cambodia",
+      "country": "Cambodia",
+      "country_code": "KH",
+      "status": "active"
+    },
+    {
+      "code": "RRL",
+      "name": "LOKESH BANSAL — Nepal",
+      "country": "Nepal",
+      "country_code": "NP",
+      "status": "active"
+    }
+  ],
+  "stock_milestones": [
+    {
+      "label": "After initial order (wave 1)",
+      "as_of": null,
+      "dongguan": { "FBS1": 192, "FBS2": 110 },
+      "notes": "720−528 FBS1 · 550−444 FBS2 — before new customers"
+    }
+  ],
+  "b2b_allocations": [
+    { "partner_code": "FP", "sku": "FBS1", "qty": 312, "date": null, "type": "initial", "batch": 1, "notes": "Initial order wave 1" },
+    { "partner_code": "FP", "sku": "FBS2", "qty": 300, "date": null, "type": "initial", "batch": 1, "notes": "Initial order wave 1" },
+    { "partner_code": "EPH", "sku": "FBS1", "qty": 120, "date": null, "type": "initial", "batch": 1, "notes": "Initial order wave 1" },
+    { "partner_code": "EPH", "sku": "FBS2", "qty": 50, "date": null, "type": "initial", "batch": 1, "notes": "Initial order wave 1" },
+    { "partner_code": "GCL", "sku": "FBS1", "qty": 24, "date": null, "type": "initial", "batch": 1, "notes": "Initial order wave 1" },
+    { "partner_code": "GCL", "sku": "FBS2", "qty": 20, "date": null, "type": "initial", "batch": 1, "notes": "Initial order wave 1" },
+    { "partner_code": "MCJO", "sku": "FBS1", "qty": 24, "date": null, "type": "initial", "batch": 1, "notes": "Initial order wave 1" },
+    { "partner_code": "MCJO", "sku": "FBS2", "qty": 24, "date": null, "type": "initial", "batch": 1, "notes": "Initial order wave 1" },
+    { "partner_code": "EHO", "sku": "FBS1", "qty": 48, "date": null, "type": "initial", "batch": 1, "notes": "Initial order wave 1" },
+    { "partner_code": "EHO", "sku": "FBS2", "qty": 50, "date": null, "type": "initial", "batch": 1, "notes": "Initial order wave 1" },
+    { "partner_code": "NBD", "sku": "FBS1", "qty": 12, "date": null, "type": "initial", "batch": 2, "notes": "New customer wave 2" },
+    { "partner_code": "NBD", "sku": "FBS2", "qty": 6, "date": null, "type": "initial", "batch": 2, "notes": "New customer wave 2" },
+    { "partner_code": "MKH", "sku": "FBS1", "qty": 12, "date": null, "type": "initial", "batch": 2, "notes": "New customer wave 2" },
+    { "partner_code": "MKH", "sku": "FBS2", "qty": 6, "date": null, "type": "initial", "batch": 2, "notes": "New customer wave 2" },
+    { "partner_code": "GRS", "sku": "FBS1", "qty": 12, "date": null, "type": "initial", "batch": 2, "notes": "New customer wave 2" },
+    { "partner_code": "GRS", "sku": "FBS2", "qty": 6, "date": null, "type": "initial", "batch": 2, "notes": "New customer wave 2" },
+    { "partner_code": "RRL", "sku": "FBS1", "qty": 48, "date": null, "type": "initial", "batch": 2, "notes": "New customer wave 2" },
+    { "partner_code": "RRL", "sku": "FBS2", "qty": 24, "date": null, "type": "initial", "batch": 2, "notes": "New customer wave 2" }
+  ],
+  "internal_use": [
+    { "sku": "FBS1", "qty": 12, "reason": "personal", "assignee": "Brand owner", "date": null },
+    { "sku": "FBS2", "qty": 6, "reason": "personal", "assignee": "Brand owner", "date": null }
+  ],
+  "inventory_manual": [
+    {
+      "sku": "FBS1",
+      "warehouse": "dongguan",
+      "qty": 58,
+      "as_of": "2026-05-21",
+      "notes": "Physical count. Books: 96 calculated (612 B2B + 12 personal) — 38 unknown."
+    },
+    {
+      "sku": "FBS2",
+      "warehouse": "dongguan",
+      "qty": 7,
+      "as_of": "2026-05-21",
+      "notes": "Physical count. Books: 58 calculated (486 B2B + 6 personal) — 51 unknown."
+    },
+    {
+      "sku": "FBS1",
+      "warehouse": "shopify",
+      "qty": 0,
+      "as_of": "2026-05-21",
+      "notes": "Manual entry — not yet synced from Shopify"
+    },
+    {
+      "sku": "FBS2",
+      "warehouse": "shopify",
+      "qty": 0,
+      "as_of": "2026-05-21",
+      "notes": "Manual entry — not yet synced from Shopify"
+    }
+  ],
+  "unknown_stock": [
+    {
+      "sku": "FBS1",
+      "qty": 38,
+      "warehouse": "dongguan",
+      "as_of": "2026-05-21",
+      "notes": "Destination unknown — not in B2B or personal records"
+    },
+    {
+      "sku": "FBS2",
+      "qty": 51,
+      "warehouse": "dongguan",
+      "as_of": "2026-05-21",
+      "notes": "Destination unknown — not in B2B or personal records"
+    }
+  ],
+  "inventory_discrepancy": [
+    {
+      "sku": "FBS1",
+      "calculated_remaining": 96,
+      "physical_remaining": 58,
+      "unaccounted": 38,
+      "as_of": "2026-05-21",
+      "notes": "Unknown destination — wave 1+2 B2B and personal logged; 38 units gap"
+    },
+    {
+      "sku": "FBS2",
+      "calculated_remaining": 58,
+      "physical_remaining": 7,
+      "unaccounted": 51,
+      "as_of": "2026-05-21",
+      "notes": "Unknown destination — wave 1+2 B2B and personal logged; 51 units gap"
+    }
+  ],
+  "movements": []
+}

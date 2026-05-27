@@ -1,0 +1,27 @@
+---
+description: Cursor host adapter — points to canonical bootstrap and company rules
+alwaysApply: true
+---
+
+# Cursor adapter (thin)
+
+This file wires Cursor to the **Deku** company system. **Do not restate company rules here.**
+
+## Mandatory read order
+
+1. [`.claude/BOOTSTRAP.md`](../../.claude/BOOTSTRAP.md) — session checklist (all chiefs, KOL gates, MCP mapping)
+2. [`core/COMPANY.md`](../../core/COMPANY.md) — operating rules (persona switching, permissions, Notion policy)
+3. [`core/ARCHITECTURE.md`](../../core/ARCHITECTURE.md) — architecture reference
+4. `context/brand-context.md` + `context/session-context.md`
+
+Task completion: [`.claude/TASK-DOD.md`](../../.claude/TASK-DOD.md)
+
+## Cursor specifics
+
+| Item | Location |
+|---|---|
+| MCP servers | `.cursor/mcp.json` |
+| Skills | `.claude/skills/<name>/SKILL.md` |
+| Codex parity | [`AGENTS.md`](../../AGENTS.md), [`CLAUDE.md`](../../CLAUDE.md) |
+
+Skills may say `mcp__chrome__*`, `mcp__notion__*`, etc. — use this workspace's MCP servers (Notion, Chrome, Playwright, Figma, Reddit).

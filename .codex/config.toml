@@ -1,0 +1,43 @@
+# Portable Codex adapter config — safe to commit.
+# API keys and secrets: .env only (gitignored). See .env.example and run ./setup.sh
+
+[mcp_servers.chrome]
+args = [
+    "-y",
+    "chrome-devtools-mcp@latest",
+    "--autoConnect",
+]
+command = "npx"
+
+[mcp_servers.figma]
+url = "https://mcp.figma.com/mcp"
+
+[mcp_servers.notion]
+url = "https://mcp.notion.com/mcp"
+
+[mcp_servers.playwright]
+args = [
+    "-y",
+    "@playwright/mcp@latest",
+    "--config",
+    ".playwright-mcp-config.json",
+]
+command = "npx"
+
+[mcp_servers.reddit]
+args = ["mcp-reddit"]
+command = "uvx"
+
+[shell_environment_policy]
+inherit = "core"
+
+[tui]
+status_line = [
+    "model-with-reasoning",
+    "current-dir",
+    "git-branch",
+    "context-remaining",
+    "five-hour-limit",
+    "weekly-limit",
+    "fast-mode",
+]

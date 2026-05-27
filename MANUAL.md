@@ -1,16 +1,28 @@
 # Deku — Assistant Manual
-*For Claude Code assistants helping brand owners set up and use Jinu and Nagi.*
+*For host assistants helping brand owners set up and use Jinu, Nagi, and Koji on Claude Code, Codex, and Cursor.*
 
 ---
 
 ## What this project is
 
-Deku is an AI marketing and design team built on Claude Code. It gives brand owners access to two senior roles:
+**Deku** is a platform-neutral AI company system. It gives brand owners access to canonical department leads through the current host platform.
+
+| Name | Meaning |
+|---|---|
+| **Deku** | Repo and project name for the AI agentic company system |
+| **Local folder** | Whatever you named the clone (e.g. `finecoustic/`) — paths in docs are relative to it |
+| **Brand** (e.g. Finecoustic) | A client brand configured in `context/` and `ops-hub/brands/` — not the Deku system |
 
 - **Jinu** — Chief Marketing Officer. Works task by task — market research, competitor intelligence, buyer profiling, market sizing, KOL discovery, retailer research, content strategy, and positioning. All findings are written to Notion automatically.
 - **Nagi** — Chief Design Officer. Handles all design work: brand identity, web design, social assets, presentations, ad creatives. All work is saved to Figma.
+- **Koji** — Chief Operating Officer. Handles product catalog, inventory, B2B accounts, Shopify sync, and local ops dashboards.
 
-Both operate as inline personas — when a brand owner says "Jinu" or "Nagi," Claude Code adopts that persona directly. No subagents, no separate processes.
+Some platforms expose them inline through persona switching. Others may expose them through native agent surfaces. That exposure model is an adapter concern, not the canonical system design.
+
+Current first-class host adapters in this repo:
+- Claude Code
+- Codex
+- Cursor
 
 ---
 
@@ -23,11 +35,13 @@ When a brand owner says **"setup Jinu"** (or asks for setup help after cloning),
 3. Guide them through Notion and Figma OAuth approval
 4. Confirm everything is working
 5. Tell them to say "Jinu, let's get started"
-6. Step back — Jinu owns the brand relationship from that point
+6. Step back — Jinu owns the marketing relationship from that point
 
 **You are the setup guide. Jinu is the ongoing relationship.**
 
 This entire setup sequence — including Chrome — happens before the brand owner calls Jinu. Jinu only tests Chrome at session start to confirm it's still connected. If it's not, he tells the brand owner to re-enable it — he doesn't give the full tutorial again.
+
+Canonical architecture reference: `core/ARCHITECTURE.md`
 
 ---
 
@@ -37,13 +51,19 @@ This entire setup sequence — including Chrome — happens before the brand own
 
 The brand owner needs:
 - Node.js installed (`node -v` to verify)
-- Claude Code installed (`claude --version` to verify)
+- At least one first-class supported host assistant
 - uv installed (`uvx --version` to verify) — for Reddit research. Optional but recommended.
 - Google Chrome installed
 - A Notion account (free at notion.so)
 - A Figma account (free at figma.com)
 
-If anything is missing, help them install it before proceeding.
+For CLI hosts, verify what is available:
+- Claude Code: `claude --version`
+- Codex: `codex --version`
+
+Cursor is an app, not a required CLI binary.
+
+If no supported host assistant is available, help them install one before proceeding.
 
 ### 2. Run setup.sh
 
@@ -55,13 +75,16 @@ This creates all required config files, scaffolds the context directory, and pri
 
 What it creates:
 - `.playwright-mcp-config.json` — browser config for public site scraping
-- `.claude/settings.local.json` — enables all MCP servers for this project
+- `.env` — local API keys (from `.env.example`; gitignored) — **single source of truth for secrets**
+- `.claude/settings.local.json` — Claude host settings (synced from `.env` by setup.sh)
 - `context/brand-context.md` — brand details (filled by Jinu during onboarding)
 - `context/session-context.md` — rolling session state
 
+Codex and Cursor use their own adapter surfaces already present in the repo.
+
 What it does NOT do (manual steps required):
 - Enable Chrome debugging (one-time toggle in Chrome)
-- Authenticate Notion and Figma (OAuth prompts in Claude Code)
+- Authenticate Notion and Figma (OAuth prompts in the current host assistant)
 
 ### 3. Enable Chrome debugging — your tutorial to deliver
 
@@ -96,7 +119,7 @@ Do this during setup, before the brand owner calls Jinu. Do not wait until Jinu 
 
 Notion is where all research findings are written. Without it, Jinu cannot document anything.
 
-To trigger: call any Notion MCP tool — for example, search for a page or list workspaces. Claude Code will return an authentication URL instead of a result.
+To trigger: call any Notion MCP tool — for example, search for a page or list workspaces. The current host assistant should return an authentication URL instead of a result.
 
 **What to say to the brand owner:**
 
@@ -112,7 +135,7 @@ If they don't have a Notion account: *"Notion is free — you can sign up at not
 
 Figma is where Nagi saves all design work. Only required if the brand owner plans to use the design department.
 
-To trigger: call any Figma MCP tool — for example, `whoami`. Claude Code will return an authentication URL.
+To trigger: call any Figma MCP tool — for example, `whoami`. The current host assistant should return an authentication URL.
 
 **What to say to the brand owner:**
 
@@ -132,7 +155,7 @@ If they only need marketing research and don't plan to use Nagi: Figma authentic
 
 ### 5. Verify MCPs are active
 
-All MCP servers are defined in `.mcp.json` at the project root. Claude Code loads these automatically when `enableAllProjectMcpServers: true` is set in `.claude/settings.local.json` (which setup.sh creates).
+Canonical MCP definitions live at the project root. Adapters may load them differently, but the company should expose the same MCP set across first-class supported hosts.
 
 The five MCP servers:
 - **reddit** — buyer research, community intelligence
@@ -141,30 +164,30 @@ The five MCP servers:
 - **notion** — reading and writing all research findings
 - **figma** — reading and writing design work
 
-If a server isn't responding, the easiest fix is to re-run `./setup.sh` and restart `claude`.
+If a server isn't responding, the easiest fix is to re-run `./setup.sh` and restart the current host assistant.
 
 ---
 
 ## How to call Jinu and Nagi
 
-Once setup is complete and `claude` is running, the brand owner calls them by name:
+Once setup is complete and the host assistant is running, the brand owner calls them by name:
 
 ```
 Jinu, let's get started
 ```
 
-Claude Code will adopt Jinu's persona and begin onboarding.
+The current host assistant will adopt Jinu's persona and begin onboarding.
 
 ```
 Nagi, I need a landing page design
 ```
 
-Claude Code will adopt Nagi's persona and begin the design brief.
+The current host assistant will adopt Nagi's persona and begin the design brief.
 
-To switch back to the regular Claude Code assistant:
+To switch back to the regular host assistant:
 - Address the assistant directly (e.g. "Jarvis, can you check something for me")
 
-**Important to explain to the brand owner:** Jinu and Nagi are not separate apps or separate tabs. They're the same Claude Code session — the persona switches inline. When they say "Jinu" they get Jinu. When they're done and address the assistant normally, Jinu steps back.
+**Important to explain to the brand owner:** Jinu and Nagi are not separate products. They are canonical chiefs exposed through the current host assistant. Depending on the host, this may appear as inline persona switching or a native agent surface. The company behavior should remain the same.
 
 ---
 
@@ -242,33 +265,38 @@ You don't need to be. Just talk to Jinu normally. He asks questions in plain Eng
 ## File structure reference
 
 ```
-project-root/
-├── .mcp.json                    ← All MCP server configs (auto-loaded)
-├── .playwright-mcp-config.json  ← Browser config for public scraping
-├── CLAUDE.md                    ← Team identity, switching rules, department registry
+project-root/                    ← Deku repo (local folder name may differ, e.g. finecoustic/)
+├── core/
+│   ├── ARCHITECTURE.md          ← Platform-neutral architecture
+│   ├── COMPANY.md               ← Company operating rules (persona, MCP, permissions)
+│   └── adapters/                ← Host adapter manifests
+├── .mcp.json                    ← MCP configs (Claude Code)
+├── .env.example                 ← Secret template (.env is gitignored)
+├── CLAUDE.md                    ← Claude Code adapter (thin)
+├── AGENTS.md                    ← Codex adapter (thin)
 ├── MANUAL.md                    ← This file
 ├── README.md                    ← Setup guide for brand owners
 ├── setup.sh                     ← One-time setup script
-├── skills-lock.json             ← Community skill versions
 ├── context/
 │   ├── brand-context.md         ← Brand facts (gitignored)
 │   ├── session-context.md       ← Research state (gitignored)
+│   ├── ops-context.md           ← Ops config per brand (gitignored)
 │   └── confirmed-markets.md     ← Tiered market list (written by Jinu after Phase 0)
 └── .claude/
-    ├── agents/                  ← Jinu, Nagi, and all sub-agent definitions
-    ├── departments/             ← Department operating manuals (marketing.md, design.md)
-    ├── skills/                  ← Custom skills for the team
-    ├── memory/
-    │   ├── jinu/                ← Jinu's repo-portable memory (ships with the agent)
-    │   └── nagi/                ← Nagi's repo-portable memory (ships with the agent)
-    └── settings.local.json      ← Local config and env vars (gitignored)
+    ├── BOOTSTRAP.md             ← Session checklist (all hosts)
+    ├── agents/                  ← Jinu, Nagi, Koji definitions
+    ├── departments/             ← Department operating manuals
+    ├── skills/                  ← Shared workflow library
+    └── memory/                  ← Chief memory + feedback files
 ```
 
-**How CLAUDE.md works:** CLAUDE.md is the thin constitution — universal rules, team structure, and persona switching. The full detail for each department lives in `.claude/departments/marketing.md` (Jinu's operating principles, quality rules, research standards) and `.claude/departments/design.md` (Nagi's rules, skills, quality gate). Jinu and Nagi each load their department file at session start, alongside their repo-portable memory from `.claude/memory/jinu/` and `.claude/memory/nagi/`. You don't need to do anything — it's all wired into their session start protocols.
+**How company rules load:** `.claude/BOOTSTRAP.md` runs every session and requires `core/COMPANY.md` for persona switching, MCP policy, and permissions. Department detail lives in `.claude/departments/`. Host adapters (`CLAUDE.md`, `AGENTS.md`, `.cursor/rules/`) only wire each platform — they do not restate company rules.
 
-**What brand owners can configure:** `context/brand-context.md` is the configuration layer. Brand owners update it with their brand facts, target markets, product details, and design direction. All agents read it and adapt. Nothing else needs to change.
+**What brand owners can configure:** `context/brand-context.md` is the configuration layer.
 
-**What brand owners should never touch:** `.claude/agents/`, `.claude/departments/`, `.claude/skills/`, `.claude/memory/`, `CLAUDE.md`. These are core system files. Editing them can break the team in ways that are difficult to diagnose. If something isn't working, check `context/brand-context.md` first — that's almost always where the fix lives.
+**Do not commit:** `.env`, `context/*` private state files, `.cursor/tmp/`, `.agents/skills.bak.*/`, `proofs/`, `output/`. See `.gitignore`.
+
+**What brand owners should never touch:** `.claude/agents/`, `.claude/departments/`, `.claude/skills/`, `.claude/memory/`, `core/`, adapter configs. If something isn't working, check `context/brand-context.md` first.
 
 ---
 
@@ -277,7 +305,7 @@ project-root/
 | Problem | Fix |
 |---|---|
 | Chrome MCP not connecting | Make sure Chrome is open, go to `chrome://inspect/#remote-debugging`, toggle "Allow remote debugging for this browser instance" ON |
-| Notion MCP not responding | Re-run `./setup.sh`, restart `claude`, re-approve OAuth |
+| Notion MCP not responding | Re-run `./setup.sh`, restart the current host assistant, re-approve OAuth |
 | Figma MCP not responding | Same as Notion |
 | Reddit MCP not working | Install uv: `curl -LsSf https://astral.sh/uv/install.sh \| sh` |
 | Playwright not launching | Re-run `./setup.sh` to regenerate `.playwright-mcp-config.json` |

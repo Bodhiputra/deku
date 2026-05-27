@@ -6,7 +6,7 @@
 //   node tools/sync-kol-list.js          — full sync
 //   node tools/sync-kol-list.js --add @handle   — append a single handle without re-fetching
 //
-// NOTION_API_KEY loaded from: process.env → .env → .claude/settings.local.json
+// NOTION_API_KEY loaded from: .env → .claude/settings.local.json (fallback)
 
 const { readFileSync, existsSync, writeFileSync } = require('fs');
 const { join } = require('path');
@@ -38,7 +38,7 @@ loadEnv();
 
 const NOTION_KEY = process.env.NOTION_API_KEY;
 if (!NOTION_KEY) {
-  console.error('NOTION_API_KEY not found. Add to .env or .claude/settings.local.json.');
+  console.error('NOTION_API_KEY not found. Add to .env (see .env.example).');
   process.exit(1);
 }
 

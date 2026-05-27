@@ -1,0 +1,57 @@
+# Cursor host adapter manifest
+# Spec: core/HOST-ADAPTER-SPEC.md v1.0
+
+adapter_id: cursor
+spec_version: "1.0"
+support_tier: first-class
+
+# Session bootstrap chain
+bootstrap_entry: .claude/BOOTSTRAP.md
+adapter_instructions: .cursor/rules/
+onboarding_manual: MANUAL.md
+
+# Primary always-on rules that enforce bootstrap
+rules:
+  - .cursor/rules/bootstrap.mdc
+
+# How canonical chiefs are exposed on this host
+chief_exposure: inline
+chief_configs: []  # persona switching; no separate agent configs
+parallel_agents: false  # chiefs inline; Task/subagent tool is host-generic, not chief-native
+
+# Tool wiring
+mcp_config: .cursor/mcp.json
+hooks_config: null
+local_settings: null
+
+# Skills resolve directly from shared library (.claude/skills/)
+skill_alias: null
+
+# MCP name mapping (skill references → Cursor MCP server names)
+mcp_mapping:
+  mcp__chrome__*: chrome
+  mcp__notion__*: notion
+  mcp__playwright__*: playwright
+  mcp__figma__*: figma
+  mcp__reddit__*: reddit
+
+# Logical tools required by spec §6.1
+logical_tools:
+  notion: true
+  chrome: true
+  playwright: true
+  figma: true
+  reddit: true
+  web_search: true  # host-native
+
+setup_sh_aware: true  # setup.sh does not detect Cursor via CLI; host still works
+setup_jinu_trigger: true
+
+known_limitations:
+  - Chiefs run as inline persona switching only (no native agent configs)
+  - No dedicated Cursor adapter doc at repo root; rules in `.cursor/rules/` only
+  - Cursor not detected by setup.sh prerequisite check (documented as expected)
+
+conformance:
+  last_reviewed: "2026-05-28"
+  checklist_pass: full

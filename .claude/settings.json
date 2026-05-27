@@ -1,17 +1,5 @@
 {
-  "hooks": {
-    "SessionStart": [
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "f=\"$PROJECT_ROOT/claude-session-context.md\"; [ -f \"$f\" ] && jq -Rs '{\"hookSpecificOutput\":{\"hookEventName\":\"SessionStart\",\"additionalContext\":(\"=== SESSION CONTEXT (auto-loaded) ===\\n\" + .)}}' \"$f\" 2>/dev/null || echo '{}'",
-            "statusMessage": "Loading session context..."
-          }
-        ]
-      }
-    ]
-  },
+  "hooks": {},
   "permissions": {
     "allow": [
       "Read(**)",

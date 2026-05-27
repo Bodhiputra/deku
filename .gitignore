@@ -9,6 +9,7 @@ context/confirmed-markets.md
 context/pipeline-state.md
 context/presentation-design-system.md
 context/design-context.md
+context/ops-context.md
 
 # Proof files (can be large)
 proofs/
@@ -23,9 +24,10 @@ claude-session-context.md
 .DS_Store
 **/.DS_Store
 
-# Environment
+# Environment — secrets only; template is committed
 .env
 .env.*
+!.env.example
 
 # Secrets — never commit
 .claude/settings.local.json
@@ -47,3 +49,15 @@ fonts/
 
 # Shopify codebase — separate repo, tracked independently
 shopify/
+
+# Temporary / scratch — never commit
+.cursor/tmp/
+.agents/skills.bak.*/
+**/*.bak
+**/*.tmp
+
+# Generated ops sync output
+ops-hub/brands/*/shopify-snapshot.json
+
+# Personal IDE workspace files (machine-specific folder paths)
+*.code-workspace

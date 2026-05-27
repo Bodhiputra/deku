@@ -1,0 +1,15 @@
+{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "mcp__chrome__.*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "lsof -i :9222 > /dev/null 2>&1 || (open -a 'Google Chrome' --args --remote-debugging-port=9222 --no-first-run --no-default-browser-check; sleep 4)"
+          }
+        ]
+      }
+    ]
+  }
+}

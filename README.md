@@ -1,12 +1,16 @@
-# Deku — AI Marketing & Design Team
+# Deku — Platform-Neutral AI Company System
 
-Deku gives your brand a full marketing and design department powered by AI.
+Deku gives your brand a full marketing, design, and operations department powered by AI.
+
+> **Naming:** **Deku** = this repo and AI company system. Your local folder can be anything (e.g. `finecoustic/`). **Finecoustic** in `context/` and `ops-hub/` = a brand running on Deku, not the system name.
 
 **Jinu** is your Chief Marketing Officer. He maps your market, profiles your buyers, finds your competitors, identifies KOLs, discovers retail distribution opportunities, and builds your content strategy — all documented automatically in Notion.
 
 **Nagi** is your Chief Design Officer. He handles all design work — brand identity, website design, social assets, presentations, and ad creatives — and saves everything to Figma.
 
-You talk to them directly. They do the work. You get the report.
+**Koji** is your Chief Operating Officer. He handles product catalog structure, inventory, B2B account tracking, Shopify sync, and ops dashboards.
+
+You talk to them directly through your current host assistant. They do the work. You get the report.
 
 ---
 
@@ -14,7 +18,7 @@ You talk to them directly. They do the work. You get the report.
 
 - A computer running macOS or Linux
 - [Node.js](https://nodejs.org) installed
-- [Claude Code](https://claude.ai/code) installed
+- One first-class supported host assistant installed: Claude Code, Codex, or Cursor
 - A [Notion](https://notion.so) account (free) — Jinu writes all research here
 - A [Figma](https://figma.com) account (free) — Nagi saves all design work here
 - Google Chrome installed
@@ -25,19 +29,24 @@ That's it.
 
 ## Getting started
 
-**Step 1 — Clone the repo and open Claude Code**
+**Step 1 — Clone the repo and open your host assistant**
 
 ```bash
 git clone https://github.com/bodhiputra/deku.git
-cd deku
-claude
+cd deku    # or your chosen folder name — e.g. cd finecoustic
 ```
+
+Then open the project in one of the supported hosts:
+
+- Claude Code: `claude`
+- Codex: `codex`
+- Cursor: open the folder in Cursor
 
 ---
 
 **Step 2 — Run setup**
 
-Once Claude Code is open, say:
+Once your host assistant is open, say:
 
 ```
 setup Jinu
@@ -78,14 +87,15 @@ Each task runs on its own — typically 30–60 minutes — and all findings are
 
 ---
 
-## Calling Jinu and Nagi
+## Calling Jinu, Nagi, and Koji
 
-From anywhere in Claude Code, you can switch directly to either of them:
+From anywhere in your host assistant, you can switch directly to any of them:
 
 | To talk to | Say |
 |---|---|
 | Jinu (marketing) | `Jinu, ...` |
 | Nagi (design) | `Nagi, ...` |
+| Koji (operations) | `Koji, ...` |
 | Back to your assistant | Address your assistant directly |
 
 Example:
@@ -98,14 +108,18 @@ Nagi, design a landing page for the Hako speaker
 
 ---
 
-## What stays private
+## What stays private (gitignored)
 
-These files are gitignored and never shared:
+These are never pushed to GitHub:
 
-- `context/brand-context.md` — your brand details and goals
-- `context/session-context.md` — rolling research progress
-- `.claude/settings.local.json` — your local configuration
-- `proofs/` — screenshots captured during research
+- `context/brand-context.md`, `context/session-context.md`, `context/ops-context.md` — brand and ops state
+- `.env` — API keys (template is `.env.example`, which **is** committed)
+- `.claude/settings.local.json` — local Claude config synced from `.env`
+- `proofs/`, `output/`, `research-snapshots/` — scratch and deliverable drafts
+- `.cursor/tmp/`, `.agents/skills.bak.*/` — temporary session and setup backup files
+- `shopify/` — separate theme repo
+
+See `.gitignore` for the full list.
 
 ---
 
