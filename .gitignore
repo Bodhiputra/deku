@@ -44,6 +44,16 @@ claude-session-context.md
 # Research snapshots (intermediary scratchpad files from agent runs)
 research-snapshots/
 
+# Research run outputs — PDF/HTML/MD reports, PDF extract chunks (session temp; durable research → Notion)
+research/
+
+# Browser/page screenshots from agent sessions (temp)
+fc-*.png
+fc-*-snapshot.md
+
+# Retired Senku agent — local archive only, not part of Deku
+.claude/_archived/senku/
+
 # Brand fonts — each brand owner brings their own
 fonts/
 
@@ -57,7 +67,6 @@ shopify/
 **/*.tmp
 
 # Generated ops sync output
-ops-hub/brands/*/shopify-snapshot.json
 
 # Personal IDE workspace files (machine-specific folder paths)
 *.code-workspace

@@ -1,42 +1,54 @@
 ---
 name: product-master
-description: Product catalog management for operations — SKUs, names, prices, status (active/legacy), Shopify variant mapping. Load before adding or updating products in ops data.
+description: Product catalog management for ops — adding SKUs, updating prices and status, mapping Shopify variant IDs, and maintaining the authoritative product list in ops-data.json. Load before adding or updating any product in ops data.
+disable-model-invocation: true
 ---
 
 # Product Master
 
-## Scope
+Requires: `ops-data-standards` (schema and write rules).
 
-Maintain the product catalog in `ops-hub/brands/<brand>/ops-data.json`.
+The product catalog in `ops-hub/brands/<brand>/ops-data.json products[]` is the ops system of record for SKUs, names, prices, and status.
 
-## Workflow
+**Brand-specific product names and prices come from `context/brand-context.md`.** Read it before adding or updating any product — never hard-code brand data in this skill.
 
-1. Read existing `products[]` — never duplicate SKU.
-2. Cross-check `context/brand-context.md` for D2C prices and product names.
-3. For Shopify-linked products, map `shopify_variant_id` after sync.
-4. Set `status`: `active` for launch focus, `legacy` for older lines.
+## Add or Update a Product
 
-## Required Fields Per Product
+1. Read existing `products[]` — never create a duplicate SKU.
+2. Confirm product details with the user or read from `brand-context.md`:
+   - SKU code
+   - Consumer-facing name
+   - D2C price (USD or brand currency)
+   - Status (`active`, `legacy`, or `discontinued`)
+3. For Shopify-linked products: populate `shopify_variant_id` after a Shopify sync.
+4. Save and confirm updated SKU list.
 
-| Field | Required |
+## Required Fields
+
+| Field | Required | Notes |
+|---|---|---|
+| `sku` | Yes | Uppercase, brand-defined. Never auto-generate. |
+| `name` | Yes | Consumer-facing product name |
+| `status` | Yes | `active`, `legacy`, or `discontinued` |
+| `d2c_price_usd` | Yes for D2C products | Omit for B2B-only or unlaunched SKUs |
+| `shopify_variant_id` | No — populate after sync | Null until mapped |
+
+## Status Guide
+
+| Status | When to use |
 |---|---|
-| sku | Yes — internal code (e.g. FBS1) |
-| name | Yes — consumer-facing name |
-| status | Yes |
-| d2c_price_usd | Yes for D2C SKUs |
+| `active` | Currently selling; show in launch dashboards |
+| `legacy` | In catalog but not primary focus; track in ops, hide from launch views |
+| `discontinued` | No longer sold; archive only |
 
-## Finecoustic Active SKUs
+## Output After Update
 
-- FBS1 — Hako Nomad — $48.80
-- FBS2 — Hako Nomad L — $94.80
+Confirm and display:
+- Full SKU list with name, status, D2C price
+- Any `shopify_variant_id` mappings added
+- Prompt: refresh hub products view if hub exists
 
-## Finecoustic Legacy SKUs
+## References
 
-- FT20 — Groove ANC
-- FT21 — Groove OWS
-- WFM1 — RESONO
-- WFM2 — Sonara
-
-## Output
-
-After update: confirm SKU list, status, prices. Refresh hub products view if hub exists.
+- Schema: `ops-data-standards` skill
+- Shopify variant mapping: `shopify-sync` skill

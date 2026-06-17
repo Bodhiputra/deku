@@ -27,3 +27,7 @@ Task completion: [`.claude/TASK-DOD.md`](../../.claude/TASK-DOD.md)
 | Codex parity | [`AGENTS.md`](../../AGENTS.md), [`CLAUDE.md`](../../CLAUDE.md) |
 
 Skills may say `mcp__chrome__*`, `mcp__notion__*`, etc. — use this workspace's MCP servers (Notion, Chrome, Playwright, Figma, Reddit).
+
+## Enforcement
+
+Before responding to any task, confirm which files you loaded from the mandatory read order above.

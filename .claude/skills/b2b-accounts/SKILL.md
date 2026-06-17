@@ -1,59 +1,79 @@
 ---
 name: b2b-accounts
-description: B2B distributor account management — partner records, allocation history, units sold by SKU, reorder/restock tracking, country rollup. Load before logging B2B orders or reviewing distributor performance.
+description: B2B distributor account management — logging wholesale orders, managing partner records, tracking allocation history by SKU, identifying reorders vs initial allocations, and generating country rollups. Load before logging B2B orders, reviewing distributor performance, or managing partner records.
+disable-model-invocation: true
 ---
 
 # B2B Accounts
 
+Requires: `ops-data-standards` (schema and write rules).
+
+B2B partners are wholesale distributors who receive stock from the source warehouse — not D2C end customers.
+
 ## Terminology
 
-- **B2B partner / distributor** — wholesale customer who buys Finecoustic stock from Dongguan (not D2C Shopify buyer).
-- **Allocation** — units assigned/shipped to a partner (may be initial or reorder).
-- **Restock / reorder** — a partner's **second or later** purchase of the same SKU after their initial allocation. Used to identify active sell-through vs one-time buyers.
+| Term | Meaning |
+|---|---|
+| Partner / distributor | Wholesale buyer — receives physical stock |
+| Allocation | Units assigned or shipped to a partner |
+| Initial | First allocation for a given SKU to a given partner |
+| Reorder | Any allocation after the first for the same SKU — signals active sell-through |
 
-## Partner Record
+## Log a New B2B Order
+
+1. Identify partner by code in `b2b_partners[]`, or create new partner record if first order.
+2. Confirm: partner code, SKU(s), qty per SKU, date, initial vs reorder.
+3. Append to `b2b_allocations[]` with correct `type`.
+4. Append to `movements[]` — source warehouse out, qty, reference = partner code.
+5. Run reconciliation — confirm source remaining is correct.
+
+**If date is unknown:** set `"date": null` and note it. Do not invent dates.
+
+## New Partner Record
 
 ```json
 {
-  "code": "FP",
-  "name": "Indonesia distributor",
-  "country": "Indonesia",
-  "country_code": "ID",
+  "code": "XX",
+  "name": "Distributor name",
+  "country": "Country name",
+  "country_code": "ISO-2",
   "status": "active"
 }
 ```
+
+Partner code: short uppercase (2–5 chars), unique within the brand.
 
 ## Allocation Record
 
 ```json
 {
-  "partner_code": "FP",
-  "sku": "FBS1",
-  "qty": 312,
-  "date": "2026-01-15",
+  "partner_code": "XX",
+  "sku": "SKU1",
+  "qty": 100,
+  "date": "YYYY-MM-DD",
   "type": "initial",
   "notes": ""
 }
 ```
 
-When partner orders again: append with `"type": "reorder"`.
+Set `"type": "reorder"` if partner already has an `initial` record for this SKU.
 
-## Workflow — Log New B2B Order
+## B2B Performance View
 
-1. Identify partner by code or create new partner record.
-2. Confirm SKU(s), qty, date, initial vs reorder.
-3. Append to `b2b_allocations[]`.
-4. Append `movements[]` — dongguan out, qty, reference partner code.
-5. Recalculate Dongguan remaining.
+**Partner table columns:** Code · Name · Country · [SKU1 total] · [SKU2 total] · Last order date · Reorder count
 
-## Reporting
+**Country rollup:** Sum units by `country_code` — used for boss dashboard map and territory reporting.
 
-**Partner table columns:** Code, Name, Country, FBS1 total, FBS2 total, Last order date, Reorder count
+**Reorder rate:** Partners with `reorder` records = active sell-through. Partners with only `initial` = unconfirmed performance.
 
-**Country rollup:** Sum units by country for boss dashboard map/chart.
+## Workflow — Review Distributor Performance
 
-## Finecoustic Seed Partners (2026-05-21)
+1. Read `b2b_allocations[]` grouped by partner code.
+2. Calculate: total units per SKU, last order date, reorder count.
+3. Flag: partners with no activity in > 90 days (if dates are available).
+4. Country rollup: sum all units by country for geographic coverage view.
 
-FP (Indonesia), EPH (Philippines), EHO (Thailand), NBD (Bangladesh), GCL (Chile), GRS (Serbia), MCJO (Jordan), MKH (Cambodia), RRL (Nepal — LOKESH BANSAL)
+## References
 
-Dates not provided at seed — qty-only. Prompt user for dates when available.
+- Schema and write rules: `ops-data-standards` skill
+- Inventory impact of B2B orders: `inventory-management` skill

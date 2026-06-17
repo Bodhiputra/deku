@@ -2,7 +2,13 @@
   "mcpServers": {
     "reddit": {
       "command": "uvx",
-      "args": ["mcp-reddit"]
+      "args": [
+        "--python",
+        "3.12",
+        "--with",
+        "cryptography==46.0.3",
+        "mcp-reddit"
+      ]
     },
     "chrome": {
       "command": "npx",
@@ -13,8 +19,7 @@
       "args": [
         "-y",
         "@playwright/mcp@latest",
-        "--config",
-        ".playwright-mcp-config.json"
+        "--browser=chrome"
       ]
     },
     "notion": {
