@@ -60,7 +60,7 @@ Host adapters may differ in wiring, but not in company behavior.
 
 1. Complete **§1** above (use `.claude/memory/koji/MEMORY.md`)
 2. Read `.claude/agents/koji.md` and `.claude/departments/operations.md`
-3. Read `context/ops-context.md` and active brand data in `ops-hub/brands/<brand>/ops-data.json`
+3. Read `context/ops-context.md` — brand ops config (system of record, review surface, warehouses, integrations). Load active brand data from paths defined there — not from hard-coded repo names.
 4. Match task → read `.claude/skills/<skill-name>/SKILL.md` (e.g. `inventory-management`, `shopify-sync`, `ops-data-standards`)
 5. Never write to Marketing Notion or Figma; never run Shopify Admin mutations without explicit user approval
 

@@ -5,7 +5,7 @@ This file is the canonical architecture source of truth for the AI company syste
 
 **Project name:** **Deku** — the platform-neutral AI agentic company (GitHub repo: `deku`).  
 **Local folder:** Whatever you named the clone (e.g. `finecoustic/` on this machine). Paths in docs are relative to that folder.  
-**Brand workspaces:** Brands you run on Deku (e.g. Finecoustic) live in `context/` and `ops-hub/brands/<slug>/` — not the same as the Deku project name.
+**Brand workspaces:** Brands you run on Deku live in gitignored `context/` files — not the same as the Deku project name. Ops data paths are defined per brand in `context/ops-context.md` (may live outside this repo).
 
 The system is not Claude-first, Codex-first, or Cursor-first.
 
@@ -59,6 +59,7 @@ Contexts store brand and session state:
 - `context/brand-context.md`
 - `context/session-context.md`
 - `context/confirmed-markets.md`
+- `context/ops-context.md`
 - `context/architecture-session-context.md`
 
 These files are workspace state, not platform state.
@@ -67,12 +68,13 @@ These files are workspace state, not platform state.
 
 Workspaces hold brand-specific implementations and outputs.
 
-Examples in this repo:
+Examples:
 
-- **Deku repo root** — the AI company system checkout (local folder name is arbitrary; e.g. `finecoustic/`)
-- `ops-hub/` — operations UI and data for brands running on Deku
+- **Deku repo root** — the AI company system checkout (local folder name is arbitrary; e.g. `deku/`)
+- **`context/`** — brand state (gitignored); created by `setup.sh`
+- **`output/`, `proofs/`** — local scratch and deliverables (gitignored)
 
-**External to this repo:** storefront theme code lives in a separate gitignored repo (`shopify/`). It is not part of the AI company system. Koji may sync **store data** from Shopify Admin via the `shopify-sync` skill — that is a platform integration, not the theme codebase.
+**External to this repo:** storefront theme code (`shopify/`), optional ops dashboards, and brand ops JSON may live in separate repos or paths configured in `context/ops-context.md`.
 
 ### Platform Adapters
 
@@ -111,6 +113,7 @@ After `setup.sh` completes, a user on any first-class supported host should get:
    - `context/brand-context.md`
    - `context/session-context.md`
    - `context/confirmed-markets.md`
+   - `context/ops-context.md`
 3. The same shared workflow library:
    - agents
    - departments
@@ -202,16 +205,18 @@ This keeps the system working while the neutral core is separated from adapter-s
 - `context/brand-context.md`
 - `context/session-context.md`
 - `context/confirmed-markets.md`
+- `context/ops-context.md`
 
-### In-repo implementation workspaces
+### Local-only workspace outputs (gitignored)
 
-- `ops-hub/`
 - `output/`
 - `proofs/`
+- `research-snapshots/`
 
 ### External projects (not in this repo)
 
-- `shopify/` — storefront theme codebase; separate git repo, gitignored. Not part of the AI company architecture.
+- `shopify/` — storefront theme codebase; separate git repo, gitignored.
+- Brand ops data / dashboards — paths in `context/ops-context.md`; may be separate repos.
 
 ### Legacy or archive
 

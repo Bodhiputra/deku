@@ -8,7 +8,7 @@ disable-model-invocation: true
 
 Requires: `ops-data-standards` (schema and write rules).
 
-The product catalog in `ops-hub/brands/<brand>/ops-data.json products[]` is the ops system of record for SKUs, names, prices, and status.
+The product catalog in the brand's system of record (`products[]` in ops-data at the path defined in `context/ops-context.md`) is the ops source for SKUs, names, prices, and status.
 
 **Brand-specific product names and prices come from `context/brand-context.md`.** Read it before adding or updating any product — never hard-code brand data in this skill.
 

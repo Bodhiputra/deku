@@ -12,7 +12,7 @@ Brand warehouse config lives in `context/ops-context.md`. Read it first — neve
 
 ## Stock Snapshot
 
-Read `ops-hub/brands/<brand>/ops-data.json` and calculate:
+Read the brand's ops-data file at the path in `context/ops-context.md` and calculate:
 
 ```
 For each active SKU:

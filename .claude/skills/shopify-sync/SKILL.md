@@ -1,6 +1,6 @@
 ---
 name: shopify-sync
-description: Pull read-only product, inventory, and order data from Shopify Admin for D2C ops dashboards. Writes output to a local snapshot file. Load before any Shopify data sync, D2C dashboard update, or Shopify variant ID mapping task.
+description: Pull read-only product, inventory, and order data from Shopify Admin when configured in context/ops-context.md. Writes output to the brand's snapshot path. Load before any Shopify sync or variant ID mapping task — not required for brands without Shopify.
 disable-model-invocation: true
 ---
 
@@ -8,23 +8,19 @@ disable-model-invocation: true
 
 Read-only by default. Mutations require explicit user approval.
 
-Brand store URL lives in `context/ops-context.md`. Read it first — never hard-code a store URL in this skill.
+Read `context/ops-context.md` first — store URL, sync script path (if any), and `snapshot_path`. Never hard-code a store URL or output path.
 
-## Sync Script
+**If Shopify is not in ops-context:** stop. Tell the user Shopify sync is not configured for this brand.
 
-From repo root:
+## Sync
 
-```bash
-node ops-hub/sync/shopify-pull.mjs <brand-slug>
-```
+Use the sync method documented in ops-context (CLI script path, Admin API, or manual export). Store URL from ops-context integrations table.
 
-Requires Shopify CLI authenticated in the `shopify/` directory or valid store credentials.
-
-**If CLI auth fails:** stop. Tell user to run `shopify auth login` in the shopify directory. Do not guess or estimate inventory numbers.
+**If CLI auth fails:** stop. Tell user to authenticate Shopify CLI in their theme/app directory. Do not guess or estimate inventory numbers.
 
 ## Snapshot Output
 
-Write to `ops-hub/brands/<brand>/shopify-snapshot.json`:
+Write to `snapshot_path` from ops-context (or `{data_path directory}/shopify-snapshot.json` if not set):
 
 ```json
 {
@@ -45,14 +41,14 @@ Always include `synced_at` in meta.
 
 ## Post-Sync Checklist
 
-1. Map Shopify `variant_id` → `products[].shopify_variant_id` in ops-data.json.
-2. Update hub D2C section from snapshot data.
+1. Map Shopify `variant_id` → `products[].shopify_variant_id` in ops-data (at `data_path`).
+2. Update dashboard D2C section from snapshot **only if** brand uses a review surface.
 3. Compare Shopify inventory vs source warehouse — do not auto-merge; surface differences for user to review.
 4. Report staleness state: synced just now / last synced [date].
 
 ## Staleness Rules
 
-| State | Threshold | Hub display |
+| State | Threshold | Display |
 |---|---|---|
 | Fresh | < 24h | No indicator |
 | Stale | 24h–7 days | Warning |
@@ -60,7 +56,7 @@ Always include `synced_at` in meta.
 
 ## Mutation Gate
 
-Any write to Shopify Admin (price changes, inventory adjustments, product updates) requires explicit user approval before execution. State the mutation and wait for confirmation.
+Any write to Shopify Admin requires explicit user approval before execution. State the mutation and wait for confirmation.
 
 ## References
 

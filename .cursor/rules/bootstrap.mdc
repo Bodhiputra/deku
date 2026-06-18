@@ -18,6 +18,8 @@ Task completion: [`.claude/TASK-DOD.md`](../../.claude/TASK-DOD.md)
 
 **First-time setup:** When the user says `setup Deku` (legacy: `setup Jinu`), read [`MANUAL.md`](../../MANUAL.md) and run the full setup sequence.
 
+**Before `./setup.sh`:** Verify Node.js is installed (`node -v`). If missing, stop and tell the user to install from https://nodejs.org — do not run setup until Node.js is available. Then ask whether they use Notion as their documentation platform (optional — see MANUAL.md §4).
+
 ## Cursor specifics
 
 | Item | Location |

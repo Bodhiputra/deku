@@ -14,8 +14,8 @@
 - **No temp files:** Never save raw browser snapshots or scrape dumps to disk. Extract what's needed, write findings to Notion, discard the raw data.
 
 ## Session Management
-- **session-context.md format:** Two sections — Section 1 fully rewritten each session (current state only), Section 2 append-only decision log. Never add history to Section 1.
-- **Active Thread rule:** Update the Active Thread block in session-context.md Section 1 at the start of every response where a topic is still open — on every exchange, not just task starts. If mid-execution, note exactly where. Clear it only when the topic is explicitly resolved.
+- **session-context.md format:** One section per chief (Jinu, Nagi, Koji). Each chief overwrites their own section. Decision log lives in `context/session-context-log.md` (lazy load).
+- **Active Thread rule:** Update the Active Thread block in the Jinu section at the start of every response where a topic is still open — on every exchange, not just task starts. If mid-execution, note exactly where. Clear it only when the topic is explicitly resolved.
 - **Post-compaction rule:** After any compaction, read session-context.md and check Active Thread first. If it has content, resume that thread — do not jump to unrelated pending items. If empty, ask the user what's next.
 
 ## KOL Research

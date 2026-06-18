@@ -1,12 +1,14 @@
 ---
 name: ops-hub-build
-description: Build or extend a local operations hub — a static HTML/CSS/JS dashboard that reads ops-data.json and displays inventory, B2B partner accounts, product catalog, and D2C Shopify data. Brand-agnostic; scales from a minimal 4-tab dashboard to multi-module ops portals. Load before creating, modifying, or extending any ops-hub UI file.
+description: Build or extend a local operations dashboard — only when the brand owner requests one. Reads ops data from paths in context/ops-context.md and displays inventory, B2B partners, product catalog, and platform sync data. Brand-agnostic; not required for Koji to function.
 disable-model-invocation: true
 ---
 
 # Ops Hub Build
 
-Requires: `ops-data-standards` (schema), `frontend-design` skill (for any UI work).
+**Load only when the brand owner asks for a dashboard.** Koji works without any internal website — chat reports are the default.
+
+Requires: `ops-data-standards` (schema), `frontend-design` skill (for any UI work), paths from `context/ops-context.md`.
 
 The hub answers three boss questions in one screen:
 - How much stock do we have?
@@ -15,30 +17,22 @@ The hub answers three boss questions in one screen:
 
 ## Directory Structure
 
+Layout is brand-defined in ops-context. Example (local JSON + static dashboard):
+
 ```
-ops-hub/
-├── README.md
+<review-surface-root>/
 ├── brands/
-│   ├── <brand-slug>/
-│   │   ├── ops-data.json          # system of record
-│   │   └── shopify-snapshot.json  # generated, may be gitignored
-│   └── _template/
-│       └── ops-data.json          # blank template for new brands
-├── sync/
-│   └── shopify-pull.mjs           # Shopify read-only sync script
-└── public/
-    ├── index.html
-    ├── css/style.css
-    └── js/
-        ├── app.js                 # brand config, tab routing
-        └── data-loader.js         # fetches and parses ops-data.json
+│   └── <brand-slug>/
+│       ├── ops-data.json
+│       └── shopify-snapshot.json
+└── public/   # or Next.js app — whatever the brand chose
 ```
 
 ## Design Requirements
 
 - **Minimalist** — neutral palette, generous whitespace, single accent color
 - **Boss-ready** — KPI cards visible above the fold, no internal jargon in labels
-- **Local only** — no build step; serve with `npx serve ops-hub/public -p 3456`
+- **Local only** — serve from `review_surface` path in ops-context (e.g. `npx serve <path> -p 3456` for static sites)
 - **Useful visualizations** — horizontal stock bars, country table, sortable partner table
 
 ## Required Dashboard Views (v1)
@@ -62,14 +56,13 @@ fetch(`../brands/${DEFAULT_BRAND}/ops-data.json`)
   .then(data => renderHub(data));
 ```
 
-Fetch relative to `ops-hub/public/` when served from hub root.
+Fetch paths relative to the review surface root defined in `context/ops-context.md`.
 
 ## Onboarding a New Brand
 
-1. Copy `brands/_template/ops-data.json` → `brands/<slug>/ops-data.json`.
-2. Write `context/ops-context.md` — warehouses, store URL, active SKU list.
-3. Set `DEFAULT_BRAND` in `public/js/app.js`.
-4. Seed products, partners, and initial stock with the brand owner.
+1. Confirm system of record and review surface in `context/ops-context.md`.
+2. Seed products, partners, and initial stock with the brand owner.
+3. Build dashboard UI only if they requested one.
 
 ## Future Migration (document, do not build until requested)
 

@@ -192,6 +192,7 @@ if [ ! -f "$PROJECT_ROOT/context/brand-context.md" ]; then
 ## Documentation
 - **Platform:** <!-- e.g. Notion, Google Docs, None -->
 - **Workspace link:** <!-- e.g. https://notion.so/your-page -->
+- **KOL Pools database ID:** <!-- Notion database UUID — required for KOL dedup sync if using Notion -->
 
 ## Product Line
 <!-- One section per product. Added by Jinu during onboarding or when a new product is introduced. -->
@@ -212,23 +213,33 @@ fi
 
 if [ ! -f "$PROJECT_ROOT/context/session-context.md" ]; then
   cat > "$PROJECT_ROOT/context/session-context.md" << 'EOF'
-# Session Context
-*Format: two-section. Section 1 fully rewritten each session. Section 2 append-only.*
+# Session Context — Deku Canonical Agents
+*For Jinu, Nagi, Koji, and future Deku agents only — not the host assistant.*
+*Format: one section per agent. Each agent overwrites their own section at end of session.*
 
 ---
 
-## Section 1 — Current State
-*Rewritten after every session by Notion Manager.*
+## Jinu — Last Session Checkpoint
+*Overwrite this section at end of each Jinu session.*
 
 - **Status:** Fresh setup — no research runs completed yet
 - **Recommended next action:** Say "Jinu, let's get started" to begin onboarding
 
 ---
 
-## Section 2 — Decision Log
-*Append-only. Never overwritten.*
+## Nagi — Last Session Checkpoint
+*Overwrite this section at end of each Nagi session.*
 
-<!-- Format: [YYYY-MM-DD] Description -->
+- **Status:** No design work completed yet
+
+---
+
+## Koji — Last Session Checkpoint
+*Overwrite this section at end of each Koji session.*
+
+- **Status:** No ops work completed yet
+
+---
 EOF
   echo "  ✓ context/session-context.md"
 else
@@ -260,6 +271,56 @@ EOF
   echo "  ✓ context/confirmed-markets.md"
 else
   echo "  ~ context/confirmed-markets.md (already exists)"
+fi
+
+if [ ! -f "$PROJECT_ROOT/context/ops-context.md" ]; then
+  cat > "$PROJECT_ROOT/context/ops-context.md" << 'EOF'
+# Operations Context
+<!-- Brand-specific ops configuration. Koji reads this at session start. Gitignored — not committed. -->
+
+## Brand
+
+- **Slug:**
+- **System of record:** <!-- json | spreadsheet | shopify-only | notion | other | TBD -->
+- **Data path:** <!-- file path, sheet URL, store URL, or TBD -->
+- **Review surface:** <!-- none (chat only) | existing tool URL | local dashboard path — optional -->
+
+---
+
+## Warehouses
+
+<!-- ID | Name | Type | Update mode (manual | sync) -->
+
+---
+
+## Integrations
+
+<!-- e.g. Shopify store URL — only what this brand actually uses -->
+
+---
+
+## Notes
+
+<!-- Koji documents operational model here during ops onboarding -->
+EOF
+  echo "  ✓ context/ops-context.md"
+else
+  echo "  ~ context/ops-context.md (already exists)"
+fi
+
+if [ ! -f "$PROJECT_ROOT/context/kol-exclusion-list.md" ]; then
+  cat > "$PROJECT_ROOT/context/kol-exclusion-list.md" << 'EOF'
+# KOL Exclusion List
+<!-- Populated by `node tools/sync-kol-list.js` before KOL discovery (requires Notion KOL DB ID). -->
+<!-- Jinu hard-excludes every @handle listed here during KOL sessions. -->
+
+## All Handles
+
+<!-- one @handle per line after sync -->
+EOF
+  echo "  ✓ context/kol-exclusion-list.md"
+else
+  echo "  ~ context/kol-exclusion-list.md (already exists)"
 fi
 
 echo ""

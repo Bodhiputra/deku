@@ -10,11 +10,23 @@ Load this skill before reading or writing any ops data file. All other Koji skil
 
 ## File Locations
 
+**Read paths from `context/ops-context.md` first.** Do not assume a fixed folder layout.
+
+Typical fields in ops-context:
+
+| Field | Meaning |
+|---|---|
+| `system_of_record` | `json` · `spreadsheet` · `shopify-only` · `notion` · `other` |
+| `data_path` | Path to ops-data.json, sheet URL, or store identifier |
+| `review_surface` | `none` · `chat` · path/URL to dashboard · same as data |
+| `snapshot_path` | Optional — last platform sync file (e.g. shopify-snapshot.json) |
+
+When `system_of_record` is local JSON, default schema below applies at `data_path`.
+
 ```
-ops-hub/brands/<brand-slug>/ops-data.json         # system of record
-ops-hub/brands/<brand-slug>/shopify-snapshot.json # last D2C sync (generated, may be gitignored)
-context/ops-context.md                            # brand ops config (warehouses, store URL, SKUs)
-ops-hub/public/                                   # hub UI
+context/ops-context.md                            # brand ops config (warehouses, paths, integrations)
+<data_path from ops-context>                      # system of record (when JSON)
+<snapshot_path from ops-context>                  # last D2C sync (generated, optional)
 ```
 
 ## ops-data.json Schema

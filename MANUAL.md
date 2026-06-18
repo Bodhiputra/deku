@@ -11,11 +11,11 @@
 |---|---|
 | **Deku** | Repo and project name for the AI agentic company system |
 | **Local folder** | Whatever you named the clone (e.g. `finecoustic/`) — paths in docs are relative to it |
-| **Brand** (e.g. Finecoustic) | A client brand configured in `context/` and `ops-hub/brands/` — not the Deku system |
+| **Brand** (e.g. Finecoustic) | A client brand configured in `context/` — not the Deku system |
 
-- **Jinu** — Chief Marketing Officer. Works task by task — market research, competitor intelligence, buyer profiling, market sizing, KOL discovery, retailer research, content strategy, and positioning. All findings are written to Notion automatically.
+- **Jinu** — Chief Marketing Officer. Works task by task — market research, competitor intelligence, buyer profiling, market sizing, KOL discovery, retailer research, content strategy, and positioning. Findings go to the brand owner's documentation platform (Notion if they use it, otherwise structured reports).
 - **Nagi** — Chief Design Officer. Handles all design work: brand identity, web design, social assets, presentations, ad creatives. All work is saved to Figma.
-- **Koji** — Chief Operating Officer. Handles product catalog, inventory, B2B accounts, Shopify sync, and local ops dashboards.
+- **Koji** — Chief Operating Officer. Handles product catalog, inventory, B2B accounts, platform sync, and ops reporting. Where stock is tracked and reviewed is the brand owner's choice — Koji adapts; no dashboard or website required.
 
 Some platforms expose them inline through persona switching. Others may expose them through native agent surfaces. That exposure model is an adapter concern, not the canonical system design.
 
@@ -30,12 +30,14 @@ Current first-class host adapters in this repo:
 
 When a brand owner says **"setup Deku"** (or asks for setup help after cloning), your job is to:
 
-1. Run `./setup.sh` on their behalf
-2. Walk them through the Chrome debugging step (see below — this is your tutorial to deliver, not Jinu's)
-3. Guide them through Notion and Figma OAuth approval
-4. Confirm everything is working
-5. Tell them they're ready — recommend **`Jinu, let's get started`** for first-time brand onboarding, or any chief (`Nagi`, `Koji`) as needed
-6. Step back — chiefs own their domains from that point
+1. **Check prerequisites first** — especially Node.js (see §1 below). Do not run `./setup.sh` until Node.js is installed.
+2. Run `./setup.sh` on their behalf
+3. Walk them through the Chrome debugging step (see below — this is your tutorial to deliver, not Jinu's)
+4. Ask which documentation platform they use — connect Notion OAuth only if they use Notion (see §4)
+5. Guide them through Figma OAuth only if they plan to use Nagi
+6. Confirm everything is working
+7. Tell them they're ready — recommend **`Jinu, let's get started`** for first-time brand onboarding, or any chief (`Nagi`, `Koji`) as needed
+8. Step back — chiefs own their domains from that point
 
 **You are the setup guide.** After setup, the brand owner calls **Jinu**, **Nagi**, or **Koji** by name.
 
@@ -47,21 +49,29 @@ Canonical architecture reference: `core/ARCHITECTURE.md`
 
 ## Setup — what to do and in what order
 
-### 1. Prerequisites check
+### 1. Prerequisites check — run this BEFORE setup.sh
+
+**Stop and help the user install missing required tools before running `./setup.sh`.**
 
 The brand owner needs:
-- Node.js installed (`node -v` to verify)
+- **Node.js installed** (`node -v` to verify) — **required**; `./setup.sh` exits if missing
 - At least one first-class supported host assistant
-- uv installed (`uvx --version` to verify) — for Reddit research. Optional but recommended.
 - Google Chrome installed
-- A Notion account (free at notion.so)
-- A Figma account (free at figma.com)
+- uv installed (`uvx --version` to verify) — for Reddit research. Optional but recommended.
+- A Notion account — **only if** they use Notion as their documentation platform
+- A Figma account — **only if** they plan to use Nagi
 
 For CLI hosts, verify what is available:
 - Claude Code: `claude --version`
 - Codex: `codex --version`
 
 Cursor is an app, not a required CLI binary.
+
+If Node.js is missing, tell the user:
+
+*"Before we can set up Deku, you need Node.js installed — it's what powers the research tools behind the scenes. Install it from nodejs.org (the LTS version is fine), then come back and say 'setup Deku' again."*
+
+Do not proceed to `./setup.sh` until Node.js is confirmed.
 
 If no supported host assistant is available, help them install one before proceeding.
 
@@ -84,7 +94,8 @@ Codex and Cursor use their own adapter surfaces already present in the repo.
 
 What it does NOT do (manual steps required):
 - Enable Chrome debugging (one-time toggle in Chrome)
-- Authenticate Notion and Figma (OAuth prompts in the current host assistant)
+- Connect documentation platform (Notion OAuth — only if the user uses Notion)
+- Authenticate Figma (OAuth — only if the user plans to use Nagi)
 
 ### 3. Enable Chrome debugging — your tutorial to deliver
 
@@ -107,27 +118,37 @@ This step is your responsibility as the assistant. Deliver it to the brand owner
 
 The Chrome MCP uses `--autoConnect` — it automatically finds a running Chrome instance with remote debugging enabled. No port numbers or terminal commands needed on the brand owner's side.
 
-### 4. Authenticate MCPs that need it — your job to trigger and guide
+### 4. Documentation platform and MCP authentication — your job to trigger and guide
 
-Two MCPs require OAuth authentication before they work: **Notion** and **Figma**. Authentication doesn't happen automatically — you need to trigger it by calling a tool from each, then guide the brand owner through the browser approval flow.
+**Ask first — do not assume Notion.**
 
-Do this during setup, before the brand owner calls Jinu. Do not wait until Jinu tries to use Notion mid-research and hits an auth error.
+*"Where do you want Jinu's research findings saved? Most people use Notion, but you can also get structured reports directly in this chat or as markdown files — no Notion account needed."*
+
+**If they use Notion:** proceed with Notion OAuth below.
+
+**If they do not use Notion:** skip Notion OAuth. Record their choice in `context/brand-context.md` under Documentation → Platform. Jinu delivers findings as structured markdown in chat or local files (see `.claude/agents/jinu.md` — Non-Notion Delivery).
+
+**Figma** — same pattern: only connect if they plan to use Nagi.
+
+Authentication doesn't happen automatically — you trigger it by calling a tool from each connected service, then guide the brand owner through the browser approval flow.
+
+Do this during setup, before the brand owner calls Jinu for research tasks.
 
 ---
 
-**Notion authentication:**
+**Notion authentication (only if user chose Notion):**
 
-Notion is where all research findings are written. Without it, Jinu cannot document anything.
+Notion is Jinu's preferred write surface when the brand owner uses it. Without OAuth, Jinu cannot write to their Notion workspace — but can still deliver findings in chat or local files.
 
 To trigger: call any Notion MCP tool — for example, search for a page or list workspaces. The current host assistant should return an authentication URL instead of a result.
 
 **What to say to the brand owner:**
 
-*"I need to connect to your Notion account so Jinu's team can write research findings there automatically. A browser window is about to open — just log in with your Notion account and click 'Allow'. That's it."*
+*"I'll connect to your Notion account so Jinu can write research findings there automatically. A browser window is about to open — log in with your Notion account and click 'Allow'. That's it."*
 
 Then open the authentication URL. The brand owner logs in and approves. Once done, Notion MCP tools will work without interruption.
 
-If they don't have a Notion account: *"Notion is free — you can sign up at notion.so. It takes about two minutes. Once you're in, come back and I'll connect it."*
+If they chose Notion but don't have an account yet: *"Notion is free — you can sign up at notion.so. It takes about two minutes. Once you're in, come back and I'll connect it."*
 
 ---
 
@@ -161,7 +182,7 @@ The five MCP servers:
 - **reddit** — buyer research, community intelligence
 - **chrome** — browsing login-gated platforms (Instagram, TikTok, etc.)
 - **playwright** — scraping public websites (competitor pages, product listings)
-- **notion** — reading and writing all research findings
+- **notion** — reading and writing research findings (when brand owner uses Notion)
 - **figma** — reading and writing design work
 
 If a server isn't responding, the easiest fix is to re-run `./setup.sh` and restart the current host assistant.
@@ -203,9 +224,9 @@ The host assistant is **not** a Deku canonical agent — each owner chooses thei
 
 When a brand owner asks what Jinu does, explain it this way:
 
-*"Jinu is your Chief Marketing Officer. He does everything a professional marketing department does — maps your market, profiles your buyers, finds your competitors, identifies which influencers (KOLs) to work with, finds retail distribution opportunities, and builds your content strategy. He documents everything in Notion so you have a real research workspace, not just a chat history.*
+*"Jinu is your Chief Marketing Officer. He does everything a professional marketing department does — maps your market, profiles your buyers, finds your competitors, identifies which influencers (KOLs) to work with, finds retail distribution opportunities, and builds your content strategy. If you use Notion, he documents everything there; otherwise you get structured reports in chat or as files.*
 
-*You work with Jinu task by task. Tell him what you need — 'research my competitors', 'find KOLs in the US', 'size my market' — and he goes and does it. Each task takes about 30–60 minutes and delivers findings directly to Notion.*
+*You work with Jinu task by task. Tell him what you need — 'research my competitors', 'find KOLs in the US', 'size my market' — and he goes and does it. Each task takes about 30–60 minutes.*
 
 *You don't need to understand how the research works — just tell Jinu what your product is and what you need. He handles the rest."*
 
@@ -254,7 +275,7 @@ Default is Interactive. The brand owner can change the mode per task.
 No. Give Jinu the task and you can step away. Each task runs on its own — typically 30–60 minutes — and Jinu will update you when it's done.
 
 **"Where do my research findings go?"**
-Everything goes to Notion automatically — 10 research databases plus narrative reports. If you don't have Notion, Jinu can also deliver findings as structured written reports.
+If you use Notion, everything goes there automatically — research databases plus narrative reports. If not, Jinu delivers structured written reports in chat or as local markdown files — same content, different packaging.
 
 **"How long does a task take?"**
 Typically 30–60 minutes depending on the task. KOL discovery and market sizing tend to take longer. Competitor research and trend checks are faster.

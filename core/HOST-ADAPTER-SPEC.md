@@ -26,7 +26,7 @@ Every implementation must respect this stack:
 | **Shared runtime assets** | Agents, departments, skills, memory, DOD, bootstrap | Currently `.claude/` (historical path) |
 | **Workspace state** | Brand and session context | `context/` |
 | **Host adapter** | Config format, MCP wiring, hooks, persona/agent invocation | `.claude/`, `.codex/`, `.cursor/`, etc. |
-| **Implementation workspaces** | Brand-specific code in this repo (ops hub, outputs) | `ops-hub/`, `output/`, etc. |
+| **Implementation workspaces** | Brand-specific outputs (gitignored) | `output/`, `proofs/`, paths in `context/ops-context.md` |
 
 Adapters may only vary the bottom two rows' *host-specific mechanics*. Everything above the adapter line is shared and normative.
 
@@ -63,6 +63,7 @@ Every adapter must resolve these paths from the workspace root. Paths may be sym
 | `context/brand-context.md` | Permanent brand facts |
 | `context/session-context.md` | Rolling agent operational state |
 | `context/confirmed-markets.md` | Geo-scoped market list |
+| `context/ops-context.md` | Brand ops config (system of record, review surface) |
 
 ### 3.4 Onboarding entry (required)
 
@@ -114,9 +115,9 @@ Canonical chiefs:
 
 | ID | Role | Primary output surface |
 |---|---|---|
-| `jinu` | Marketing (CMO) | Notion |
+| `jinu` | Marketing (CMO) | Notion (if configured) or structured reports |
 | `nagi` | Design (CDO) | Figma |
-| `koji` | Operations (COO) | Local ops data / ops-hub |
+| `koji` | Operations (COO) | Brand's system of record (`context/ops-context.md`) |
 
 ### 5.1 Exposure modes (adapter choice)
 

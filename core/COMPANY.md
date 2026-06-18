@@ -53,7 +53,7 @@ When the user asks chiefs to discuss (e.g. "Jinu, talk to Nagi about X"), partic
 **Cross-department principle:**
 - Marketing findings (Notion) are readable by Design. Design never writes to Notion.
 - Design work is saved in Figma.
-- Operations data lives in local ops files / ops-hub — not Notion for canonical marketing databases.
+- Operations data lives wherever the brand owner configures in `context/ops-context.md` — not Marketing Notion.
 
 ---
 
@@ -90,7 +90,7 @@ USER
  │   All output in Figma. Manual: .claude/departments/design.md
  │
  └── KOJI — Chief Operating Officer
-     Product catalog, inventory, B2B accounts, Shopify sync, ops dashboards.
+     Product catalog, inventory, B2B accounts, platform sync, ops reporting. System of record defined per brand in `context/ops-context.md`.
      Manual: .claude/departments/operations.md
 ```
 

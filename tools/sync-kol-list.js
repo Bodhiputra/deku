@@ -36,13 +36,31 @@ function loadEnv() {
 
 loadEnv();
 
+function loadDatabaseId() {
+  if (process.env.NOTION_KOL_DATABASE_ID) {
+    return process.env.NOTION_KOL_DATABASE_ID.trim();
+  }
+  const brandPath = join(ROOT, 'context', 'brand-context.md');
+  if (existsSync(brandPath)) {
+    const content = readFileSync(brandPath, 'utf8');
+    const m = content.match(/\*\*KOL Pools database ID:\*\*\s*([a-f0-9-]+)/i);
+    if (m) return m[1].trim();
+  }
+  console.error(
+    'KOL database ID not found. Set NOTION_KOL_DATABASE_ID in .env or add\n' +
+    '  **KOL Pools database ID:** <uuid>\n' +
+    'to context/brand-context.md under Documentation.'
+  );
+  process.exit(1);
+}
+
 const NOTION_KEY = process.env.NOTION_API_KEY;
 if (!NOTION_KEY) {
   console.error('NOTION_API_KEY not found. Add to .env (see .env.example).');
   process.exit(1);
 }
 
-const DB_ID = '34a38ff7-8ba4-80ef-8443-cb6cf60b9c3c';
+const DB_ID = loadDatabaseId();
 
 // ── Notion API ───────────────────────────────────────────────────────────────
 async function queryPage(cursor) {
