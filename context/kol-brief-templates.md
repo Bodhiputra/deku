@@ -95,6 +95,7 @@ Apply **Brand Equity — Agent Rules** from `brand-context.md` on top of C6.
 - **Creator type** drives method priority — not product name alone.
 - **YouTube reviewers:** API script when `YOUTUBE_API_KEY` in `.env`; browser still needed for content-quality C6.
 - **Instagram lifestyle/cinematic/interior:** Chrome required — no workaround when disconnected.
+- **Instagram session config:** Dedicated IG account and Chrome profile (if any) live in `context/brand-context.md` → **Instagram KOL Session** — Jinu fills this during onboarding when Instagram is in scope.
 
 ---
 

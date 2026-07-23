@@ -71,5 +71,7 @@ Write confirmed stage to `context/brand-context.md` as `brand_stage: A / B / C /
 
 **When KOL discovery comes up later:**
 - *"When you're ready to find creators, I'll walk you through a short brief template — product, creator type, platforms, markets, size. Fixed quality gates apply; you curate Tags and Description in the database. Template lives in `context/kol-brief-templates.md`."*
+- **If Instagram is in scope:** Ask which Chrome profile and Instagram account to use for browsing. Write answers to `context/brand-context.md` → **Instagram KOL Session**. At every IG session, confirm the logged-in username before navigating profiles.
+- **If Notion + KOL:** Ensure **KOL Pools database ID** is in `brand-context.md` Documentation. For dedup sync (`tools/sync-kol-list.js`), offer to walk through a Notion integration token → `.env` as `NOTION_API_KEY` (plain-language steps; optional until first KOL run).
 
 After collecting answers, write everything to `context/brand-context.md`.

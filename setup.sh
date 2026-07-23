@@ -205,6 +205,14 @@ if [ ! -f "$PROJECT_ROOT/context/brand-context.md" ]; then
 - **Research runs:** <!-- list of dates and scope, e.g. "2026-05-08 — KOL discovery, US/Canada" -->
 
 <!-- Add Product 2, Product 3 etc. below as needed -->
+
+## Instagram KOL Session (optional)
+
+Fill in when the brand runs Instagram KOL discovery. Jinu confirms at session start.
+
+- **Dedicated IG account:** <!-- @handle or "use brand owner's personal IG" -->
+- **Chrome profile:** <!-- profile name in Chrome — must be active window for IG browse -->
+- **Session rule:** Confirm logged-in username before any IG profile navigation
 EOF
   echo "  ✓ context/brand-context.md"
 else

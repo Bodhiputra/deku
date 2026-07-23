@@ -189,6 +189,28 @@ If a server isn't responding, the easiest fix is to re-run `./setup.sh` and rest
 
 ---
 
+### 6. Optional API keys (`.env`) — explain in plain language
+
+Most brands never touch `.env` on day one. OAuth handles Notion and Figma in the chat UI. Two **optional** keys speed up specific tasks — only introduce them when relevant.
+
+**When to mention each key:**
+
+| Key | Needed for | How to explain to the brand owner |
+|---|---|---|
+| *(none)* | Market research, competitors, buyers, content strategy | "You're all set — no API keys needed." |
+| **Notion MCP (OAuth)** | Jinu writing to Notion in chat | Covered in §4 — browser Allow flow |
+| **`NOTION_API_KEY`** | KOL dedup sync (`sync-kol-list.js`) | *"For creator dedup, I use a small Notion integration token in a local file — not shared in git. I'll walk you through creating one in Notion when we start KOL work. Takes about two minutes."* |
+| **`NOTION_KOL_DATABASE_ID`** | Same — which database to sync | Jinu collects during onboarding → `brand-context.md` Documentation |
+| **`YOUTUBE_API_KEY`** | Faster YouTube KOL stats | Jinu offers before every KOL task (see `jinu.md`) — *"Optional speed-up; manual collection works too."* |
+
+**Rules for the setup assistant:**
+- Never ask for all keys upfront — introduce only when the brand owner's first task needs them.
+- Jinu walks through Google Console / Notion integration steps **one screen at a time** if the owner opts in.
+- If they skip keys: KOL still works (manual YouTube; Notion writes via MCP OAuth; dedup via `--check` when token is added later).
+- Keys live in `.env` only — never commit, never paste in chat.
+
+---
+
 ## How to call Jinu, Nagi, and Koji
 
 Once setup is complete and the host assistant is running, the brand owner calls them by name:
