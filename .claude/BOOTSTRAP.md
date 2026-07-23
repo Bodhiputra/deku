@@ -39,12 +39,13 @@ Host adapters may differ in wiring, but not in company behavior.
 ## 2. Marketing / Jinu tasks
 
 1. Complete **§1** above
-2. Read `.claude/agents/jinu.md` and `.claude/departments/marketing.md`
-3. **KOL discovery:** Read `context/kol-brief-templates.md` — confirm brief with brand owner before browse
-4. Match task → read `.claude/skills/<skill-name>/SKILL.md` (do not improvise)
-5. Notion writes → load `.claude/skills/update-notion/SKILL.md` first
-6. Check definition of done → `.claude/TASK-DOD.md`
-7. **Hooks (Cursor + Codex):** `tools/hooks/` — KOL preflight, Chrome MCP guard, Notion dedup guard (see `.cursor/hooks.json` and `.codex/hooks.json`)
+2. Read `context/jinu-user-guide.md` — offer walkthrough to new users or when owner asks how Jinu works
+3. Read `.claude/agents/jinu.md` and `.claude/departments/marketing.md`
+4. **KOL discovery:** Read `context/kol-brief-templates.md` — confirm brief with brand owner before browse
+5. Match task → read `.claude/skills/<skill-name>/SKILL.md` (do not improvise)
+6. Notion writes → load `.claude/skills/update-notion/SKILL.md` first
+7. Check definition of done → `.claude/TASK-DOD.md`
+8. **Hooks (Cursor + Codex):** `tools/hooks/` — KOL preflight, Chrome MCP guard, Notion dedup guard (see `.cursor/hooks.json` and `.codex/hooks.json`)
 
 ---
 
@@ -78,6 +79,7 @@ Before any discovery:
 4. Load `.claude/skills/kol-discovery/SKILL.md` + `update-notion`
 5. Load **brand gates:** `context/brand-context.md` → KOL Discovery Gates
 6. Read all KOL feedback files linked from `.claude/memory/jinu/MEMORY.md`:
+   - `feedback_never_assume.md`
    - `feedback_instagram_country_verification.md`
    - `feedback_kol_dedup_check.md`
    - `feedback_kol_notion_write_cadence.md`

@@ -14,11 +14,13 @@
 
 ## Session Management
 - **session-context.md format:** One section per chief (Jinu, Nagi, Koji). Each chief overwrites their own section. Decision log lives in `context/session-context-log.md` (lazy load).
+- **New user guide:** `context/jinu-user-guide.md` — offer step-by-step walkthrough on first session or when owner asks how Jinu works; never assume they have read it.
 - **Active Thread rule:** Update the Active Thread block in the Jinu section at the start of every response where a topic is still open — on every exchange, not just task starts. If mid-execution, note exactly where. Clear it only when the topic is explicitly resolved. **Keep Active Thread ≤15 lines** — see `context/kol-brief-templates.md`.
 - **KOL brief:** Confirm brief per `context/kol-brief-templates.md` before browse. Seeds are dynamic — never hardcoded default handles.
 - **Post-compaction rule:** After any compaction, read session-context.md and check Active Thread first. If it has content, resume that thread — do not jump to unrelated pending items. If empty, ask the user what's next.
 
 ## KOL Research
+- [feedback_never_assume.md](feedback_never_assume.md) — Confirm scope before every task; never silently assume product, market, run mode, or deliverable
 - [feedback_jinu_kol_role.md](feedback_jinu_kol_role.md) — **Jinu executes all KOL work inline** — discovery, verification, and Notion writes; no sub-agents (KOL Tracker is archived)
 - [feedback_instagram_country_verification.md](feedback_instagram_country_verification.md) — Instagram "About this account" → "Account based in" is the definitive country check — bio/language signals are not sufficient
 - [feedback_kol_notion_write_cadence.md](feedback_kol_notion_write_cadence.md) — Write each confirmed KOL to Notion immediately after confirmation — never batch at the end

@@ -1,5 +1,5 @@
 # KOL Brief Templates — Deku (brand-agnostic structure)
-*Load at every KOL discovery session. Brand-specific gates and competitors live in `context/brand-context.md` → KOL Discovery Gates.*
+*Load at every KOL discovery session. Brand-specific gates and competitors live in `context/brand-context.md` → KOL Discovery Gates. New users: see `context/jinu-user-guide.md` Part 5 (KOL step-by-step).*
 
 Jinu walks brand owners through this template before any KOL search begins. If the brief is incomplete, Jinu fills gaps by asking — never assumes.
 

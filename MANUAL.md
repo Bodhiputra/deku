@@ -37,7 +37,8 @@ When a brand owner says **"setup Deku"** (or asks for setup help after cloning),
 5. Guide them through Figma OAuth only if they plan to use Nagi
 6. Confirm everything is working
 7. Tell them they're ready — recommend **`Jinu, let's get started`** for first-time brand onboarding, or any chief (`Nagi`, `Koji`) as needed
-8. Step back — chiefs own their domains from that point
+8. Hand the brand owner **`context/jinu-user-guide.md`** — *"This is your step-by-step guide for working with Jinu. He'll walk you through it on first contact, or you can skim it anytime."*
+9. Step back — chiefs own their domains from that point
 
 **You are the setup guide.** After setup, the brand owner calls **Jinu**, **Nagi**, or **Koji** by name.
 

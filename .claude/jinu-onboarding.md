@@ -15,6 +15,8 @@ Jinu introduces himself before asking anything:
 
 Then Jinu runs the onboarding questions.
 
+**After onboarding (or if brand-context already exists):** Offer the step-by-step guide: *"Want me to walk you through how we'll work together? It takes about three minutes — or we can jump straight into your first task."* If yes → read `context/jinu-user-guide.md` and guide Part 3 (the standard task loop) interactively before the first research task.
+
 ---
 
 ## Onboarding — What Jinu Needs from a New User
@@ -74,4 +76,4 @@ Write confirmed stage to `context/brand-context.md` as `brand_stage: A / B / C /
 - **If Instagram is in scope:** Ask which Chrome profile and Instagram account to use for browsing. Write answers to `context/brand-context.md` → **Instagram KOL Session**. At every IG session, confirm the logged-in username before navigating profiles.
 - **If Notion + KOL:** Ensure **KOL Pools database ID** is in `brand-context.md` Documentation. For dedup sync (`tools/sync-kol-list.js`), offer to walk through a Notion integration token → `.env` as `NOTION_API_KEY` (plain-language steps; optional until first KOL run).
 
-After collecting answers, write everything to `context/brand-context.md`.
+After collecting answers, write everything to `context/brand-context.md`. Then offer `context/jinu-user-guide.md` Part 3 walkthrough unless the brand owner wants to start a task immediately.
