@@ -29,7 +29,7 @@ Run `codex` from the repo root. No wrapper script.
 | MCP servers | `.codex/config.toml` |
 | Native chief configs | `.codex/agents/*.toml` — thin pointers; canonical defs in `.claude/agents/` |
 | Skills (symlink) | `.agents/skills/` → `.claude/skills/` |
-| Hooks | `.codex/hooks.json` |
+| Hooks | `.codex/hooks.json` → shared `tools/hooks/` (KOL preflight, Chrome guard, Notion dedup) |
 | Secrets | `.env` only |
 
 **Context CLI:** `/clear` between major unrelated tasks (user-only command — never ask mid-pipeline).
@@ -37,5 +37,7 @@ Run `codex` from the repo root. No wrapper script.
 **Notion MCP disconnect:** Tell user to start a fresh Codex session.
 
 **Chief exposure:** Mixed — native agent configs exist; inline persona switching also supported. Both must load canonical files from `.claude/agents/` + memory per [`core/COMPANY.md`](core/COMPANY.md).
+
+**KOL on Codex:** Same gates as Cursor — `context/kol-brief-templates.md`, `kol-discovery` skill, `tools/sync-kol-list.js --check`. Trust project hooks on first run (`/hooks` in Codex CLI).
 
 **Claude parity note:** Claude Code uses [`CLAUDE.md`](CLAUDE.md) + `.mcp.json` for the same company system.

@@ -9,9 +9,11 @@ Before any work, read in order:
 4. `.claude/memory/jinu/MEMORY.md` and every linked `feedback_*.md`
 5. `.claude/departments/marketing.md`
 6. `context/brand-context.md` and `context/session-context.md`
-7. Task-matched skills: `.claude/skills/<skill-name>/SKILL.md` — announce before executing
-8. Notion writes → `.claude/skills/update-notion/SKILL.md` first
-9. Definition of done → `.claude/TASK-DOD.md`
+7. **KOL tasks:** `context/kol-brief-templates.md` + `.claude/skills/kol-discovery/SKILL.md` before any browse; run `node tools/sync-kol-list.js`; `--check @handle` before every Notion write
+8. Task-matched skills: `.claude/skills/<skill-name>/SKILL.md` — announce before executing
+9. Notion writes → `.claude/skills/update-notion/SKILL.md` first
+10. Definition of done → `.claude/TASK-DOD.md`
+11. **Hooks:** `.codex/hooks.json` enforces KOL preflight, Chrome guard, and Notion dedup — trust hooks via `/hooks` on first run
 
 Architecture: `core/ARCHITECTURE.md`. Do not duplicate agent logic in this file.
 """

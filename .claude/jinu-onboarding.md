@@ -69,4 +69,7 @@ Write confirmed stage to `context/brand-context.md` as `brand_stage: A / B / C /
   - **Other tool:** Deliver findings as structured reports. Never force Notion.
   - **No tool / unsure:** Recommend Notion (free, built for this). Or deliver as written reports.
 
+**When KOL discovery comes up later:**
+- *"When you're ready to find creators, I'll walk you through a short brief template — product, creator type, platforms, markets, size. Fixed quality gates apply; you curate Tags and Description in the database. Template lives in `context/kol-brief-templates.md`."*
+
 After collecting answers, write everything to `context/brand-context.md`.

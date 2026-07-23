@@ -98,7 +98,7 @@ async function collectKOL(handle) {
 
   process.stderr.write(`  Videos: ${n} | ER: ${er}% | Avg Views: ${avgViews.toLocaleString()}\n`);
 
-  // Step 4 — Top 50 comments from highest-viewed qualifying video (C3 purchase-intent check)
+  // Step 4 — Top 50 comments from highest-viewed qualifying video (optional context)
   const topVideo = [...videos].sort((a, b) => b.views - a.views)[0];
   let c3Comments = [];
   try {

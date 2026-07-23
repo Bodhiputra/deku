@@ -1,0 +1,82 @@
+---
+description: KOL discovery task enforcement — load when user asks to find KOLs, creators, or influencers. Mandatory skill and brief preflight.
+globs:
+alwaysApply: false
+---
+
+# KOL Task Enforcement (Cursor)
+
+Applies to any KOL discovery, creator search, or influencer tracking task.
+
+## Before any browse or Notion write
+
+1. Read `.claude/skills/kol-discovery/SKILL.md`
+2. Read `context/kol-brief-templates.md` — walk brand owner through template if brief incomplete
+3. Read `context/brand-context.md` → **KOL Discovery Gates**
+4. Read `.claude/skills/update-notion/SKILL.md` before Notion writes
+5. Load platform skills per brief: `platform-instagram`, `platform-youtube`, `platform-youtube-shorts` as needed
+6. Run `node tools/sync-kol-list.js` — read `context/kol-exclusion-list.md`
+7. **Chrome health check** — call Chrome MCP `list_pages`. If disconnected: **stop all Instagram work** (hard stop). YouTube API work may continue if brief allows.
+
+## Instagram rate-limit prevention (hard rules — enforce every session)
+
+**Max 10 Chrome profile navigations per hour.** Count every `navigate_page` call to any `instagram.com` URL. Stop and pause 5+ minutes when approaching the limit.
+
+**Pre-screen before Chrome.** For every candidate handle:
+1. `node tools/sync-kol-list.js --check @handle` — dedup first
+2. Web search via Socialpruf / Viralist / Google — confirm follower count, ER estimate, country signal
+3. Only open Chrome for handles that passed both steps above
+
+**Never browse blind.** Do not loop through tagged posts, following lists, or search results by navigating to each profile. Extract handles via `take_snapshot` + grep first, pre-screen externally, then open only the passing ones in Chrome.
+
+**On first suspension signal** (`accounts/suspended` in URL): stop all Chrome IG work immediately. Do not retry. Switch to web search. Resume Chrome after 30+ minutes.
+
+**Wait 4–5 seconds between navigations.** Use `AwaitShell block_until_ms: 4500` after each navigate call.
+
+---
+
+## Visual doomscroll (C6v — mandatory before qualification or write)
+
+**Instagram: Chrome MCP only — never Playwright** for profiles, grids, screenshots, or verification. If Chrome is down, stop IG work — do not batch via Playwright.
+
+Instagram KOL work **is doom scrolling**. Do not substitute bulk `evaluate_script`, caption/alt-text regex, or Feedspot lists for looking at profiles.
+
+For **every candidate** before Notion write (and before recommending as "qualified"):
+
+1. Navigate to the IG profile in Chrome MCP (one tab).
+2. **`take_screenshot`** of the post grid (scroll once if needed to see ~12–15 tiles).
+3. Describe thumbnails visually — product in frame? category? aesthetic?
+4. Pass C6v only if **≥8/15 tiles** match the brief **visually** (see `kol-discovery/SKILL.md` → C6v hard rejects).
+5. **C5:** Confirm **latest post is within 14 days (2 weeks)** from the newest grid post date.
+6. Then UpDog stats + About this account.
+
+**Forbidden:** Passing C6 from caption keywords alone (e.g. "Apple tech" on an iOS-beta grid). **Forbidden:** Batch Notion writes without per-handle screenshot this session.
+
+**Agent Reason** must cite visual grid evidence, not stats alone.
+
+## Pre-write dedup (mandatory — no exceptions)
+
+Before **every** `notion-create-pages` call for KOL Pools:
+
+```bash
+node tools/sync-kol-list.js --check @handle
+```
+
+- **Exit 0** → safe to write
+- **Exit 1** → handle already in pool — **do not write**. Update existing record or skip.
+
+Hook `tools/hooks/kol-notion-write-guard.sh` **blocks** duplicate writes at the MCP layer (Cursor `failClosed: true`; Codex `PreToolUse` deny).
+
+Discovery source does not matter — re-finding a creator via search does not mean they are new. Always `--check` the exact handle first.
+
+## Brief
+
+Never start without confirmed brief fields from `context/kol-brief-templates.md`. Seeds are **dynamic** — Qualified pool + competitor reverse-engineering + user handles — never hardcoded example handles.
+
+## Session end
+
+Overwrite Jinu Active Thread in `context/session-context.md` (≤15 lines). Append pass logs to `context/session-context-log.md`.
+
+## Announce
+
+State which skills you loaded before executing.

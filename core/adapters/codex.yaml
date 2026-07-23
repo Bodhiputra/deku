@@ -21,6 +21,7 @@ parallel_agents: true  # native agent configs exist; host may delegate to them
 # Tool wiring
 mcp_config: .codex/config.toml
 hooks_config: .codex/hooks.json
+hooks_shared: tools/hooks/
 local_settings: .env  # gitignored; canonical secret store
 
 # Codex discovers skills via symlink to shared library

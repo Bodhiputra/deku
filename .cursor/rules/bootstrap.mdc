@@ -7,6 +7,17 @@ alwaysApply: true
 
 Applies when working in the **Deku** repo (`finecoustic/`). The **host assistant** is whatever the owner calls their Cursor agent — not a Deku canonical name. Do not restate company rules here.
 
+## Shopify theme sessions (defer Deku bootstrap)
+
+If the user's message contains **shopify** (any mention — theme work, store, webdev, etc.):
+
+- **Do not** run the Deku mandatory read order below (`BOOTSTRAP.md`, `COMPANY.md`, `brand-context.md`, etc.)
+- **Do** follow [`shopify/.cursor/rules/shopify-theme-dev.mdc`](../../shopify/.cursor/rules/shopify-theme-dev.mdc) — separate git repo
+- Read `shopify/.cursor/skills/shopify-theme/SKILL.md`, `shopify/CLAUDE.md`, and shopify `context/` files first
+- **First reply:** announce which Shopify skills/files you loaded, then proceed
+
+Only load Deku bootstrap files in the same chat if the user explicitly asks for brand, KOL, or ops context.
+
 ## Mandatory read order
 
 1. [`.claude/BOOTSTRAP.md`](../../.claude/BOOTSTRAP.md) — session checklist (all chiefs, KOL gates, MCP mapping)
@@ -26,10 +37,18 @@ Task completion: [`.claude/TASK-DOD.md`](../../.claude/TASK-DOD.md)
 |---|---|
 | MCP servers | `.cursor/mcp.json` |
 | Skills | `.claude/skills/<name>/SKILL.md` |
+| KOL brief template | `context/kol-brief-templates.md` |
+| Cursor hooks | `.cursor/hooks.json` → `tools/hooks/` — KOL/research preflight, Chrome MCP guard, Notion dedup, session checkpoint |
 | Codex parity | [`AGENTS.md`](../../AGENTS.md), [`CLAUDE.md`](../../CLAUDE.md) |
 
 Skills may say `mcp__chrome__*`, `mcp__notion__*`, etc. — use this workspace's MCP servers (Notion, Chrome, Playwright, Figma, Reddit).
 
+## KOL tasks (extra)
+
+Load `.cursor/rules/kol-task-enforcement.mdc` logic. Hooks in `.cursor/hooks.json` enforce skill preflight and block Chrome MCP when DevTools is down.
+
+**Chrome hard stop:** If Chrome MCP cannot connect → no Instagram discovery or IG verification. Do not workaround.
+
 ## Enforcement
 
-Before responding to any task, confirm which files you loaded from the mandatory read order above.
+Before responding to any task, confirm which files you loaded — Deku mandatory read order **or** Shopify theme read order if the user mentioned shopify.

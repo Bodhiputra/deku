@@ -65,6 +65,10 @@ shopify/
 .agents/skills.bak.*/
 **/*.bak
 **/*.tmp
+.tmp-*
+
+# Ad-hoc npm installs from agent sessions (Deku has no package.json)
+node_modules/
 
 # Generated ops sync output
 

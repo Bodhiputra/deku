@@ -3,8 +3,10 @@
 // Fetches ALL records from Notion KOL Pools DB (paginated) and writes context/kol-exclusion-list.md
 //
 // Usage:
-//   node tools/sync-kol-list.js          — full sync
-//   node tools/sync-kol-list.js --add @handle   — append a single handle without re-fetching
+//   node tools/sync-kol-list.js                 — full sync
+//   node tools/sync-kol-list.js --add @handle     — append a single handle without re-fetching
+//   node tools/sync-kol-list.js --check @handle   — exit 0 if NOT in pool; exit 1 if exists (live Notion)
+//   node tools/sync-kol-list.js --check @handle --file-only  — check kol-exclusion-list.md only (no API)
 //
 // NOTION_API_KEY loaded from: .env → .claude/settings.local.json (fallback)
 
@@ -90,6 +92,64 @@ function prop(page, name, type) {
   return null;
 }
 
+async function queryByHandle(handle) {
+  const variants = [...new Set([
+    handle,
+    handle.startsWith('@') ? handle.slice(1) : `@${handle}`,
+  ].map(h => h.trim()).filter(Boolean))];
+
+  const filters = variants.map(v => ({
+    property: 'KOL Channel Name',
+    title: { equals: v },
+  }));
+
+  const res = await fetch(`https://api.notion.com/v1/databases/${DB_ID}/query`, {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${NOTION_KEY}`,
+      'Notion-Version': '2022-06-28',
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      page_size: 5,
+      filter: filters.length === 1 ? filters[0] : { or: filters },
+    }),
+  });
+
+  if (!res.ok) throw new Error(`Notion API ${res.status}: ${await res.text()}`);
+  const data = await res.json();
+  return data.results || [];
+}
+
+function checkFileOnly(handle) {
+  const outPath = join(ROOT, 'context', 'kol-exclusion-list.md');
+  if (!existsSync(outPath)) return false;
+  const key = handleKey(handle);
+  const content = readFileSync(outPath, 'utf8');
+  const re = new RegExp(`^-\\s@?${key.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\s*$`, 'im');
+  return re.test(content);
+}
+
+async function checkHandle(handle, { fileOnly = false } = {}) {
+  const normalized = handle.startsWith('@') ? handle : `@${handle}`;
+  if (fileOnly && checkFileOnly(normalized)) {
+    return { exists: true, source: 'kol-exclusion-list.md' };
+  }
+  if (fileOnly) {
+    return { exists: false, source: 'kol-exclusion-list.md' };
+  }
+  const hits = await queryByHandle(normalized);
+  if (hits.length) {
+    return {
+      exists: true,
+      source: 'notion',
+      count: hits.length,
+      ids: hits.map(p => p.id),
+    };
+  }
+  return { exists: false, source: 'notion' };
+}
+
 async function fetchAll() {
   const records = [];
   let cursor = null;
@@ -119,12 +179,36 @@ async function fetchAll() {
   return records;
 }
 
-// ── Duplicate detection ──────────────────────────────────────────────────────
+// ── Duplicate detection & dedupe ─────────────────────────────────────────────
+const TAG_RANK = { Qualified: 4, Stored: 3, 'Need Confirmation': 2, '': 1, Unqualified: 0 };
+
+function handleKey(name) {
+  return (name || '').replace(/^@/, '').toLowerCase().trim();
+}
+
+function recordScore(r) {
+  let s = (TAG_RANK[r.tags] ?? 1) * 1000;
+  if (r.name.startsWith('@')) s += 50;
+  return s;
+}
+
+function dedupeRecords(records) {
+  const byKey = new Map();
+  for (const r of records) {
+    const key = handleKey(r.name);
+    if (!key) continue;
+    const prev = byKey.get(key);
+    if (!prev || recordScore(r) > recordScore(prev)) byKey.set(key, r);
+  }
+  return [...byKey.values()];
+}
+
 function findDuplicates(records) {
   const seen = {};
   const dupes = [];
   for (const r of records) {
-    const key = r.name.replace(/^@/, '').toLowerCase();
+    const key = handleKey(r.name);
+    if (!key) continue;
     seen[key] = (seen[key] || 0) + 1;
     if (seen[key] === 2) dupes.push(r.name);
   }
@@ -165,13 +249,14 @@ function section(title, map, order) {
 
 function buildMarkdown(records, date) {
   const dupes = findDuplicates(records);
-  const sorted = [...records].sort((a, b) =>
-    a.name.replace(/^@/, '').localeCompare(b.name.replace(/^@/, ''), undefined, { sensitivity: 'base' })
+  const unique = dedupeRecords(records);
+  const sorted = [...unique].sort((a, b) =>
+    handleKey(a.name).localeCompare(handleKey(b.name), undefined, { sensitivity: 'base' })
   );
 
   const lines = [
     '# KOL Exclusion List',
-    `*Auto-generated from Notion KOL Pools DB — ${records.length} records — last synced: ${date}*`,
+    `*Auto-generated from Notion KOL Pools DB — ${records.length} records (${unique.length} unique handles) — last synced: ${date}*`,
     `*Refresh: \`node tools/sync-kol-list.js\` at the start of every KOL session.*`,
     '',
     '> **Dedup rule:** Before researching or writing any candidate, check the flat list below.',
@@ -196,14 +281,14 @@ function buildMarkdown(records, date) {
   lines.push('---');
   lines.push('');
 
-  lines.push(section('By Country', group(records, 'country')));
-  lines.push(section('By Platform', group(records, 'platform')));
-  lines.push(section('By Tier', group(records, 'tier'), [...TIER_ORDER, 'Unknown']));
+  lines.push(section('By Country', group(unique, 'country')));
+  lines.push(section('By Platform', group(unique, 'platform')));
+  lines.push(section('By Tier', group(unique, 'tier'), [...TIER_ORDER, 'Unknown']));
 
   // Tags (Qualified / Stored / Unqualified) + Status (Not started / In Contact / Deal)
   lines.push('## By Tags');
   lines.push('');
-  const byTag = group(records, 'tags');
+  const byTag = group(unique, 'tags');
   const tagOrder = ['Qualified', 'Stored', 'Unqualified', 'Unknown'];
   for (const t of tagOrder.filter(k => byTag[k])) {
     lines.push(`### ${t} (${byTag[t].length})`);
@@ -215,7 +300,7 @@ function buildMarkdown(records, date) {
 
   lines.push('## By Outreach Status');
   lines.push('');
-  const byStatus = group(records, 'status');
+  const byStatus = group(unique, 'status');
   const statusOrder = ['Deal', 'In Contact', 'Not started', 'Unknown'];
   for (const s of statusOrder.filter(k => byStatus[k])) {
     lines.push(`### ${s} (${byStatus[s].length})`);
@@ -248,6 +333,23 @@ function quickAdd(handle) {
 // ── Main ─────────────────────────────────────────────────────────────────────
 async function main() {
   const args = process.argv.slice(2);
+
+  if (args[0] === '--check' && args[1]) {
+    const fileOnly = args.includes('--file-only');
+    const result = await checkHandle(args[1], { fileOnly });
+    if (result.exists) {
+      const where = result.source === 'notion'
+        ? `Notion KOL Pools (${result.count} record${result.count === 1 ? '' : 's'})`
+        : result.source;
+      console.error(`BLOCKED: ${args[1]} already in ${where}. Skip write or update existing record.`);
+      if (result.ids?.length) {
+        result.ids.forEach(id => console.error(`  → https://www.notion.so/${id.replace(/-/g, '')}`));
+      }
+      process.exit(1);
+    }
+    console.log(`OK: ${args[1]} not in KOL Pools — safe to write.`);
+    return;
+  }
 
   if (args[0] === '--add' && args[1]) {
     quickAdd(args[1]);

@@ -1,12 +1,71 @@
 {
+  "description": "Deku KOL enforcement, Chrome guard, and session checkpoints (shared tools/hooks/).",
   "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "startup|resume",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/usr/bin/env bash \"$(git rev-parse --show-toplevel)/tools/hooks/deku-session-start.sh\"",
+            "statusMessage": "Deku session bootstrap"
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/usr/bin/env bash \"$(git rev-parse --show-toplevel)/tools/hooks/kol-preflight.sh\"",
+            "statusMessage": "KOL preflight"
+          },
+          {
+            "type": "command",
+            "command": "/usr/bin/env bash \"$(git rev-parse --show-toplevel)/tools/hooks/research-preflight.sh\"",
+            "statusMessage": "Research preflight"
+          }
+        ]
+      }
+    ],
     "PreToolUse": [
       {
         "matcher": "mcp__chrome__.*",
         "hooks": [
           {
             "type": "command",
-            "command": "lsof -i :9222 > /dev/null 2>&1 || (open -a 'Google Chrome' --args --remote-debugging-port=9222 --no-first-run --no-default-browser-check; sleep 4)"
+            "command": "/usr/bin/env bash \"$(git rev-parse --show-toplevel)/tools/hooks/chrome-auto-start.sh\"",
+            "statusMessage": "Starting Chrome remote debugging"
+          },
+          {
+            "type": "command",
+            "command": "/usr/bin/env bash \"$(git rev-parse --show-toplevel)/tools/hooks/chrome-mcp-guard.sh\"",
+            "timeout": 10,
+            "statusMessage": "Chrome MCP health check"
+          }
+        ]
+      },
+      {
+        "matcher": "mcp__notion__notion-create-pages|notion-create-pages",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/usr/bin/env bash \"$(git rev-parse --show-toplevel)/tools/hooks/kol-notion-write-guard.sh\"",
+            "timeout": 60,
+            "statusMessage": "KOL dedup guard"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/usr/bin/env bash \"$(git rev-parse --show-toplevel)/tools/hooks/kol-session-end.sh\"",
+            "timeout": 15,
+            "statusMessage": "KOL session checkpoint"
           }
         ]
       }

@@ -7,6 +7,8 @@ description: Multi-method KOL discovery methodology — how to find relevant cre
 
 Load at the start of every KOL discovery session. Provides the full KOL methodology — discovery, quality evaluation, required fields, and Notion write rules.
 
+**Brand-specific gate parameters** (target markets, niche categories, platform split, content-fit tests, default product) live in `context/brand-context.md` → **KOL Discovery Gates**. Load that section before evaluating any candidate. The gates below are brand-agnostic; apply brand overlays from brand-context on every run.
+
 ---
 
 ## Core Principles
@@ -63,14 +65,41 @@ Reddit top contributors in relevant subreddits. YouTube search results for categ
 
 **Tool:** Chrome DevTools MCP (`mcp__chrome__*`) — user's logged-in Chrome. Never use `isolatedContext`. Never open a new tab for each profile — one tab, navigate within it each time.
 
+**Instagram: Chrome MCP only — never Playwright.** Instagram is login-gated (session, UpDog, About this account, following/tagged/comment graph). Playwright is for public sites only (Meta Ads Library, Amazon, etc.). Do not batch IG profiles via Playwright `page.goto` loops. If Chrome MCP is down → stop IG work (hard stop); do not substitute Playwright.
+
 **Hashtag abandonment rule:**
 Niche product category hashtags are frequently dominated by retail store accounts. If 2 consecutive posts from a hashtag belong to store or brand accounts → abandon the hashtag immediately. Do not continue.
 
 **Private account early detection:**
-Read only the first 60–70 lines of any profile snapshot. If "This profile is private" appears → skip immediately. No further assessment needed.
+If the profile shows "This profile is private" → skip immediately. No further assessment needed.
 
-**Snapshot reading efficiency:**
-Never read a full profile snapshot (200+ lines). The first 50–60 lines contain everything needed: follower count, bio, email, UpDog ER overlays on the first few posts. Everything below line 100 is typically just the language selector dropdown — skip it.
+**Stats vs. visual (do not conflate):**
+- **Stats pass (UpDog, bio, follower count):** May use `evaluate_script` on `.updog` innerText or a short snapshot read. Do not read 200+ lines of a11y tree — language-selector noise starts around line 100.
+- **Niche pass (C6 / C6v):** Requires **visual doomscroll** — see **Visual doomscroll gate (C6v)** below. Caption text, img `alt`, or DOM innerText **alone cannot pass C6**.
+
+### Instagram — Rate-Limit Prevention (hard rules)
+
+Instagram detects bot-like browsing and suspends the Chrome session when too many profile navigations happen in a short window. These rules are **non-negotiable** — violating them risks suspending the logged-in account session.
+
+**Hard limits:**
+- **Max 10 profile page loads per hour** in Chrome MCP. Count every `navigate_page` call to `instagram.com/*` (profiles, tagged pages, posts). Stop and pause for 5+ minutes when approaching the limit.
+- **Wait 4–5 seconds between every profile navigation.** Use `AwaitShell` with `block_until_ms: 4500` after each navigate before the next one.
+- **Never navigate to the same profile twice** in a session. If you need to re-assess, use the already-taken screenshot.
+- **Never browse blind.** Before opening any profile in Chrome, pre-screen via web search (`socialpruf.com`, `viralist.ai`, or Google search with the handle). Only open a profile in Chrome if it has passed a credibility check externally first.
+- **Extract handle lists without navigating.** When on a tagged page or following list, extract all handles via `take_snapshot` + shell `rg` grep — do NOT navigate to each profile to collect handles. Extract the full list first, then open only pre-screened ones.
+- **One tab only.** Never open multiple Instagram tabs. Navigate within the single selected tab.
+- **Stop on first suspension signal.** If any navigate returns `accounts/suspended` in the URL → stop all Instagram Chrome work immediately. Do not retry. Switch to web search only mode and resume Chrome after 30+ minutes.
+
+**Pre-screening workflow (do this before any Chrome navigation):**
+1. Collect candidate handles via: snapshot extraction, web search, competitor tagged pages (snapshot only — no navigation to each post)
+2. For each handle, run: `node tools/sync-kol-list.js --check @handle` (dedup)
+3. Then pre-screen via web search: search `socialpruf.com/instagram/{handle}` or `viralist.ai/instagram/creators/{handle}` for follower count and ER estimate
+4. Reject handles that are clearly too small, wrong country, or wrong niche — **without opening Chrome**
+5. Open Chrome only for handles that passed steps 2–3. Limit to ≤10 per hour.
+
+**If Chrome is suspended:** Switch immediately to web search + Socialpruf for remaining candidates. Document all verified-via-web candidates, then complete C6v screenshots in a later session when Chrome recovers.
+
+---
 
 ### Instagram — Low-Yield Markets
 
@@ -112,11 +141,51 @@ Some markets have low Instagram creator yield for niche product categories. This
 - One UpDog read returns all four values at once: ER, Avg Views, Avg Likes, Avg Comments. Collect and record all four on every profile visit — never capture only ER and leave the rest blank. Leave Average Views blank only if UpDog returns "--" (statics-only account).
 - UpDog works on Instagram only. Do not attempt on YouTube or other platforms.
 
-**ER pass/fail gate:**
+**ER pass/fail gate (C1):**
 - Instagram ≥1% — fail = skip immediately, do not assess further
 - YouTube ≥1% — fail = skip immediately, do not assess further
 
 **Benchmarks:** <1% Low · 1–3.5% Average · >3.5% High
+
+**Activity gate (C5 — hard fail before Notion write):**
+- **Latest post within 14 days (2 weeks).** C5 is judged by the creator's **most recent post date** — not average cadence, not UpDog alone.
+- **How to verify (Instagram, Chrome MCP):** On the profile grid, read the date on the **newest** post (top-left tile). Use the post timestamp in the UI, or open the newest post/reel if the grid date is unclear. Image `alt` text often includes `Photo shared on [Month Day, Year]` — acceptable if visible without opening the post.
+- **Fail** if the latest post is **more than 14 days** before the verification date.
+- UpDog showing **0 posts in last year** = immediate skip.
+- Do not write inactive or dormant accounts to Notion, even if historical ER looks good.
+
+**Niche alignment gate (C6 — hard fail before Notion write):**
+- Assess the **last 15 posts** (reels + statics) **visually** — see **C6v** below.
+- **Majority must match the brief's content categories** — defined in `context/brand-context.md` → KOL Discovery Gates.
+- Default rule when no brand file specifies otherwise: **≥8 of 15 posts** clearly on-brief for the product category being sourced.
+- Account-type hard rejects (skip without write): retail/deal pages, meme/reaction accounts, single-category mismatches vs the brief (e.g. keyboards-only when brief is consumer audio).
+- **Caption-only C6 is forbidden.** Keywords in alt text or captions (e.g. "tech", "review", "Apple") do not count unless the **thumbnail/frame** shows on-brief content.
+
+### Visual doomscroll gate (C6v — hard fail before Notion write)
+
+Instagram KOL discovery **is doom scrolling**. The agent must browse profiles the way a human talent scout does — looking at grids and reels, not parsing metadata.
+
+**Mandatory for every candidate considered for Notion write:**
+
+1. Navigate to the profile in Chrome MCP (one tab, navigate in place).
+2. Call **`take_screenshot`** on the profile grid (viewport). Scroll the grid once if the first screen is header-only; screenshot again if needed to capture ~12–15 recent tiles.
+3. **Describe what you see in the thumbnails** — subject, product category, aesthetic, repetition pattern.
+4. Count **on-brief tiles visually** (≥8/15 default). Open 1–2 reels only when the grid is ambiguous.
+5. Run UpDog + About this account **after** C6v passes — not before. Do not invest stats work on profiles that fail visually in step 3.
+
+**C6v hard rejects (visual pattern — skip even if captions say "tech" or "review"):**
+- iOS/software beta grids (Settings screens, "iOS X.X Beta" tiles)
+- Pure interior / cats / travel with no audio gear or product
+- Fitness/lifestyle with no product or sound context
+- Cinematic BTS / filmmaker portfolios with no review/unbox subject
+- Single-brand keyboard/PC-only grids when brief is consumer audio
+
+**Discovery = doomscroll:** Graph expansion (following, tagged, comments, similar) must happen by **navigating and screenshotting profiles in sequence**, not by bulk `evaluate_script` on lists of handles. Web search and Feedspot lists are **lead names only** — each name still requires C6v before write.
+
+**Mandatory pre-write checklist — all must pass:**
+C6v visual doomscroll · C1 ER · C2 geo/persona · C5 activity · C6 niche (visual ≥8/15 per brand/brief) · required fields populated. **Never write on C1 or caption keywords alone.** If yield is low, report fewer accounts — do not lower the bar to hit a quota.
+
+**Archived criteria (inactive):** C4 sponsored performance — `.claude/archive/kol-criteria-c4-sponsored-performance.md`
 
 **ER overlay anomalies:**
 - Two anomalously large numbers on the first two posts (e.g., 4223%, 280%) = pinned viral outliers. Ignore these. Read posts 3–10 for representative ER.
@@ -132,31 +201,31 @@ After confirming country via "About this account", use caption language, comment
 **YouTube:**
 Channel "About" page country field, or API `country` field if using the script. If "Not set" — verify via bio signals and caption language in browser.
 
-### Quality Criteria — C1 through C6
+### Quality Criteria — Active gates (C1, C2, C5, C6)
 
 **C1 — Engagement rate (pass/fail gate):**
 Apply ER formulas above. Fail = skip immediately. Do not assess further.
 
 **C2 — Audience demographics vs. target persona:**
-Does this creator's audience match the target buyer persona — country (verified above), language, lifestyle signals?
+Does this creator's audience match the target buyer persona — country (verified above), language, lifestyle signals? Target markets and exclusions: `context/brand-context.md` and the user brief.
 
-**C3 — Purchase-intent signals in comments:**
-Scroll 20–30 comments across 3–5 recent posts. Look for: "just ordered," "where can I buy," "how much is this," detailed spec questions. High purchase-intent comment frequency = strong signal.
+**C5 — Activity (pass/fail gate):**
+Latest post within **14 days (2 weeks)** — verified from the newest grid post date (see **Activity gate** above). Fail = skip immediately.
 
-**C4 — Sponsored content performance:**
-Has the creator done branded content? Does it perform at a similar level to their organic content? If sponsored posts have <50% of normal engagement — disqualifying.
-
-**C5 — Growth trajectory:**
+**C5b — Growth trajectory (optional flag, not a write gate):**
 Is the creator growing, flat, or declining? Sudden spikes followed by flat periods indicate bought engagement — flag and verify.
 
 **C6 — Verbatim language alignment:**
-Does the creator's own language — captions, commentary, self-description — align with the verbatim language map from buyer research? A creator who naturally uses the same words your buyer uses is a higher fit than one who doesn't, regardless of follower count.
+Does the creator's own language — captions, commentary, self-description — align with the verbatim language map from buyer research (when available)? A creator who naturally uses the same words your buyer uses is a higher fit than one who doesn't, regardless of follower count. Niche content majority: see **Niche alignment gate** above and brand files.
 
-### Content Quality Filter
+### Content Quality Filter (part of C6v)
+
+Assessed from the **same screenshots** used for C6v — not from caption text.
 
 - **Visual quality:** Lighting, color grading, composition — intentional? Natural lighting handled well counts equally to studio.
-- **Consistency:** Does quality hold across the last 9–12 posts?
+- **Consistency:** Does quality hold across the last **15 posts** visible in the grid?
 - **Authenticity:** Does the content feel like a genuine person's perspective?
+- **Brand fit:** Would this grid plausibly feature a portable speaker / headphone / audio product without looking off-topic?
 
 A nano creator with consistently high-quality content outweighs a micro creator with one viral post and mediocre surrounding content.
 
@@ -166,9 +235,9 @@ A nano creator with consistently high-quality content outweighs a micro creator 
 - If it exists → use the API script (faster, more reliable): `node tools/youtube-kol-data.js @Handle1 @Handle2 @Handle3`
 - If it does not → collect data manually via browser
 
-**What the script returns per KOL:** `subscribers`, `country`, `er`, `erPass` (true/false ≥1%), `avgViews`, `avgLikes`, `avgComments`, `videos` (per-video breakdown), `c3Comments` (50 comments from top video for C3 assessment).
+**What the script returns per KOL:** `subscribers`, `country`, `er`, `erPass` (true/false ≥1%), `avgViews`, `avgLikes`, `avgComments`, `videos` (per-video breakdown), `c3Comments` (50 comments from top video — optional context only, not a qualification gate).
 
-**What the script does NOT replace:** email lookup, content quality check (C2, C4, C5, C6), country verification if "Not set".
+**What the script does NOT replace:** email lookup, content quality check (C2, C5, C6), country verification if "Not set".
 
 **Handle verification — exact match required:**
 Before concluding a channel doesn't exist, verify the exact handle character-by-character. Try at minimum: exact provided handle, trailing underscore variant, different capitalisation. A channel returning empty or zero subscribers likely has a handle mismatch — do not mark it as non-existent without trying variants.
@@ -185,13 +254,14 @@ Never write a KOL record until every field below is populated:
 - **Contact/Email** — attempt lookup: platform About page → web search `"[creator name] email collab contact"` → bio links/Linktree. If genuinely unavailable after all attempts, write "Not found"
 - **Country** (Instagram: verified via "About this account" → "Account based in". YouTube: from channel "About" page or API `country` field)
 - **Links** (the KOL's own platform URL — not a third-party article)
-- **Agent Reason** — 1–2 sentences. Format: how they were found + why they are relevant for the brief. Never leave blank. Never write more than 2 sentences.
+- **Agent Reason** — 1–2 sentences. Format: **seed/trail** + **visual grid evidence** (e.g. "Grid: 10/15 hands-on speaker/headphone reviews; moody desk aesthetic"). Must cite what the **screenshot showed**, not caption keywords alone. Never leave blank. Never write more than 2 sentences.
 
 **Tags and Description — never populate.** These are the user's manual curatorial decisions. Leave both blank.
 
 ### Notion Write Rules
 
-- **No duplicates:** Read `context/kol-exclusion-list.md` at the start of every discovery task. Hard-exclude all listed handles before any discovery begins. Never query Notion directly for this.
-- **Immediate writes:** Write each confirmed KOL to Notion immediately after they pass all criteria. Never batch at the end. Never accumulate.
+- **Pre-write dedup (mandatory):** Run `node tools/sync-kol-list.js --check @handle` immediately before every Notion write. Uses live Notion query — not optional. Exit 1 = skip write or update existing record only.
+- **No duplicates:** Read `context/kol-exclusion-list.md` at the start of every discovery task. Hard-exclude all listed handles before any discovery begins. Never query Notion search for dedup (25-result cap).
+- **Immediate writes:** Write each confirmed KOL to Notion immediately after they pass all criteria — but only after `--check` passes and **C6v screenshot** is complete for that handle. **One profile → one screenshot → one qualification → one write.** Never batch-qualify from stats spreadsheets. Never accumulate.
 - **Write verification required after each write:** Fetch the record back by its Notion URL to confirm the write succeeded. If the fetch fails → stop immediately and report.
-- **Update exclusion list:** Add the handle to the in-memory exclusion list immediately after writing, so duplicates within the same run are blocked.
+- **Update exclusion list:** After each successful write, run `node tools/sync-kol-list.js --add @handle` (or full sync).

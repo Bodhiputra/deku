@@ -1,0 +1,35 @@
+{
+  "version": 1,
+  "hooks": {
+    "sessionStart": [
+      {
+        "command": "tools/hooks/deku-session-start.sh"
+      }
+    ],
+    "beforeSubmitPrompt": [
+      {
+        "command": "tools/hooks/kol-preflight.sh",
+        "matcher": "UserPromptSubmit"
+      },
+      {
+        "command": "tools/hooks/research-preflight.sh",
+        "matcher": "UserPromptSubmit"
+      }
+    ],
+    "beforeMCPExecution": [
+      {
+        "command": "tools/hooks/chrome-mcp-guard.sh",
+        "failClosed": false
+      },
+      {
+        "command": "tools/hooks/kol-notion-write-guard.sh",
+        "failClosed": true
+      }
+    ],
+    "stop": [
+      {
+        "command": "tools/hooks/kol-session-end.sh"
+      }
+    ]
+  }
+}
