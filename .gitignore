@@ -10,6 +10,10 @@ context/pipeline-state.md
 context/presentation-design-system.md
 context/design-context.md
 context/ops-context.md
+context/industry-context.md
+
+# Senku knowledge bank — brand-local, never commit
+knowledge-bank/brands/
 
 # Proof files (can be large)
 proofs/
@@ -51,7 +55,7 @@ research/
 fc-*.png
 fc-*-snapshot.md
 
-# Retired Senku agent — local archive only, not part of Deku
+# Retired Senku agent — local archive only (restored 2026-08-24 to canonical paths)
 .claude/_archived/senku/
 
 # Brand fonts — each brand owner brings their own
