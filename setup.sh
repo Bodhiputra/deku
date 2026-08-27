@@ -222,7 +222,7 @@ fi
 if [ ! -f "$PROJECT_ROOT/context/session-context.md" ]; then
   cat > "$PROJECT_ROOT/context/session-context.md" << 'EOF'
 # Session Context — Deku Canonical Agents
-*For Jinu, Nagi, Koji, and future Deku agents only — not the host assistant.*
+*For Jinu, Nagi, Koji, Senku, and future Deku agents only — not the host assistant.*
 *Format: one section per agent. Each agent overwrites their own section at end of session.*
 
 ---
@@ -246,6 +246,14 @@ if [ ! -f "$PROJECT_ROOT/context/session-context.md" ]; then
 *Overwrite this section at end of each Koji session.*
 
 - **Status:** No ops work completed yet
+
+---
+
+## Senku — Last Session Checkpoint
+*Overwrite this section at end of each Senku session.*
+
+- **Status:** No product intelligence work completed yet
+- **Recommended next action:** Say "Senku, learn my industry" to begin onboarding
 
 ---
 EOF

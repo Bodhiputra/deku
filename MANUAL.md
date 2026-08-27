@@ -212,7 +212,7 @@ Most brands never touch `.env` on day one. OAuth handles Notion and Figma in the
 
 ---
 
-## How to call Jinu, Nagi, and Koji
+## How to call Jinu, Nagi, Koji, and Senku
 
 Once setup is complete and the host assistant is running, the brand owner calls them by name:
 
@@ -234,12 +234,18 @@ Koji, what's our stock situation?
 
 The current host assistant will adopt Koji's persona and load ops data.
 
+```
+Senku, explain how this product spec works
+```
+
+The current host assistant will adopt Senku's persona and load product intelligence context.
+
 To switch back to the regular host assistant:
 - Address the assistant directly (by whatever name the brand owner uses for it)
 
-The host assistant is **not** a Deku canonical agent — each owner chooses their own name (e.g. *Jarvis* on this workspace). Jinu, Nagi, and Koji are Deku chiefs and exist only in this repo.
+The host assistant is **not** a Deku canonical agent — each owner chooses their own name (e.g. *Jarvis* on this workspace). Jinu, Nagi, Koji, and Senku are Deku chiefs and exist only in this repo.
 
-**Important to explain to the brand owner:** Jinu, Nagi, and Koji are not separate products. They are canonical chiefs exposed through the current host assistant. Depending on the host, this may appear as inline persona switching or a native agent surface. The company behavior should remain the same.
+**Important to explain to the brand owner:** Jinu, Nagi, Koji, and Senku are not separate products. They are canonical chiefs exposed through the current host assistant. Depending on the host, this may appear as inline persona switching or a native agent surface. The company behavior should remain the same.
 
 ---
 
@@ -260,6 +266,18 @@ When a brand owner asks what Jinu does, explain it this way:
 *"Nagi is your Chief Design Officer. He handles all visual work — brand identity, website design, social media assets, presentations, ad creatives, everything. He writes the design in HTML/CSS first (which is the most precise way to control layout and typography), then pushes it directly to Figma so you can edit it there.*
 
 *Nagi reads Jinu's research from Notion, so he already knows your buyer personas, competitors, and positioning before he starts designing. The marketing and design departments are connected."*
+
+---
+
+## What Senku does — explaining to brand owners
+
+*"Senku is your Chief Product Intelligence Officer. He learns how your product category works — specs, components, materials, form factors — and keeps that knowledge in a local knowledge bank on your machine. He monitors credible review sites and communities for industry signals, and he can ingest your factory documentation so he knows your products down to the component level.*
+
+*You work with Senku task by task. Tell him what you need — 'explain this spec', 'research how this component works', 'learn from this spec sheet', 'what's new in our category' — and he builds your product encyclopedia over time.*
+
+*Senku does not do marketing strategy (that's Jinu), design (Nagi), or inventory (Koji). Jinu reads Senku's bank when he needs accurate product comparisons."*
+
+See also: `context/senku-user-guide.md`
 
 ---
 
@@ -336,7 +354,7 @@ project-root/                    ← Deku repo (local folder name may differ, e.
 │   └── confirmed-markets.md     ← Tiered market list (written by Jinu after Phase 0)
 └── .claude/
     ├── BOOTSTRAP.md             ← Session checklist (all hosts)
-    ├── agents/                  ← Jinu, Nagi, Koji definitions
+    ├── agents/                  ← Jinu, Nagi, Koji, Senku definitions
     ├── departments/             ← Department operating manuals
     ├── skills/                  ← Shared workflow library
     └── memory/                  ← Chief memory + feedback files
