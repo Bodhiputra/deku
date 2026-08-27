@@ -11,7 +11,7 @@ These apply to every KOL run on every platform:
 
 | Gate | Rule |
 |---|---|
-| **C1** | ER ≥1% (Instagram: UpDog; YouTube: view-based formula or API script) |
+| **C1** | ER — **record in Notion** (UpDog / YT script). **Pass/fail gate suspended** (owner 2026-08-24); do not skip on ER alone |
 | **C2** | Country verified — IG: ⋯ → About this account → **Account based in**; YT: About or API |
 | **C5** | Active — **latest post within 14 days (2 weeks)**; verify newest post date on profile grid; UpDog 0 posts in last year = fail |
 | **C6** | Niche majority — last 15 posts (IG) or last 10 videos/12mo (YT); threshold defined by **C6 preset** below |
@@ -20,7 +20,7 @@ These apply to every KOL run on every platform:
 | **Write cadence** | Write each confirmed KOL immediately; fetch-back verify after each write |
 | **Chrome** | If Chrome MCP disconnected → **no Instagram discovery or IG verification** (hard stop) |
 
-**Never write on ER alone. Never pad to hit quota — report low yield honestly.**
+**Never write on ER alone (when gate is active). Never pad to hit quota — report low yield honestly.**
 
 ---
 
@@ -38,8 +38,8 @@ Tier:              [Nano | Micro | range e.g. 1K–100K]
 Gender:            [if relevant — or "any"]
 Target count:      [N verified — agent reports honestly if fewer]
 C6 preset:         [REVIEWER | LIFESTYLE | CINEMATIC | INTERIOR | DESK SETUP | MUSIC — see below]
-Competitors:       [brands to reverse-engineer — from brief + brand-context registry]
-Seeds:             [user handles OR "discover dynamically" — see seed rules]
+Competitors:       [flat list to mine — Tier 2 design-reference from brand-context + any extras; no default priority]
+Seeds:             [user seed sources REQUIRED — handles, links, accounts to mine; see seed rules]
 Explicitly NOT:    [e.g. desk setup | reviewer | inactive | audiophile | paid-only macro]
 ```
 
@@ -76,10 +76,12 @@ Apply **Brand Equity — Agent Rules** from `brand-context.md` on top of C6.
 
 ### Seed order (every run)
 
-1. **User-provided handles** — if the brand owner shares any, evaluate first (even off-brief ones define aesthetic benchmark).
-2. **Notion Qualified / Stored pool** — query KOL Pools for records matching **this brief's creator type + platform + market**. Use the brand owner's Tags and Description notes as fit training data. Different runs pull different seeds.
-3. **Competitor reverse-engineering** — who already reviewed or tagged competitors listed in the brief + `brand-context.md` Competitor Registry (and any launch-reference brands e.g. indie audio preorders).
-4. **Social graph expansion** — Pass A–D from seeds confirmed **in this run only** (mutuals, comments, tagged, suggested). Never mix graphs across creator types (reviewer seeds ≠ desk setup seeds).
+1. **User seed sources (required)** — brand owner provides handles, links, or accounts to mine **before** browsing. Evaluate first (even off-brief ones define aesthetic benchmark). If none given, Jinu asks explicitly — do not assume "discover dynamically."
+2. **Notion Qualified / Stored pool** — KOL Pools matching **this brief's creator type + platform + market**. Tags/Description = taste training data. Pool = taste anchor; graph expansion finds net-new small creators.
+3. **Competitor reverse-engineering (Method 2)** — who tagged/reviewed brands in the brief + `brand-context.md` → **Competitive taxonomy** Tier 2 (design-reference). **Not** Tier 3 anti-reference (e.g. Soundcore). Flat list per run — no default priority.
+4. **Social graph expansion (Method 1)** — Pass A–D from seeds **confirmed in this run only**: Following (A), comments (B), tagged (C), similar accounts (D). Never mix graphs across creator types (reviewer seeds ≠ desk setup seeds).
+
+**Discovery flow:** brief + dedup → user seeds → pool → competitor tagged → graph → gates → write → repeat from new qualified KOLs.
 
 ### Seed rules
 
@@ -96,6 +98,46 @@ Apply **Brand Equity — Agent Rules** from `brand-context.md` on top of C6.
 - **YouTube reviewers:** API script when `YOUTUBE_API_KEY` in `.env`; browser still needed for content-quality C6.
 - **Instagram lifestyle/cinematic/interior:** Chrome required — no workaround when disconnected.
 - **Instagram session config:** Dedicated IG account and Chrome profile (if any) live in `context/brand-context.md` → **Instagram KOL Session** — Jinu fills this during onboarding when Instagram is in scope.
+
+---
+
+## KOL platform strategy (Finecoustic)
+
+*Load for KOL discovery and content tasks. Brand-specific — not portable.*
+
+**Platform pillar table:**
+
+| Platform | Content Pillar | KOL Role |
+|---|---|---|
+| Instagram | Exposure | Aesthetic, setup, lifestyle, interior, portable use — brand discovery |
+| X | Exposure + Retention | Community conversation, word-of-mouth amplification |
+| Reddit | Retention | Community validators in audio and adjacent communities |
+| YouTube | Conversion | Review-driven purchase intent |
+| YouTube Shorts | Exposure | Short-form algorithm-driven discovery |
+
+**Creator segments (all in scope):**
+
+| Segment | What they create | Why they fit |
+|---|---|---|
+| Aesthetic / setup creators | Interior design, desk setup, lifestyle — products as intentional visual objects | The speaker as a visible object in a curated environment |
+| Audio / tech reviewers | Spec reviews, comparisons, honest assessments | Conversion — spec validation and purchase intent |
+| Creatives and music people | Music production, creative work environments, listening culture | Experiential — how the product fits into a creative life |
+| Lifestyle / portable | Outdoor, travel, camping, on-the-go audio use | Portability and real-world use scenarios |
+
+**Visual quality filter:** Lighting, color grading, and composition are primary filters alongside ER. A nano creator with consistently high-quality intentional content outweighs a micro creator with one viral post surrounded by low-effort content. Quality is the filter; follower count is the tier label only.
+
+**Meta Ads Library:** Not a primary KOL discovery source. Competitors in this category run zero KOL-linked paid social. MAL is useful for competitor paid creative analysis only — not required for KOL discovery.
+
+---
+
+## Market-specific notes
+
+**Philippines:**
+- Audio/tech KOLs on Instagram are rare — niche product IG yield is very low per hour. Exhaust web search before opening Chrome.
+- Content creation is YouTube-first, TikTok-second, Instagram-third for tech/lifestyle categories.
+- Audio hashtags (#audiophileph, #battlestationph etc.) are dominated by retail store accounts. Abandon after 2 consecutive store posts.
+- Major audio brand-tagged pages (JBL, Sony) are restricted — cannot be used for KOL discovery.
+- ER threshold ≥1% (global standard applies here too).
 
 ---
 
