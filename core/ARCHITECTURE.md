@@ -13,7 +13,7 @@ The system is not Claude-first, Codex-first, or Cursor-first.
 
 1. Canonical company logic is platform-neutral.
 2. Host assistants are adapters, not canonical company agents.
-3. Jinu, Nagi, Koji, and future department leads are independent canonical agents.
+3. Jinu, Nagi, Koji, Senku, and future department leads are independent canonical agents.
 4. Platform-specific tool names, command syntax, and config details stay in adapter files.
 5. Brand state lives in workspace context files, not in adapter config.
 6. Secrets, machine-local paths, and local auth state must not define the architecture.
@@ -27,6 +27,7 @@ Canonical agents are business roles:
 - `Jinu` — marketing
 - `Nagi` — design
 - `Koji` — operations
+- `Senku` — product intelligence
 
 The host assistant on each platform may expose these agents through persona switching, delegation, or separate agent runtimes. That exposure model is an adapter concern.
 
@@ -60,6 +61,7 @@ Contexts store brand and session state:
 - `context/session-context.md`
 - `context/confirmed-markets.md`
 - `context/ops-context.md`
+- `context/industry-context.md` (Senku industry assignment — gitignored per brand)
 - `context/architecture-session-context.md`
 
 These files are workspace state, not platform state.
@@ -108,12 +110,14 @@ After `setup.sh` completes, a user on any first-class supported host should get:
    - `Jinu`
    - `Nagi`
    - `Koji`
+   - `Senku`
    - future chiefs added to the canonical core
 2. The same context model:
    - `context/brand-context.md`
    - `context/session-context.md`
    - `context/confirmed-markets.md`
    - `context/ops-context.md`
+   - `context/industry-context.example.md` (committed template; live file gitignored)
 3. The same shared workflow library:
    - agents
    - departments

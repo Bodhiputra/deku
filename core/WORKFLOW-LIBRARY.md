@@ -96,7 +96,7 @@ These also live under `.claude/` today (same historical path):
 
 | Path | Purpose |
 |---|---|
-| `.claude/agents/` | Chief definitions (Jinu, Nagi, Koji) |
+| `.claude/agents/` | Chief definitions (Jinu, Nagi, Koji, Senku) |
 | `.claude/departments/` | Department operating manuals |
 | `.claude/memory/` | Cross-session feedback and rules |
 | `.claude/BOOTSTRAP.md` | Session checklist (all hosts) |

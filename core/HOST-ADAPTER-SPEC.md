@@ -92,6 +92,7 @@ Every session on every host must execute equivalent bootstrap behavior before co
 | **Jinu** | `.claude/agents/jinu.md`, `.claude/departments/marketing.md`, matched skills, `.claude/TASK-DOD.md` |
 | **Nagi** | `.claude/agents/nagi.md`, `.claude/departments/design.md`, design skills, `brand-compliance-review` before delivery |
 | **Koji** | `.claude/agents/koji.md`, `.claude/departments/operations.md`, matched ops skills |
+| **Senku** | `.claude/agents/senku.md`, `.claude/departments/intelligence.md`, matched product intelligence skills |
 
 ### 4.3 Skill loading rule
 
@@ -118,6 +119,7 @@ Canonical chiefs:
 | `jinu` | Marketing (CMO) | Notion (if configured) or structured reports |
 | `nagi` | Design (CDO) | Figma |
 | `koji` | Operations (COO) | Brand's system of record (`context/ops-context.md`) |
+| `senku` | Product Intelligence (CPIO) | Local knowledge bank (`knowledge-bank/brands/`) |
 
 ### 5.1 Exposure modes (adapter choice)
 
@@ -137,7 +139,7 @@ Adapters must support equivalent triggers:
 
 | User intent | Result |
 |---|---|
-| Address chief by name (`Jinu, ...`, `Nagi, ...`, `Koji, ...`) | Switch to or invoke that chief |
+| Address chief by name (`Jinu, ...`, `Nagi, ...`, `Koji, ...`, `Senku, ...`) | Switch to or invoke that chief |
 | Cross-department discussion request | Multi-chief inline or sequential exchange |
 | Address host assistant directly (owner's chosen name) | Return to host assistant surface |
 
@@ -312,12 +314,12 @@ Use this before declaring an adapter first-class.
 ### Bootstrap
 
 - [ ] Session start runs universal bootstrap (§4.1)
-- [ ] Task-scoped bootstrap works for Jinu, Nagi, Koji
+- [ ] Task-scoped bootstrap works for Jinu, Nagi, Koji, Senku
 - [ ] Skills are announced before execution
 
 ### Chiefs
 
-- [ ] All three chiefs invokable by name
+- [ ] All four chiefs invokable by name (Jinu, Nagi, Koji, Senku)
 - [ ] Chief loads canonical agent file + memory, not adapter-only copy
 - [ ] Switch/handback behavior is clear to the user
 

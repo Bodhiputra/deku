@@ -16,7 +16,7 @@ Treat `.claude/` as the current shared runtime library, not as proof that the co
 
 Regardless of host platform, the company system must resolve to the same:
 
-1. Canonical chiefs: Jinu, Nagi, Koji
+1. Canonical chiefs: Jinu, Nagi, Koji, Senku
 2. Shared workflow library: agents, departments, skills, memory, DOD
 3. Context model: `context/brand-context.md`, `context/session-context.md`, `context/confirmed-markets.md`
 4. Setup flow: clone repo → run `setup.sh` → open host assistant → say `setup Deku`
@@ -30,7 +30,7 @@ Host adapters may differ in wiring, but not in company behavior.
 1. Run `date`
 2. Read `core/COMPANY.md` — company operating rules (persona switching, MCP policy, permissions)
 3. Read `context/brand-context.md` and `context/session-context.md`
-4. Read `.claude/memory/jinu/MEMORY.md` (marketing) or `.claude/memory/nagi/MEMORY.md` (design) or `.claude/memory/koji/MEMORY.md` (ops) — **load every linked `feedback_*.md` file**
+4. Read `.claude/memory/jinu/MEMORY.md` (marketing) or `.claude/memory/nagi/MEMORY.md` (design) or `.claude/memory/koji/MEMORY.md` (ops) or `.claude/memory/senku/MEMORY.md` (product intelligence) — **load every linked `feedback_*.md` file**
 5. Chrome test (if browser research needed): list open pages / confirm Chrome DevTools MCP connected
 6. Announce which skill(s) you are loading before executing
 
@@ -45,7 +45,12 @@ Host adapters may differ in wiring, but not in company behavior.
 5. Match task → read `.claude/skills/<skill-name>/SKILL.md` (do not improvise)
 6. Notion writes → load `.claude/skills/update-notion/SKILL.md` first
 7. Check definition of done → `.claude/TASK-DOD.md`
-8. **Hooks (Cursor + Codex):** `tools/hooks/` — KOL preflight, Chrome MCP guard, Notion dedup guard (see `.cursor/hooks.json` and `.codex/hooks.json`)
+8. **Hooks:** `tools/hooks/` — KOL preflight, Chrome MCP guard, Notion dedup guard
+   - **Claude Code:** hooks fire automatically via `.claude/settings.json`
+   - **Cursor / Codex:** hooks do NOT fire automatically — run manually each session:
+     - KOL session start: `node tools/sync-kol-list.js` + read `kol-exclusion-list.md`
+     - Before IG browse: confirm Chrome connected + **Fantechzoom** profile + `@christopherr1999` logged in (`finecoustic_global` banned)
+     - Session end: overwrite Jinu Active Thread in `context/session-context.md` (≤15 lines)
 
 ---
 
@@ -69,7 +74,17 @@ Host adapters may differ in wiring, but not in company behavior.
 
 ---
 
-## 5. KOL discovery (extra gates)
+## 5. Product intelligence / Senku tasks
+
+1. Complete **§1** above (use `.claude/memory/senku/MEMORY.md`)
+2. Read `.claude/agents/senku.md` and `.claude/departments/intelligence.md`
+3. Read `context/industry-context.md` — if missing, run `industry-onboarding` skill before research
+4. Match task → read `.claude/skills/<skill-name>/SKILL.md` (e.g. `knowledge-bank-standards`, `domain-research`, `source-intake`)
+5. Never write to Marketing Notion, Figma, or ops data — knowledge bank markdown only
+
+---
+
+## 6. KOL discovery (extra gates)
 
 Before any discovery:
 
@@ -90,7 +105,7 @@ Task is **not done** until `.claude/TASK-DOD.md` → KOL section passes.
 
 ---
 
-## 6. MCP name mapping (Cursor / Codex)
+## 7. MCP name mapping (Cursor / Codex)
 
 Skills may say `mcp__chrome__*`, `mcp__notion__*`, etc. Use this project's enabled MCP servers:
 
@@ -107,7 +122,7 @@ Skills may say `mcp__chrome__*`, `mcp__notion__*`, etc. Use this project's enabl
 
 ---
 
-## 7. Host adapters
+## 8. Host adapters
 
 Platform wiring only — not company rules:
 
