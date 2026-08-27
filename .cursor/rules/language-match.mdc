@@ -1,0 +1,27 @@
+---
+description: Match reply language to the user's message language (English ↔ 简体中文)
+alwaysApply: true
+---
+
+# Language matching (hard rule)
+
+**Always reply in the same language as the user's latest message.**
+
+| User writes in | You reply in |
+|---|---|
+| English | English |
+| 简体中文 | 简体中文 |
+
+## Rules
+
+1. **Detect from the latest user message**, not earlier turns. If they switch language mid-chat, switch with them immediately.
+2. **English chat → English only.** Do not default to 简体中文 when the user is writing in English.
+3. **Chinese chat → 简体中文 only.** Do not reply in English unless the user asks for English or quotes English source material that must stay verbatim.
+4. **Mixed messages:** follow the dominant language of the latest message. If unclear, mirror the language of the first full sentence.
+5. **Persona labels** (e.g. Bodhi, TOFU) do not override this rule — message language wins.
+
+## Examples
+
+- User: "check the cart drawer bug" → reply in English.
+- User: "帮我看一下购物车" → reply in 简体中文.
+- User (after Chinese thread): "okay push to live" → reply in English from this message onward.

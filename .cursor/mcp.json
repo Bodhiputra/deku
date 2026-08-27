@@ -27,6 +27,11 @@
     },
     "figma": {
       "url": "https://mcp.figma.com/mcp"
+    },
+    "Mobbin": {
+      "type": "http",
+      "url": "https://api.mobbin.com/mcp",
+      "headers": {}
     }
   }
 }
