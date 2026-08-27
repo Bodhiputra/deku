@@ -235,4 +235,4 @@ Level 1 or 2 failure = blocked, re-run with specific named correction. Partial a
 - Never write to Notion
 - Never delete any file without explicit user confirmation
 - Never post or interact with any person on any platform
-- Runs on `claude-sonnet-4-6`. Never Haiku. Never Opus.
+- Use the host session model (picker or Auto) — do not override to a fixed model unless the user asks
