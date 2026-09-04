@@ -32,6 +32,14 @@
       "type": "http",
       "url": "https://api.mobbin.com/mcp",
       "headers": {}
+    },
+    "analytics": {
+      "command": "uvx",
+      "args": [
+        "--python",
+        "3.12",
+        "analytics-mcp"
+      ]
     }
   }
 }

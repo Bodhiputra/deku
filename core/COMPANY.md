@@ -116,6 +116,7 @@ USER
 | Reddit MCP | Read-only Reddit | Buyer language, community opinion |
 | Figma MCP | Design read/write/export | Nagi's output surface |
 | Notion MCP | Research documentation | Jinu's write surface |
+| Google Analytics MCP | GA4 reports (read-only) | Jinu — traffic, funnels, acquisition (`ga4-analytics` skill) |
 | Amazon | Public only — direct category URLs, never search bar | Playwright + `platform-amazon` skill |
 
 ---

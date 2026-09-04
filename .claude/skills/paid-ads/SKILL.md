@@ -302,7 +302,7 @@ For implementation, see the [tools registry](../../tools/REGISTRY.md). Key adver
 | **LinkedIn Ads** | B2B, job title targeting | - | [linkedin-ads.md](../../tools/integrations/linkedin-ads.md) |
 | **TikTok Ads** | Younger demographics, video | - | [tiktok-ads.md](../../tools/integrations/tiktok-ads.md) |
 
-For tracking, see also: [ga4.md](../../tools/integrations/ga4.md), [segment.md](../../tools/integrations/segment.md)
+For tracking, see also: [ga4.md](../../tools/integrations/ga4.md) and load **`ga4-analytics`** for GA4 readouts and attribution cross-checks.
 
 ---
 
@@ -310,6 +310,6 @@ For tracking, see also: [ga4.md](../../tools/integrations/ga4.md), [segment.md](
 
 - **ad-creative**: For generating and iterating ad headlines, descriptions, and creative at scale
 - **copywriting**: For landing page copy that converts ad traffic
-- **analytics-tracking**: For proper conversion tracking setup
+- **ga4-analytics**: For GA4 traffic, conversion, and channel performance (read-only MCP)
 - **ab-test-setup**: For landing page testing to improve ROAS
 - **page-cro**: For optimizing post-click conversion rates

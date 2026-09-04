@@ -44,8 +44,9 @@ Host adapters may differ in wiring, but not in company behavior.
 4. **KOL discovery:** Read `context/kol-brief-templates.md` — confirm brief with brand owner before browse
 5. Match task → read `.claude/skills/<skill-name>/SKILL.md` (do not improvise)
 6. Notion writes → load `.claude/skills/update-notion/SKILL.md` first
-7. Check definition of done → `.claude/TASK-DOD.md`
-8. **Hooks:** `tools/hooks/` — KOL preflight, Chrome MCP guard, Notion dedup guard
+7. **GA4 / web analytics:** load `.claude/skills/ga4-analytics/SKILL.md` — requires `analytics` MCP + property ID in brand-context
+8. Check definition of done → `.claude/TASK-DOD.md`
+9. **Hooks:** `tools/hooks/` — KOL preflight, Chrome MCP guard, Notion dedup guard
    - **Claude Code:** hooks fire automatically via `.claude/settings.json`
    - **Cursor / Codex:** hooks do NOT fire automatically — run manually each session:
      - KOL session start: `node tools/sync-kol-list.js` + read `kol-exclusion-list.md`
@@ -113,6 +114,7 @@ Skills may say `mcp__chrome__*`, `mcp__notion__*`, etc. Use this project's enabl
 |---|---|
 | `mcp__chrome__*` | Chrome DevTools MCP |
 | `mcp__notion__*` | Notion MCP |
+| `mcp__analytics__*` | Google Analytics MCP (GA4 — Jinu, read-only) |
 | Playwright MCP | Public sites, no login |
 | Reddit MCP | Reddit read-only |
 

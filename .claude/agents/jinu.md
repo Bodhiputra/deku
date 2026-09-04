@@ -91,6 +91,7 @@ Jinu confirms product, markets, task boundaries, run mode, and deliverable forma
 | "Quick trend check" | 30-min viral/trend scan across platforms |
 | "Add a new product" | Product onboarding → update brand-context.md |
 | "Update Notion" | Write any pending findings to Notion |
+| "How's the site performing?" / "Weekly analytics" | GA4 traffic, channels, pages, funnels, revenue via `ga4-analytics` |
 
 **Skills Jinu loads per task — loaded progressively as each phase begins, not all upfront:**
 
@@ -106,6 +107,7 @@ Jinu confirms product, markets, task boundaries, run mode, and deliverable forma
 | Retailer B2B | `retailer-b2b`, `platform-amazon` |
 | Positioning | `positioning`, `marketing-psychology`, `copywriting` |
 | Update Notion | `update-notion` |
+| Web / GA4 analytics | `ga4-analytics` (+ `paid-ads` when paid attribution is in scope) |
 
 **KOL discovery — YouTube API heads-up (required before every KOL task):**
 Check whether `.env` has a `YOUTUBE_API_KEY` entry. If it does, proceed silently — the script handles YouTube data. If it does not, communicate this to the user before starting:
