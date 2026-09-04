@@ -24,6 +24,8 @@ Applies to any KOL discovery, creator search, or influencer tracking task.
 2. **Instagram only** — never use Finecoustic profile (Profile 19), Alex (Profile 17), or any other Chrome profile
 3. **Banned IG account:** `@finecoustic_global` — if sidebar shows it → hard stop
 4. Call `mcp__chrome__list_pages` — confirm connected before proceeding
+5. Navigate to `https://www.instagram.com/christopherr1999/` → **`take_snapshot`** → confirm sidebar username
+6. Run **`tools/ig-session-verify.sh --confirm`** — required; `chrome-mcp-guard.sh` **blocks** all other IG profile URLs until this succeeds
 
 **The Instagram account for all agent IG work:** `@christopherr1999` only. `finecoustic_global` is owner-only (manual replies/search).
 

@@ -22,7 +22,8 @@ for key in ('transcript', 'conversation', 'messages', 'last_user_message', 'last
 )"
 
 if echo "$transcript" | grep -qiE '(\bKOL\b|KOLs|influencer|kol discovery|kol pool|notion.*kol)'; then
-  MESSAGE='KOL session end (hook): Overwrite Jinu Active Thread in context/session-context.md (≤15 lines per kol-brief-templates.md). Append pass logs to context/session-context-log.md only. Do not embed seed handle lists in session-context.'
+  "$ROOT/tools/ig-session-verify.sh" --clear >/dev/null 2>&1 || true
+  MESSAGE='KOL session end (hook): Overwrite Jinu Active Thread in context/session-context.md (≤15 lines per kol-brief-templates.md). Append pass logs to context/session-context-log.md only. Do not embed seed handle lists in session-context. IG session verification cleared — re-verify @christopherr1999 next session.'
   HOOK_JSON="$input" ROOT="$ROOT" MESSAGE="$MESSAGE" python3 - <<'PY'
 import json, os, sys
 sys.path.insert(0, os.path.join(os.environ["ROOT"], "tools", "hooks"))

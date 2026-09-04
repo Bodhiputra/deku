@@ -37,7 +37,8 @@ if echo "$prompt" | grep -qiE '(\bKOL\b|KOLs|influencer|creator discovery|find c
 6. Run `node tools/sync-kol-list.js` — then read `context/kol-exclusion-list.md`
 7. **Before every Notion write:** `node tools/sync-kol-list.js --check @handle` — exit 0 only if handle is NOT in pool.
 8. Chrome health check — call list_pages. If disconnected: NO Instagram work (hard stop).
-9. Announce loaded skills in chat, then execute.
+9. IG session gate — navigate to instagram.com/christopherr1999 → take_snapshot → tools/ig-session-verify.sh --confirm. chrome-mcp-guard blocks KOL profile URLs until verified.
+10. Announce loaded skills in chat, then execute.
 
 INSTAGRAM HARD RULES (non-negotiable — violating these suspends @christopherr1999):
 - Chrome profile (IG only): Fantechzoom (Profile 16) only. Never Finecoustic (Profile 19), never Alex (Profile 17).

@@ -18,7 +18,8 @@ print(data.get('cwd', data.get('workspace_roots', '')))
 )"
 
 if echo "$cwd" | grep -q 'finecoustic'; then
-  MESSAGE='Deku session (hook): Mandatory read order — .claude/BOOTSTRAP.md, core/COMPANY.md, context/brand-context.md, context/session-context.md. KOL tasks also require context/kol-brief-templates.md + kol-discovery skill before browse.'
+  "$ROOT/tools/ig-session-verify.sh" --clear >/dev/null 2>&1 || true
+  MESSAGE='Deku session (hook): Mandatory read order — .claude/BOOTSTRAP.md, core/COMPANY.md, context/brand-context.md, context/session-context.md. KOL tasks also require context/kol-brief-templates.md + kol-discovery skill before browse. Instagram: chrome-mcp-guard blocks profile URLs until tools/ig-session-verify.sh --confirm (@christopherr1999 on Fantechzoom).'
   HOOK_JSON="$input" ROOT="$ROOT" MESSAGE="$MESSAGE" python3 - <<'PY'
 import json, os, sys
 sys.path.insert(0, os.path.join(os.environ["ROOT"], "tools", "hooks"))

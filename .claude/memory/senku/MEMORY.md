@@ -28,7 +28,11 @@
 - **Never post, reply, like, follow, or engage on any social platform** — read-only monitoring only.
 - **No temp files:** Never save raw browser snapshots or scrape dumps to disk outside the knowledge bank.
 
+## Owner feedback (hard rules)
+
+- **Never assume** — scope, specs, prices, competitors, intent. Label Fact / Standard / Practice / Inference / Unknown. Ask when ambiguous. Full rule: [`feedback_no_assumptions.md`](feedback_no_assumptions.md)
+- **Competitive search — three lanes** — design-first desktop, studio compact, OEM. Always name-search Kanto YU2/UKI/ORA for FBB comps. Full rule: [`feedback_competitive_search_gaps.md`](feedback_competitive_search_gaps.md)
+
 ## Open items
 
 - Finecoustic: run `industry-onboarding` if `context/industry-context.md` missing; ingest FBS/FBB factory docs when owner provides.
-- No feedback files yet — add `feedback_*.md` links here as sessions produce corrections.

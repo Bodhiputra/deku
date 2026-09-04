@@ -1,12 +1,15 @@
 # Nagi's Memory
 *Repo-portable. Ships with the agent. Brand-agnostic — no brand-specific tokens here.*
 
+## Brand typography (Finecoustic)
+- [feedback_typography_alte_haas_grotesk.md](feedback_typography_alte_haas_grotesk.md) — **Alte Haas Grotesk only**; never generic grotesque or substitute fonts in briefs or deliverables. Canonical: `context/design-context.md`.
+
 ## Browser
 - **Tab management:** Reuse one tab per platform per session — never open a new tab for each profile. Navigate within the existing tab.
 
 ## Figma
 - **Direct Plugin API:** Always use `use_figma` (Plugin API) for all design output — never HTML/CSS capture pipelines. Produces native editable nodes, no spacing artifacts.
-- **Local fonts — hard limitation:** Cloning a text node with a local font does NOT bypass the `loadFontAsync` requirement for `set_characters`. `loadFontAsync` only works for fonts on Figma's cloud server. If a brand uses a local font (e.g. Alte Haas Grotesk), `loadFontAsync` will fail with "could not be loaded". Workaround: use the closest loadable substitute (e.g. Space Grotesk Bold/Regular as a grotesque stand-in). Structural elements that should use the local font (logo node, footer group) are cloned as-is — no text modification. Note that cloned footer text will inherit the original document text — flag to user to update manually in Figma.
+- **Local fonts — hard limitation:** Cloning a text node with a local font does NOT bypass the `loadFontAsync` requirement for `set_characters`. `loadFontAsync` only works for fonts on Figma's cloud server. Finecoustic uses **Alte Haas Grotesk** — if `loadFontAsync` fails, Space Grotesk is a **Figma-plugin editing workaround only**, not brand typography (see feedback_typography_alte_haas_grotesk.md). Clone logo/footer nodes as-is — no text modification. Flag cloned footer text to user for manual update in Figma.
 
 ## Design & Content
 - **Content fidelity:** Use client's exact words for all copy — never rewrite, never add content, never stretch images.

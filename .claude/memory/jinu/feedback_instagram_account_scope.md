@@ -14,3 +14,5 @@ Always: **Fantechzoom** (Profile 16, `finecousticteam@gmail.com`) + confirm `@ch
 - Alex Chrome profile (Profile 17)
 
 **Session start check:** Before first IG navigation, verify sidebar shows `@christopherr1999` (not `finecoustic_global`). If wrong account or wrong profile → **hard stop** and ask owner to switch to Fantechzoom.
+
+**Mechanical gate (Aug 2026):** `tools/hooks/chrome-mcp-guard.sh` **denies** Chrome navigations to any `instagram.com/{handle}` until `tools/ig-session-verify.sh --confirm` runs after a `take_snapshot` proof. Allowed without verify: home feed, `/christopherr1999/`, `/explore/`. Cleared on Deku session start and KOL session end.

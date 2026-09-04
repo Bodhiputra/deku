@@ -89,8 +89,8 @@ Instagram detects bot-like browsing through behavioral patterns — action speed
 
 **Session start — mandatory every time:**
 1. Confirm Chrome is on **Fantechzoom** (Profile 16) with `@christopherr1999` logged in — **not** `finecoustic_global`
-2. Navigate to `https://www.instagram.com/` first — verify feed loads normally before any KOL work
-3. Spend 30–60 seconds on the feed (take a snapshot, scroll once) before navigating to any profile — establishes a natural session entry pattern
+2. Navigate to `https://www.instagram.com/christopherr1999/` → **`take_snapshot`** → run **`tools/ig-session-verify.sh --confirm`** (hook blocks other profile URLs until this succeeds)
+3. Spend 30–60 seconds on the feed (take a snapshot, scroll once) before navigating to any KOL profile — establishes a natural session entry pattern
 
 **Navigation hard limits:**
 - **Max 25–30 profile page loads per hour.** Count every `navigate_page` to any `instagram.com/*` URL. Stop and pause 10+ minutes when hitting 25 in a single hour.
