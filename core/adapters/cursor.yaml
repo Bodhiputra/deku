@@ -20,7 +20,7 @@ chief_configs: []  # persona switching; no separate agent configs
 parallel_agents: false  # chiefs inline; Task/subagent tool is host-generic, not chief-native
 
 # Tool wiring
-mcp_config: .cursor/mcp.json
+mcp_config: ~/.cursor/mcp.json  # ga4 lives here (global); project MCPs in .cursor/mcp.json
 hooks_config: null
 local_settings: null
 
@@ -34,6 +34,7 @@ mcp_mapping:
   mcp__playwright__*: playwright
   mcp__figma__*: figma
   mcp__reddit__*: reddit
+  mcp__ga4__*: ga4
 
 # Logical tools required by spec §6.1
 logical_tools:
@@ -42,6 +43,7 @@ logical_tools:
   playwright: true
   figma: true
   reddit: true
+  ga4: true
   web_search: true  # host-native
 
 setup_sh_aware: true  # setup.sh does not detect Cursor via CLI; host still works

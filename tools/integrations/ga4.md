@@ -9,8 +9,8 @@
 
 | Host | Config file |
 |---|---|
-| Cursor | `.cursor/mcp.json` → `analytics` |
-| Claude Code | `.mcp.json` → `analytics` |
+| Cursor | `~/.cursor/mcp.json` → `ga4` (global — works in multi-root workspace) |
+| Claude Code | `.mcp.json` → `ga4` |
 
 Command: `uvx --python 3.12 analytics-mcp`
 

@@ -7,6 +7,8 @@
         "3.12",
         "--with",
         "cryptography==46.0.3",
+        "--with",
+        "mcp>=1.0,<2",
         "mcp-reddit"
       ]
     },
@@ -32,14 +34,6 @@
       "type": "http",
       "url": "https://api.mobbin.com/mcp",
       "headers": {}
-    },
-    "analytics": {
-      "command": "uvx",
-      "args": [
-        "--python",
-        "3.12",
-        "analytics-mcp"
-      ]
     }
   }
 }

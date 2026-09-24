@@ -2,6 +2,8 @@
 
 One-time setup for the official [Google Analytics MCP server](https://github.com/googleanalytics/google-analytics-mcp). Deku runs it via `uvx` (Python 3.12+) — same pattern as Reddit MCP.
 
+**Quick path:** After enabling the two APIs below, run `./tools/ga4-auth-setup.sh` from the repo root (interactive — opens browser).
+
 ## Prerequisites
 
 - Python **3.10+** (Deku uses 3.12 via `uvx`)
@@ -51,10 +53,11 @@ If `GOOGLE_APPLICATION_CREDENTIALS` is omitted, the MCP uses the default ADC loc
 
 ## 4. MCP wiring
 
-Deku registers the server in `.mcp.json` and `.cursor/mcp.json`:
+Deku registers the server in `.mcp.json` (Claude Code) and **`~/.cursor/mcp.json`** (Cursor global — required for multi-root workspaces).
 
 ```json
-"analytics": {
+"ga4": {
+  "type": "stdio",
   "command": "uvx",
   "args": ["--python", "3.12", "analytics-mcp"]
 }
@@ -97,7 +100,7 @@ Add to `context/brand-context.md`:
 
 | Error | Fix |
 |---|---|
-| MCP not listed | Restart host; confirm `.cursor/mcp.json` has `analytics` entry |
+| MCP not listed | Restart host; confirm `~/.cursor/mcp.json` (Cursor) or `.mcp.json` (Claude) has `ga4` entry |
 | Permission denied | Grant GA4 property access to the authenticated Google account |
 | API not enabled | Enable Admin + Data APIs in GCP |
 | Python version | Ensure `uvx --python 3.12` — GA MCP requires 3.10+ |

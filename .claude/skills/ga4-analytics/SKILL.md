@@ -43,7 +43,7 @@ Load at the start of every web analytics task. Jinu uses the **official [Google 
 | `run_funnel_report` | PDP → cart → checkout → purchase drop-offs |
 | `run_conversions_report` | Conversion-specific breakdowns |
 
-Skills may reference tools as `mcp__analytics__*`. Use the `analytics` MCP namespace configured in `.cursor/mcp.json` / `.mcp.json`.
+Skills may reference tools as `mcp__ga4__*`. Use the `ga4` MCP namespace configured in `~/.cursor/mcp.json` (Cursor) / `.mcp.json` (Claude Code).
 
 ---
 

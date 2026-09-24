@@ -49,6 +49,12 @@ Load `.cursor/rules/kol-task-enforcement.mdc` logic. Hooks in `.cursor/hooks.jso
 
 **Chrome hard stop:** If Chrome MCP cannot connect → no Instagram discovery or IG verification. Do not workaround.
 
+## KOL pool — finehub direct-add default
+
+When adding a KOL directly to finehub.vercel.app via the API (POST `/api/v1/marketing/kol-pool`):
+- Default `tags` = **`"qualified"`** (not `"stored"`)
+- Leave `collaboration_products` = `[]` — never pre-fill; user tags manually
+
 ## Enforcement
 
 Before responding to any task, confirm which files you loaded — Deku mandatory read order **or** Shopify theme read order if the user mentioned shopify.
