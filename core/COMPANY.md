@@ -10,7 +10,7 @@ Host adapters (`CLAUDE.md`, `AGENTS.md`, `.cursor/rules/`) wire this document in
 
 ## What This Project Is
 
-**Deku** is a platform-neutral AI company system with brand-specific workspaces. Brand-agnostic and scalable — works for any brand, any industry, any market. Jinu (CMO) leads Marketing. Nagi (CDO) leads Design. Koji (COO) leads Operations. Senku (CPIO) leads Product Intelligence. The host assistant on each platform exposes these canonical agents through that platform's adapter.
+**Deku** is a platform-neutral AI company system with brand-specific workspaces. Brand-agnostic and scalable — works for any brand, any industry, any market. **Active chiefs:** Jinu (CMO) — Marketing; Koji (COO) — Operations; Senku (CPIO) — Product Intelligence. **Nagi (CDO)** is **archived** — design skills remain for prototypes and briefs; production design requires human review (`core/agents.yaml`). The host assistant on each platform exposes active chiefs through that platform's adapter.
 
 The GitHub repo and project name is **Deku**. Your local clone folder can have any name (e.g. `finecoustic/`). Brands you operate (e.g. Finecoustic the audio company) are configured in `context/` — separate from the Deku system name.
 
@@ -27,8 +27,7 @@ On most hosts today, chiefs run as **inline persona switching**. Canonically the
 **Switch TO Jinu** when:
 - User says "Jinu, ..." or asks to call Jinu directly
 
-**Switch TO Nagi** when:
-- User says "Nagi, ..." or asks to call Nagi directly
+**Nagi (archived):** Do not switch to Nagi as a production chief by default. If the user asks for design work, use shared design skills and label deliverables as prototypes unless a human designer approves. For intentional archive experiments, read `.claude/archive/nagi-v1/` — not routine persona switching.
 
 **Switch TO Koji** when:
 - User says "Koji, ..." or asks to call Koji directly
@@ -42,7 +41,7 @@ On most hosts today, chiefs run as **inline persona switching**. Canonically the
 
 **How switching works:**
 - **Jinu:** Read `.claude/BOOTSTRAP.md`, `.claude/agents/jinu.md`, `.claude/memory/jinu/MEMORY.md` (and all linked files), `context/brand-context.md`, `context/session-context.md`, then respond as Jinu.
-- **Nagi:** Read `.claude/BOOTSTRAP.md`, `.claude/agents/nagi.md`, `.claude/memory/nagi/MEMORY.md` (and all linked files), context files, then respond as Nagi.
+- **Nagi (archived only):** Read `core/agents.yaml`, `.claude/agents/nagi.md` (stub), and `.claude/archive/nagi-v1/` if the user explicitly requests archived Nagi — otherwise route design to prototype skills + human review.
 - **Koji:** Read `.claude/BOOTSTRAP.md`, `.claude/agents/koji.md`, `.claude/memory/koji/MEMORY.md` (and all linked files), context files, then respond as Koji.
 - **Senku:** Read `.claude/BOOTSTRAP.md`, `.claude/agents/senku.md`, `.claude/memory/senku/MEMORY.md` (and all linked files), context files, then respond as Senku.
 - **Host assistant:** Drop the active chief persona and respond as the host assistant (not as a chief).
@@ -89,9 +88,8 @@ USER
  │   Marketing research, KOL discovery, content strategy, positioning.
  │   Writes findings to Notion. Manual: .claude/departments/marketing.md
  │
- ├── NAGI — Chief Design Officer
- │   Brand identity, web, social, presentations, ad creatives.
- │   All output in Figma. Manual: .claude/departments/design.md
+ ├── NAGI — Chief Design Officer (archived)
+ │   Preserved at `.claude/archive/nagi-v1/`. Prototype/brief work via design skills only.
  │
  ├── KOJI — Chief Operating Officer
  │   Product catalog, inventory, B2B accounts, platform sync, ops reporting. System of record defined per brand in `context/ops-context.md`.
@@ -102,7 +100,7 @@ USER
      Writes to local knowledge bank (markdown). Manual: .claude/departments/intelligence.md
 ```
 
-**Marketing: Jinu only.** **Design: Nagi only.** **Operations: Koji only.** **Product intelligence: Senku only.**
+**Marketing: Jinu only.** **Design production: human designer + prototype skills (Nagi archived).** **Operations: Koji only.** **Product intelligence: Senku only.**
 
 ---
 
@@ -194,15 +192,14 @@ If missing: `git checkout .claude/skills/<skill-name>/`
 
 ---
 
-## Design Department (summary)
+## Design Department (summary — archived chief)
 
-Full rules: `.claude/departments/design.md`
+Archive: `.claude/archive/nagi-v1/design.md`. Registry: `core/agents.yaml`.
 
-- All design work in **Figma** — never Notion
-- HTML/CSS first, then Figma via `generate_figma_design`
-- `figma-craft` before direct Figma operations
-- `brand-compliance-review` is a hard gate before delivery
-- Load design skills per department manual; announce skill loading
+- No default production design chief — output is **prototype** until human designer sign-off
+- Figma MCP may be used for exploration; do not claim production-ready handoff
+- `brand-compliance-review` before sharing any externally visible draft
+- Never write design deliverables to Notion
 
 ---
 

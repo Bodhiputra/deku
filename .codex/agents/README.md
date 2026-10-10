@@ -5,9 +5,9 @@ Thin adapter surfaces for Codex native agent invocation. **Not the source of tru
 | File | Canonical chief definition |
 |---|---|
 | `jinu.toml` | `.claude/agents/jinu.md` |
-| `nagi.toml` | `.claude/agents/nagi.md` |
 | `koji.toml` | `.claude/agents/koji.md` |
 | `senku.toml` | `.claude/agents/senku.md` |
+| `nagi.toml` | **Archived** — stub only; see `core/agents.yaml` and `.claude/archive/nagi-v1/` |
 
 Each toml provides `name`, `description`, and bootstrap pointers only. Full operating manuals, task menus, and quality gates live in `.claude/agents/` + departments + skills.
 

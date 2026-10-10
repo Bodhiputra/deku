@@ -14,8 +14,10 @@ onboarding_manual: MANUAL.md
 chief_exposure: mixed
 chief_configs:
   - .codex/agents/jinu.toml
-  - .codex/agents/nagi.toml
   - .codex/agents/koji.toml
+  - .codex/agents/senku.toml
+archived_chief_configs:
+  - .codex/agents/nagi.toml
 parallel_agents: true  # native agent configs exist; host may delegate to them
 
 # Tool wiring

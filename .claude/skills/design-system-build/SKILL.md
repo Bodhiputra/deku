@@ -63,7 +63,7 @@ Typeface selection with rationale. Scale using Fibonacci-based increments.
 **Scale (Fibonacci-based):** 12, 13, 16, 21, 34px — use these as the base steps. Adjust to the nearest logical point size if needed.
 
 For each typeface decision, document:
-- The typeface name and why it was chosen against the brand direction: *"Alte Haas Grotesk — its optical neutrality and low x-height echo Swiss grid discipline without the sterility of Helvetica. Correct for Engineered Transparency."*
+- The typeface name and why it was chosen against the brand direction (from gitignored `context/design-context.md`), e.g. *"[Brand typeface] — [one sentence tying choice to the stated design direction]."*
 - The full type scale: display, heading 1-4, body, caption, label, overline
 - Line-height rules per level
 - Tracking rules per level

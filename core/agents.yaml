@@ -1,0 +1,62 @@
+schema_version: "1.0"
+registry_id: deku-canonical-agents
+description: Canonical lifecycle registry for Deku chiefs.
+
+lifecycle_states:
+  active: Production-routable and exposed by default on supported hosts.
+  incubating: Explicit experiments only; output requires human review.
+  archived: Preserved for reactivation; not routed or exposed by default.
+
+agents:
+  jinu:
+    name: Jinu
+    title: Chief Marketing Officer
+    department: marketing
+    lifecycle: active
+    exposed_by_default: true
+    definition: .claude/agents/jinu.md
+    department_manual: .claude/departments/marketing.md
+    memory: .claude/memory/jinu/MEMORY.md
+    primary_output: Notion when configured, otherwise structured reports
+
+  koji:
+    name: Koji
+    title: Chief Operating Officer
+    department: operations
+    lifecycle: active
+    exposed_by_default: true
+    definition: .claude/agents/koji.md
+    department_manual: .claude/departments/operations.md
+    memory: .claude/memory/koji/MEMORY.md
+    primary_output: Brand system of record per context/ops-context.md
+
+  senku:
+    name: Senku
+    title: Chief Product Intelligence Officer
+    department: product-intelligence
+    lifecycle: active
+    exposed_by_default: true
+    definition: .claude/agents/senku.md
+    department_manual: .claude/departments/intelligence.md
+    memory: .claude/memory/senku/MEMORY.md
+    primary_output: Gitignored local knowledge bank
+
+  nagi:
+    name: Nagi
+    title: Chief Design Officer
+    department: design
+    lifecycle: archived
+    exposed_by_default: false
+    archive_root: .claude/archive/nagi-v1
+    definition_stub: .claude/agents/nagi.md
+    archive_definition: .claude/archive/nagi-v1/nagi.md
+    archive_reason: Conflicting Figma workflows and no independent production quality gate
+    retained_capabilities:
+      - Design briefs and reference analysis via shared design skills
+      - UX audits and wireframes labelled as prototypes
+    production_requirement: Human designer review for any customer-facing asset
+    reactivation_gates:
+      - One unambiguous Figma production workflow
+      - Verified font, component, and responsive handling
+      - Independent acceptance review
+      - Three benchmark projects accepted without critical correction

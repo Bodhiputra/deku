@@ -36,6 +36,6 @@ Run `claude` from the repo root. No wrapper script.
 
 **Notion MCP disconnect:** Tell user to start fresh with `claude --continue` or `claude --resume`.
 
-**Persona switching:** Inline. On switch to Jinu/Nagi/Koji, load that chief's agent file + memory per [`core/COMPANY.md`](core/COMPANY.md).
+**Persona switching:** Inline. Active chiefs: Jinu, Koji, Senku (`core/agents.yaml`). Nagi is archived. Load agent file + memory per [`core/COMPANY.md`](core/COMPANY.md).
 
 **Codex parity note:** Codex uses [`AGENTS.md`](AGENTS.md) + `.codex/agents/*.toml` for the same company system.

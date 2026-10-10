@@ -1,5 +1,8 @@
-# Design Department — Operating Manual
-*Owned by Nagi. Read at session start before any design work begins.*
+# Design Department — Operating Manual (historical v1)
+
+> **Chief status:** Nagi is **archived** (`core/agents.yaml`). Canonical copy: `.claude/archive/nagi-v1/design.md`. Use design skills in prototype mode until reactivation.
+
+*Former owner: Nagi. Not the default production path.*
 
 ---
 

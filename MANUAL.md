@@ -1,5 +1,5 @@
 # Deku — Assistant Manual
-*For host assistants helping brand owners set up and use Jinu, Nagi, and Koji on Claude Code, Codex, and Cursor.*
+*For host assistants helping brand owners set up and use Jinu, Koji, and Senku on Claude Code, Codex, and Cursor. (Nagi is archived — see `core/agents.yaml`.)*
 
 ---
 
@@ -14,8 +14,9 @@
 | **Brand** (e.g. Finecoustic) | A client brand configured in `context/` — not the Deku system |
 
 - **Jinu** — Chief Marketing Officer. Works task by task — market research, competitor intelligence, buyer profiling, market sizing, KOL discovery, retailer research, content strategy, and positioning. Findings go to the brand owner's documentation platform (Notion if they use it, otherwise structured reports).
-- **Nagi** — Chief Design Officer. Handles all design work: brand identity, web design, social assets, presentations, ad creatives. All work is saved to Figma.
 - **Koji** — Chief Operating Officer. Handles product catalog, inventory, B2B accounts, platform sync, and ops reporting. Where stock is tracked and reviewed is the brand owner's choice — Koji adapts; no dashboard or website required.
+- **Senku** — Chief Product Intelligence Officer. Builds a local product knowledge bank, industry signals, and deep spec explanations — markdown only, not Notion.
+- **Nagi** — Chief Design Officer (**archived**). Preserved at `.claude/archive/nagi-v1/`. Design briefs and labelled prototypes via shared skills; production design needs a human designer.
 
 Some platforms expose them inline through persona switching. Others may expose them through native agent surfaces. That exposure model is an adapter concern, not the canonical system design.
 
@@ -34,13 +35,13 @@ When a brand owner says **"setup Deku"** (or asks for setup help after cloning),
 2. Run `./setup.sh` on their behalf
 3. Walk them through the Chrome debugging step (see below — this is your tutorial to deliver, not Jinu's)
 4. Ask which documentation platform they use — connect Notion OAuth only if they use Notion (see §4)
-5. Guide them through Figma OAuth only if they plan to use Nagi
+5. Figma OAuth is optional (exploration / future design reactivation only while Nagi is archived)
 6. Confirm everything is working
-7. Tell them they're ready — recommend **`Jinu, let's get started`** for first-time brand onboarding, or any chief (`Nagi`, `Koji`) as needed
+7. Tell them they're ready — recommend **`Jinu, let's get started`** for first-time brand onboarding, or **`Koji`** / **`Senku`** as needed
 8. Hand the brand owner **`context/jinu-user-guide.md`** — *"This is your step-by-step guide for working with Jinu. He'll walk you through it on first contact, or you can skim it anytime."*
 9. Step back — chiefs own their domains from that point
 
-**You are the setup guide.** After setup, the brand owner calls **Jinu**, **Nagi**, or **Koji** by name.
+**You are the setup guide.** After setup, the brand owner calls **Jinu**, **Koji**, or **Senku** by name for production work.
 
 **Legacy alias:** If someone says **"setup Jinu"**, treat it the same as **"setup Deku"** (old phrasing before the full team existed).
 
@@ -60,7 +61,7 @@ The brand owner needs:
 - Google Chrome installed
 - uv installed (`uvx --version` to verify) — for Reddit research. Optional but recommended.
 - A Notion account — **only if** they use Notion as their documentation platform
-- A Figma account — **only if** they plan to use Nagi
+- A Figma account — optional (not required for the active production roster)
 
 For CLI hosts, verify what is available:
 - Claude Code: `claude --version`
@@ -223,12 +224,6 @@ Jinu, let's get started
 The current host assistant will adopt Jinu's persona and begin onboarding.
 
 ```
-Nagi, I need a landing page design
-```
-
-The current host assistant will adopt Nagi's persona and begin the design brief.
-
-```
 Koji, what's our stock situation?
 ```
 
@@ -243,9 +238,9 @@ The current host assistant will adopt Senku's persona and load product intellige
 To switch back to the regular host assistant:
 - Address the assistant directly (by whatever name the brand owner uses for it)
 
-The host assistant is **not** a Deku canonical agent — each owner chooses their own name (e.g. *Jarvis* on this workspace). Jinu, Nagi, Koji, and Senku are Deku chiefs and exist only in this repo.
+The host assistant is **not** a Deku canonical agent — each owner chooses their own name (e.g. *Jarvis* on this workspace). Active Deku chiefs: Jinu, Koji, Senku (`core/agents.yaml`).
 
-**Important to explain to the brand owner:** Jinu, Nagi, Koji, and Senku are not separate products. They are canonical chiefs exposed through the current host assistant. Depending on the host, this may appear as inline persona switching or a native agent surface. The company behavior should remain the same.
+**Important to explain to the brand owner:** Chiefs are not separate products. They are roles exposed through the current host assistant (inline persona or native agent, depending on platform). Nagi is archived — design help is prototype-grade unless a human designer approves.
 
 ---
 
@@ -261,11 +256,9 @@ When a brand owner asks what Jinu does, explain it this way:
 
 ---
 
-## What Nagi does — explaining to brand owners
+## Design while Nagi is archived
 
-*"Nagi is your Chief Design Officer. He handles all visual work — brand identity, website design, social media assets, presentations, ad creatives, everything. He writes the design in HTML/CSS first (which is the most precise way to control layout and typography), then pushes it directly to Figma so you can edit it there.*
-
-*Nagi reads Jinu's research from Notion, so he already knows your buyer personas, competitors, and positioning before he starts designing. The marketing and design departments are connected."*
+*"Production design isn't run by an AI design chief right now — Nagi is preserved in the repo for later. Your assistant can still help with design **briefs**, UX audits, and **prototypes** using Deku's design skills. Anything customer-facing needs your human designer to review and approve."*
 
 ---
 

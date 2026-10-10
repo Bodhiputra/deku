@@ -4,6 +4,8 @@ Machine-readable ID cards for each supported AI host. Defined by `core/HOST-ADAP
 
 These files declare **how a host wires into the company** — not what the company is. Canonical logic lives in `core/` and `.claude/` (shared runtime).
 
+**Chief roster:** [agents.yaml](../agents.yaml) — active, incubating, and archived lifecycle states.
+
 Related: [WORKFLOW-LIBRARY.md](../WORKFLOW-LIBRARY.md) — shared runtime path strategy
 
 | Manifest | Host | Support tier |

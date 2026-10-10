@@ -114,12 +114,14 @@ The mechanism differs; the behavior must not.
 
 Canonical chiefs:
 
-| ID | Role | Primary output surface |
-|---|---|---|
-| `jinu` | Marketing (CMO) | Notion (if configured) or structured reports |
-| `nagi` | Design (CDO) | Figma |
-| `koji` | Operations (COO) | Brand's system of record (`context/ops-context.md`) |
-| `senku` | Product Intelligence (CPIO) | Local knowledge bank (`knowledge-bank/brands/`) |
+| ID | Role | Lifecycle (default) | Primary output surface |
+|---|---|---|---|
+| `jinu` | Marketing (CMO) | active | Notion (if configured) or structured reports |
+| `koji` | Operations (COO) | active | Brand's system of record (`context/ops-context.md`) |
+| `senku` | Product Intelligence (CPIO) | active | Local knowledge bank (`knowledge-bank/brands/`) |
+| `nagi` | Design (CDO) | archived | Prototype skills only; archive `.claude/archive/nagi-v1/` |
+
+Registry: `core/agents.yaml`.
 
 ### 5.1 Exposure modes (adapter choice)
 

@@ -222,7 +222,7 @@ fi
 if [ ! -f "$PROJECT_ROOT/context/session-context.md" ]; then
   cat > "$PROJECT_ROOT/context/session-context.md" << 'EOF'
 # Session Context — Deku Canonical Agents
-*For Jinu, Nagi, Koji, Senku, and future Deku agents only — not the host assistant.*
+*For Jinu, Koji, Senku, and future active Deku agents — not the host assistant. (Nagi archived — see core/agents.yaml.)*
 *Format: one section per agent. Each agent overwrites their own section at end of session.*
 
 ---
@@ -235,10 +235,10 @@ if [ ! -f "$PROJECT_ROOT/context/session-context.md" ]; then
 
 ---
 
-## Nagi — Last Session Checkpoint
-*Overwrite this section at end of each Nagi session.*
+## Design (prototype) — Last Session Checkpoint
+*Nagi archived. Use this section for prototype/brief work via design skills.*
 
-- **Status:** No design work completed yet
+- **Status:** No prototype design work logged yet
 
 ---
 

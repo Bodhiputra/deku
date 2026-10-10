@@ -16,7 +16,7 @@ Treat `.claude/` as the current shared runtime library, not as proof that the co
 
 Regardless of host platform, the company system must resolve to the same:
 
-1. Canonical chiefs: Jinu, Nagi, Koji, Senku
+1. Active canonical chiefs: Jinu, Koji, Senku (`core/agents.yaml`). Nagi is archived.
 2. Shared workflow library: agents, departments, skills, memory, DOD
 3. Context model: `context/brand-context.md`, `context/session-context.md`, `context/confirmed-markets.md`
 4. Setup flow: clone repo → run `setup.sh` → open host assistant → say `setup Deku`
@@ -48,20 +48,22 @@ Host adapters may differ in wiring, but not in company behavior.
 8. Check definition of done → `.claude/TASK-DOD.md`
 9. **Hooks:** `tools/hooks/` — KOL preflight, Chrome MCP guard, Notion dedup guard
    - **Claude Code:** hooks fire automatically via `.claude/settings.json`
-   - **Cursor / Codex:** hooks do NOT fire automatically — run manually each session:
+   - **Cursor / Codex:** project hooks in `.cursor/hooks.json` / `.codex/hooks.json` — trust on first run; if disabled, run KOL steps manually:
      - KOL session start: `node tools/sync-kol-list.js` + read `kol-exclusion-list.md`
      - Before IG browse: confirm Chrome connected + **Fantechzoom** profile + `@christopherr1999` logged in (`finecoustic_global` banned)
      - Session end: overwrite Jinu Active Thread in `context/session-context.md` (≤15 lines)
 
 ---
 
-## 3. Design / Nagi tasks
+## 3. Design tasks (Nagi archived — prototype mode)
 
 1. Complete **§1** above
-2. Read `.claude/agents/nagi.md` and `.claude/departments/design.md`
-3. Confirm `[Design Direction]` exists in `context/brand-context.md`
-4. Load design skills per department manual; run `brand-compliance-review` before delivery
-5. Never write to Notion — Figma only
+2. Read `core/agents.yaml` and `.claude/agents/nagi.md` (stub)
+3. Confirm `[Design Direction]` exists in `context/brand-context.md` when doing brand-facing work
+4. Load matched design skills from `.claude/skills/`; run `brand-compliance-review` before sharing drafts
+5. Label output **prototype** — human designer approval required for production assets
+6. Historical department manual: `.claude/archive/nagi-v1/design.md`
+7. Never write to Notion
 
 ---
 

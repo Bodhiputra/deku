@@ -22,14 +22,16 @@ The system is not Claude-first, Codex-first, or Cursor-first.
 
 ### Agents
 
-Canonical agents are business roles:
+Canonical agents are business roles. **Lifecycle registry:** [`core/agents.yaml`](agents.yaml) (`active` | `incubating` | `archived`).
 
-- `Jinu` — marketing
-- `Nagi` — design
-- `Koji` — operations
-- `Senku` — product intelligence
+| Chief | Department | Lifecycle (default) |
+|---|---|---|
+| Jinu | Marketing | active |
+| Koji | Operations | active |
+| Senku | Product intelligence | active |
+| Nagi | Design | archived |
 
-The host assistant on each platform may expose these agents through persona switching, delegation, or separate agent runtimes. That exposure model is an adapter concern.
+The host assistant on each platform may expose **active** chiefs through persona switching, delegation, or separate agent runtimes. Archived chiefs remain in the repo for reversible reactivation but are not default-routed. That exposure model is an adapter concern.
 
 ### Skills
 
@@ -106,12 +108,10 @@ Every supported host platform must expose the same company system after setup. F
 
 After `setup.sh` completes, a user on any first-class supported host should get:
 
-1. The same canonical chiefs:
-   - `Jinu`
-   - `Nagi`
-   - `Koji`
-   - `Senku`
-   - future chiefs added to the canonical core
+1. The same **active** canonical chiefs (see `core/agents.yaml`):
+   - `Jinu`, `Koji`, `Senku` — production roster by default
+   - `Nagi` — archived; preserved under `.claude/archive/nagi-v1/`
+   - future chiefs added to the registry with an explicit lifecycle state
 2. The same context model:
    - `context/brand-context.md`
    - `context/session-context.md`

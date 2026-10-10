@@ -1,141 +1,127 @@
 # Deku — Platform-Neutral AI Company System
 
-Deku gives your brand a full marketing, design, and operations department powered by AI.
+Deku is a **multi-agent-capable** company framework: distinct marketing, operations, and product-intelligence chiefs with shared skills, hooks, and brand workspace state. It is not a fully autonomous multi-agent company yet — chiefs are invoked through your host assistant (inline persona or native agents, depending on platform).
 
-> **Naming:** **Deku** = this repo and AI company system. Your local folder can be anything (e.g. `finecoustic/`). A **brand** (e.g. Finecoustic) is configured in `context/` — not the same as the Deku system name.
+> **Naming:** **Deku** = this repo and AI company system. Your local folder can have any name. A client brand is configured in gitignored `context/` files — it is not the same as the Deku system name.
 
-**Jinu** is your Chief Marketing Officer. He maps your market, profiles your buyers, finds your competitors, identifies KOLs, discovers retail distribution opportunities, and builds your content strategy — documented in your chosen workspace (Notion if you use it, or structured reports in chat).
+**Active chiefs** (see [`core/agents.yaml`](core/agents.yaml)):
 
-**Nagi** is your Chief Design Officer. He handles all design work — brand identity, website design, social assets, presentations, and ad creatives — and saves everything to Figma.
+| Chief | Role | Typical output |
+|---|---|---|
+| **Jinu** | Chief Marketing Officer | Notion (optional) or structured research reports |
+| **Koji** | Chief Operating Officer | Your system of record (spreadsheet, Shopify, JSON, chat) |
+| **Senku** | Chief Product Intelligence Officer | Local markdown knowledge bank |
 
-**Koji** is your Chief Operating Officer. He handles product catalog, inventory, B2B account tracking, platform sync, and stock reporting — using whatever system you already use (spreadsheet, Shopify, JSON, or chat-only). A dashboard is optional, not required.
+**Nagi** (Chief Design Officer) is **archived** — preserved under [`.claude/archive/nagi-v1/`](.claude/archive/nagi-v1/) for reversible reactivation. Design **briefs, UX audits, and labelled prototypes** still use shared design skills; **production design requires a human designer**.
 
-You talk to them directly through your current host assistant. They do the work. You get the report.
+You talk to chiefs through Claude Code, Codex, or Cursor. They do the work; you get the report.
 
 ---
 
 ## What you need before starting
 
-- A computer running macOS or Linux
-- **[Node.js](https://nodejs.org) installed** — required; setup will not run without it
-- One first-class supported host assistant installed: Claude Code, Codex, or Cursor
-- Google Chrome installed
-- **Notion** (optional) — if you use Notion for documentation, Jinu can write research there
-- **Figma** (optional) — only if you plan to use Nagi for design work
-
-That's it.
+- macOS or Linux
+- **[Node.js](https://nodejs.org)** and **Python 3** — required; `./setup.sh` exits if either is missing
+- One supported host: Claude Code, Codex, or Cursor
+- Google Chrome (for login-gated browsing / KOL discovery)
+- **Notion** (optional) — Jinu can write research there
+- **Figma** (optional) — exploration only while Nagi is archived
 
 ---
 
 ## Getting started
 
-**Step 1 — Clone the repo and open your host assistant**
+**Step 1 — Clone and open your host**
 
 ```bash
 git clone https://github.com/Bodhiputra/deku.git
-cd deku    # or your chosen folder name — e.g. cd finecoustic
+cd deku    # or your chosen folder name
 ```
-
-Then open the project in one of the supported hosts:
 
 - Claude Code: `claude`
 - Codex: `codex`
 - Cursor: open the folder in Cursor
 
----
-
 **Step 2 — Run setup**
 
-Once your host assistant is open, say:
+Say in chat:
 
 ```
 setup Deku
 ```
 
-Your assistant will **check Node.js first** (and help you install it if missing), then run setup, connect Chrome, and ask which documentation platform you use. If you use Notion, it walks you through a one-time OAuth connection. Figma is the same — only if you plan to use Nagi. You just follow along.
+Your assistant checks **Node.js and Python 3**, runs `./setup.sh`, walks through Chrome remote debugging, and connects Notion (if you use it).
 
----
-
-**Step 3 — Meet your team**
-
-Once setup is complete, call any chief by name:
+**Step 3 — Meet the team**
 
 ```
 Jinu, let's get started
 ```
 
-Most new brands start with **Jinu** (marketing onboarding). You can also call **Nagi** (design) or **Koji** (operations) directly when you need them. Saying `Jinu, ...` with any request also works — the full phrase above is just the usual first-time onboarding opener.
+New brands usually start with Jinu. Call **Koji** or **Senku** when you need ops or product intelligence.
 
 ---
 
-## What happens next
+## What Jinu does (examples)
 
-Jinu starts with a short onboarding conversation — about 15 minutes. He asks about your brand, your product, your goals, and your market. If you use Notion, findings go there; otherwise he delivers structured reports in chat or as local markdown files.
+- Market, competitor, and buyer research
+- Market sizing (TAM/SAM/SOM)
+- KOL discovery and retailer research
+- Content strategy and positioning
 
-From there, you work task by task. Tell Jinu what you need and he goes and does it:
-
-- **Research the market** — industry landscape, key dynamics, where the opportunity is
-- **Research competitors** — who they are, how they position, where they're weak
-- **Research buyers** — who's actually buying, what drives them, their exact words
-- **Size the market** — TAM/SAM/SOM with methodology and sources
-- **Find KOLs** — ranked shortlist by platform, content fit, and engagement
-- **Find retailers** — distribution opportunities by market
-- **Build a content strategy** — what to make, for whom, on which platform
-- **Positioning** — where your brand should sit and what to say
-
-Each task runs on its own — typically 30–60 minutes. Deliverables go to Notion (if connected) or as structured written reports.
+Tasks are scoped one at a time; deliverables go to Notion (if connected) or structured reports in chat.
 
 ---
 
-## Calling Jinu, Nagi, and Koji
-
-From anywhere in your host assistant, you can switch directly to any of them:
+## Calling active chiefs
 
 | To talk to | Say |
 |---|---|
 | Jinu (marketing) | `Jinu, ...` |
-| Nagi (design) | `Nagi, ...` |
 | Koji (operations) | `Koji, ...` |
+| Senku (product intelligence) | `Senku, learn my industry` or `Senku, ...` |
 | Back to your assistant | Address your assistant directly |
 
+**Design:** ask your assistant for a **design brief or prototype** — not `Nagi, ...` for production work while Nagi is archived.
+
 Example:
+
 ```
 Jinu, I want to run research on my new product
 ```
+
 ```
-Nagi, design a landing page for the Hako speaker
+Senku, explain how planar magnetic drivers work in our category
 ```
 
 ---
 
 ## What stays private (gitignored)
 
-These are never pushed to GitHub:
+- `context/*` — brand, session, ops, and industry state
+- `.env` — API keys (template: `.env.example`)
+- `knowledge-bank/brands/` — Senku brand banks
+- `proofs/`, `output/`, `research-snapshots/`
 
-- `context/brand-context.md`, `context/session-context.md`, `context/ops-context.md` — brand and ops state
-- `.env` — API keys (template is `.env.example`, which **is** committed)
-- `.claude/settings.local.json` — local Claude config synced from `.env`
-- `proofs/`, `output/`, `research-snapshots/` — scratch and deliverable drafts
-- `.cursor/tmp/`, `.agents/skills.bak.*/` — temporary session and setup backup files
-- `shopify/` — separate theme repo
+Storefront theme code lives in a **separate repository** if you use one — not assumed inside this clone.
 
-See `.gitignore` for the full list.
+See [`.gitignore`](.gitignore) for the full list.
 
 ---
 
 ## Troubleshooting
 
-**Setup failed — Node.js not found**
-Install Node.js from https://nodejs.org, then say `setup Deku` again.
+**Setup failed — Node.js or Python 3 not found**  
+Install both, then say `setup Deku` again.
 
-**Chrome isn't connecting**
-Make sure Chrome is open, go to `chrome://inspect/#remote-debugging`, and toggle "Allow remote debugging for this browser instance" ON.
+**Chrome isn't connecting**  
+Open `chrome://inspect/#remote-debugging` and enable remote debugging.
 
-**Notion isn't connecting**
-Only needed if you chose Notion as your documentation platform. Run your host assistant in the project folder and follow any OAuth prompts that appear.
+**Notion isn't connecting**  
+Only if you use Notion — start a fresh host session after OAuth.
 
-**Skills or MCPs seem missing**
-Run `./setup.sh` again — it's safe to re-run and will only create what's missing.
+**Skills or MCPs seem missing**  
+Re-run `./setup.sh` and restart the host.
 
-**Something else**
-Say `Jinu, something isn't working` and describe what you see. He'll diagnose it.
+**Something else**  
+Say `Jinu, something isn't working` and describe what you see.

@@ -36,7 +36,7 @@ Run `codex` from the repo root. No wrapper script.
 
 **Notion MCP disconnect:** Tell user to start a fresh Codex session.
 
-**Chief exposure:** Mixed — native agent configs exist; inline persona switching also supported. Both must load canonical files from `.claude/agents/` + memory per [`core/COMPANY.md`](core/COMPANY.md).
+**Chief exposure:** Mixed — native configs for Jinu, Koji, Senku; Nagi archived (`core/agents.yaml`). Inline persona switching also supported. Load canonical files from `.claude/agents/` + memory per [`core/COMPANY.md`](core/COMPANY.md).
 
 **KOL on Codex:** Same gates as Cursor — `context/kol-brief-templates.md`, `kol-discovery` skill, `tools/sync-kol-list.js --check`. Trust project hooks on first run (`/hooks` in Codex CLI).
 
