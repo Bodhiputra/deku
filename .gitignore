@@ -65,6 +65,9 @@ fonts/
 # Shopify codebase — separate repo, tracked independently
 shopify/
 
+# Brand-local theme archives — keep outside Deku (e.g. Desktop zip)
+Finecoustic-Bodhi/
+
 # Temporary / scratch — never commit
 .cursor/tmp/
 .agents/skills.bak.*/
